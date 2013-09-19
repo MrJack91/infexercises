@@ -1,0 +1,93 @@
+\documentclass[10pt]{article}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+% \usepackage[latin1]{inputenc}
+
+\title{Informatik 3 Uebung - Teil 1\vspace{-2ex}}
+\author{Daniel Brun, Michael Hadorn\vspace{-2ex}}
+
+\setlength{\droptitle}{-6em}     % Eliminate the default vertical space
+\addtolength{\droptitle}{-4pt}   % Only a guess. Use this for adjustment
+
+
+\pagestyle{fancy}
+% clear any old style settings
+\fancyhead{}
+\fancyfoot{}
+
+\lhead{ZHAW: Informatik 3}
+\rhead{Daniel Brun, Michael Hadorn, Inf 3b}
+\fancyfoot[LE,RO]{\thepage}
+
+\usepackage{color}
+
+\begin{document}
+\maketitle
+
+% TODO: Umlaute korrekt anzeigen (auch im Titel)
+
+% Aufgabe 1
+\section{Aufgabe}
+Beispiele fu?r klassische Prozessoren sind: Intel 4004, Intel 8008, Intel 8088, Intel 8086, Intel 80286, Intel 80386, Motorola 68000, Z80, MOS 6502, PowerPC 970, PDP-11, CDP1802.
+
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Geben Sie das Erscheinungsjahr sowie die intern verwendeten Wortbreite an (4 Punkte).}
+	
+	\item
+	\textit{Wie viele verschiedene Befehle ko?nnen damit dargestellt werden? (2 Punkte)}
+\end{enumerate}
+
+
+% Aufgabe 2
+\section{Aufgabe}
+Der ?Pufferu?berlauf? geho?rt zu den ha?ufigsten Sicherheitslu?cken in Programmen (mit Computern mit der Von-Neumann-Architektur).
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Beschreiben Sie kurz informell, warum die klassische Harvard- Architektur besser gegen diesen schu?tzt (gegenu?ber der Von- Neumann-Architektur). (4 Punkte)}
+	
+	\item
+	\textit{Ist Ihre Argumentation auch bei der Super-Harvard-Architektur allgemein korrekt? (2 Punkte)}
+\end{enumerate}
+
+
+% Aufgabe 3
+\section{Aufgabe}
+Wortbreiten
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Kann ein Prozessor mit geringer Wortbreite auch Werte (bzw. Worte) berechnen, die breiter sind? Zum Beispiel ein Prozessor mit 8-Bit- Wortbreite auch 16- oder 32-Bit-Wo?rter. Falls ja, wie ko?nnte ein solches Verfahren aussehen? (4 Punkte)}
+	
+\end{enumerate}
+\newpage
+
+
+
+
+
+% Aufgabe 4
+\section{Aufgabe}
+Architektur
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Wieso ko?nnen der Motorola 68000 und die Intel-Prozessoren 8088, 8086 und 80286 mehr als 65 KB Hauptspeicher adressieren?
+(4 Punkte)	}
+	
+
+	
+	\item
+	\textit{Was unterscheidet den Motorola 68000 von der Architektur des Intel x86? Welche Vor- und Nachteile ergeben sich daraus? (4 Punkte)}
+\end{enumerate}
+\newpage
+
+
+
+\end{document}
