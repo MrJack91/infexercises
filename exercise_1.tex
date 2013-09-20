@@ -8,6 +8,9 @@
 \usepackage{titling}
 \usepackage{pgf}
 \usepackage{tikz}
+\usepackage{array}
+\usepackage{ragged2e}
+
 \usetikzlibrary{arrows,automata}
 % \usepackage[latin1]{inputenc}
 
@@ -17,6 +20,7 @@
 \setlength{\droptitle}{-6em}     % Eliminate the default vertical space
 \addtolength{\droptitle}{-4pt}   % Only a guess. Use this for adjustment
 
+\newcolumntype{P}[1]{>{\centering\hspace{0pt}}p{#1}}
 
 \pagestyle{fancy}
 % clear any old style settings
@@ -32,46 +36,38 @@
 \begin{document}
 \maketitle
 
-% Aufgabe 1 - a: OK, b: 
+% Aufgabe 1 - a: OK, b: . c:
 \section{Aufgabe}
 Beispiele für klassische Prozessoren sind: Intel 4004, Intel 8008, Intel 8088, Intel 8086, Intel 80286, Intel 80386, Motorola 68000, Z80, MOS 6502, PowerPC 970, PDP-11, CDP1802.
 
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Geben Sie das Erscheinungsjahr sowie die intern verwendeten Wortbreite an (4 Punkte).}
-	\begin{itemize}
-		\item
-		\textit{Intel 4004, Jahr: 1971, Wortbreite: 4 Bit}
-		\item
-		\textit{Intel 8008, Jahr: 1972, Wortbreite: 8 Bit}
-		\item
-		\textit{Intel 8088, Jahr: 1979, Wortbreite: 8 Bit}
-		\item
-		\textit{Intel 8086, Jahr: 1978, Wortbreite: 16 Bit}
-		\item
-		\textit{Intel 80286, Jahr: 1982, Wortbreite: 16 Bit}
-		\item
-		\textit{Intel 80386, Jahr: 1990, Wortbreite: 16 Bit}
-		\item
-		\textit{Motorola 6800, Jahr: 1974, Wortbreite: 8 Bit}
-		\item
-		\textit{Z80, Jahr: 1973, Wortbreite: 8 Bit}
-		\item
-		\textit{MOS 6502, Jahr: 1975, Wortbreite: 8 Bit}
-		\item
-		\textit{PowerPC 970, Jahr: 2002, Wortbreite: 64 Bit}
-		\item
-		\textit{PDP-11, Jahr: 1970, Wortbreite: 16 Bit}
-		\item
-		\textit{CDP1802, Jahr: 1802, Wortbreite: 8 Bit}
-	\end{itemize}
 	\item
 	\textit{Wie viele verschiedene Befehle können damit dargestellt werden? (2 Punkte)}\\
+	\item
+	\textit{Nennen Sie pro Prozessor ein Computer-Modell bzw. Einsatzgebiet. (4 Punkte)}\\\\
+	\begin{tabular}{r | c P{1.8cm} P{1.5cm} p{2cm} p{2cm} }
+		Prozessor & Jahr & Interne Wortbreite & Anzahl Befehle & Computer-Model & Einsatzgebiet \\
+		\hline
+		Intel 4004 & 1971 & 4 Bit & & & \\
+		Intel 8008 & 1972 & 8 Bit & & & \\
+		Intel 8088 & 1979 & 8 Bit &   & PC1512 & \\
+		Intel 8086 & 1978 & 16 Bit & & & \\
+		Intel 80286 & 1982 & 16 Bit & & & \\
+		Intel 80386 & 1990 & 16 Bit & & & \\
+		Motorola 68000 & 1974 & 32 Bit & & HP 9000 & Steuerungsrechner in der Industrie, Echtzeitbetriebssysteme,  \\
+		Z80 & 1973 & 8 Bit & & & \\
+		MOS 6502 & 1975 & 8 Bit & & & \\
+		PowerPc 970 & 2002 & 64 Bit & & & \\
+		PDP-11 & 1970 & 16 Bit & & & \\
+		CDP1802 & 1974 & 8 Bit & & & \\
+	\end{tabular}
 	
 \end{enumerate}
 
 
-% Aufgabe 2 - a: , b:
+% Aufgabe 2 - a: OK , b: OK 
 \section{Aufgabe}
 Der Pufferüberlauf gehört zu den häufigsten Sicherheitslücken in Programmen (mit Computern mit der Von-Neumann-Architektur).
 \begin{enumerate}[label=\alph*)]
@@ -80,17 +76,19 @@ Der Pufferüberlauf gehört zu den häufigsten Sicherheitslücken in Programmen 
 	Bei der Harvard-Architektur sind Daten und Programmcode in separaten Speichern abgelegt und über separate Busse verbunden. Dadurch wird sichergestellt, dass ein laufendes Programm nur Daten und nicht Programmcode verändern kann. Bei der Von-Neumann-Architektur werden Daten und Programme im gleichen Speicher abgelegt und es findet keine Unterscheidung statt.
 	\item
 	\textit{Ist Ihre Argumentation auch bei der Super-Harvard-Architektur allgemein korrekt? (2 Punkte)} \\
+	Nein, bei der Super-Harvard-Architektur wurde die strikte Trennung zum Teil aufgehoben. Um Zugriffe zu reduziere wurde ein Cache eingeführt, in dem
+	Daten und Befehle abgelegt werden können.
 	
 \end{enumerate}
 
 
-% Aufgabe 3
+% Aufgabe 3 - OK
 \section{Aufgabe}
 Wortbreiten
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Kann ein Prozessor mit geringer Wortbreite auch Werte (bzw. Worte) berechnen, die breiter sind? Zum Beispiel ein Prozessor mit 8-Bit- Wortbreite auch 16- oder 32-Bit-Wörter. Falls ja, wie könnte ein solches Verfahren aussehen? (4 Punkte)} \\
-	
+	Ja unter der Voraussetzung, dass der Akkumulator und das Arbeitsregister ein ausreichende Breite haben.
 \end{enumerate}
 \newpage
 
@@ -98,16 +96,19 @@ Wortbreiten
 
 
 
-% Aufgabe 4
+% Aufgabe 4 - a: OK , b:
 \section{Aufgabe}
 Architektur
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Wieso können der Motorola 68000 und die Intel-Prozessoren 8088, 8086 und 80286 mehr als 65 KB Hauptspeicher adressieren?
 (4 Punkte)	} \\
+	Es wurden zusätzliche Adressleitungen eingebaut und in überlappende Speicherbereiche (Je 64 KB) aufgeteilt. Die Physikalische Adresse setzte sich dann aus dem Segmentregister x 16 + Offset zusammen.	
 	
 	\item
 	\textit{Was unterscheidet den Motorola 68000 von der Architektur des Intel x86? Welche Vor- und Nachteile ergeben sich daraus? (4 Punkte)}\\
+	Der Motorola 68000 basiert auf einer Harvard Architektur.
+	Die Architektur des Intel x86 ist eine Kombination der Von-Neumann und Harvard-Architektur.
 	
 \end{enumerate}
 \newpage
