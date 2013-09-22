@@ -65,7 +65,7 @@ Beispiele für klassische Prozessoren sind: Intel 4004, Intel 8008, Intel 8088, 
 	\end{tabular}
 	
 \end{enumerate}
-
+\newpage
 
 % Aufgabe 2 - a: OK , b: OK 
 \section{Aufgabe}
@@ -73,9 +73,11 @@ Der Pufferüberlauf gehört zu den häufigsten Sicherheitslücken in Programmen 
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Beschreiben Sie kurz informell, warum die klassische Harvard- Architektur besser gegen diesen schützt (gegenüber der Von- Neumann-Architektur). (4 Punkte)} \\
+	\\	
 	Bei der Harvard-Architektur sind Daten und Programmcode in separaten Speichern abgelegt und über separate Busse verbunden. Dadurch wird sichergestellt, dass ein laufendes Programm nur Daten und nicht Programmcode verändern kann. Bei der Von-Neumann-Architektur werden Daten und Programme im gleichen Speicher abgelegt und es findet keine Unterscheidung statt.
 	\item
 	\textit{Ist Ihre Argumentation auch bei der Super-Harvard-Architektur allgemein korrekt? (2 Punkte)} \\
+	\\
 	Nein, bei der Super-Harvard-Architektur wurde die strikte Trennung zum Teil aufgehoben. Um Zugriffe zu reduziere wurde ein Cache eingeführt, in dem
 	Daten und Befehle abgelegt werden können.
 	
@@ -88,13 +90,10 @@ Wortbreiten
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Kann ein Prozessor mit geringer Wortbreite auch Werte (bzw. Worte) berechnen, die breiter sind? Zum Beispiel ein Prozessor mit 8-Bit- Wortbreite auch 16- oder 32-Bit-Wörter. Falls ja, wie könnte ein solches Verfahren aussehen? (4 Punkte)} \\
+	\\
 	Ja unter der Voraussetzung, dass der Akkumulator und das Arbeitsregister ein ausreichende Breite haben.
 \end{enumerate}
 \newpage
-
-
-
-
 
 % Aufgabe 4 - a: OK , b:
 \section{Aufgabe}
@@ -103,10 +102,12 @@ Architektur
 	\item 
 	\textit{Wieso können der Motorola 68000 und die Intel-Prozessoren 8088, 8086 und 80286 mehr als 65 KB Hauptspeicher adressieren?
 (4 Punkte)	} \\
+	\\
 	Es wurden zusätzliche Adressleitungen eingebaut und in überlappende Speicherbereiche (Je 64 KB) aufgeteilt. Die Physikalische Adresse setzte sich dann aus dem Segmentregister x 16 + Offset zusammen.	
 	
 	\item
 	\textit{Was unterscheidet den Motorola 68000 von der Architektur des Intel x86? Welche Vor- und Nachteile ergeben sich daraus? (4 Punkte)}\\
+	\\
 	Der Motorola 68000 basiert auf einer Harvard Architektur.
 	Die Architektur des Intel x86 ist eine Kombination der Von-Neumann und Harvard-Architektur.
 	
