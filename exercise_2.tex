@@ -1,0 +1,115 @@
+\documentclass[10pt]{article}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{ragged2e}
+
+\usetikzlibrary{arrows,automata}
+% \usepackage[latin1]{inputenc}
+
+\title{Informatik 3 Übung - Teil 2\vspace{-2ex}}
+\author{Daniel Brun, Michael Hadorn\vspace{-2ex}}
+
+\setlength{\droptitle}{-6em}     % Eliminate the default vertical space
+\addtolength{\droptitle}{-4pt}   % Only a guess. Use this for adjustment
+
+\newcolumntype{P}[1]{>{\centering\hspace{0pt}}p{#1}}
+
+\pagestyle{fancy}
+% clear any old style settings
+\fancyhead{}
+\fancyfoot{}
+
+\lhead{ZHAW: Informatik 3}
+\rhead{Daniel Brun, Michael Hadorn, Inf 3b}
+\fancyfoot[LE,RO]{\thepage}
+
+\usepackage{color}
+
+\begin{document}
+\maketitle
+
+% Aufgabe 1  	a:	b:	c:	d:
+\section{Aufgabe}
+Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-Wert von 1.45 (der Prozessor verfügt über keine Pipeline). Ein Programm benötigt zur Ausführung 150‘000 Befehle.
+
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Wie lang ist die ungefähre Ausführungszeit des	Programms? Lösung: (3 Punkte)}\\
+	\item
+	\textit{Wieso ist der berechnete Wert nur ein Näherungswert? Lösung: (2 Punkte)}\\
+	\item
+	\textit{Der Prozessor wird durch einen leistungsfähigeren Prozessor mit 0.4 ns Taktzykluszeit und einem CPI-Wert von 1.8 ersetzt. Wie lang ist nun die Ausführungszeit des Programms? Lösung: (2 Punkte)}\\
+	\item
+	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("overclocking“). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? 	Lösung: (2 Punkte)}\\
+\end{enumerate}
+\newpage
+
+% Aufgabe 2		a:	b:
+\section{Aufgabe}
+Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 Byte (für Daten und Befehle). 
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Welchen Wert beinhaltet der Befehlszähler jeweils nach Ausführung der jeweiligen Befehle der folgenden Befehlssequenz (der Initialwert sei 24 048 für den ersten Befehl): Ladebefehl, Ladebefehl, Addition, unbedingter Sprung um -12, Speicherbefehl, unbedingter Sprung um + 8, Addition... ? Lösung: (4 Punkte)} \\
+	\item
+	\textit{Was sehen Sie als Informatiker sofort? Lösung: (2 Punkte)} \\
+		
+\end{enumerate}
+
+
+% Aufgabe 3		a:	b:
+\section{Aufgabe}
+Zürcher Fachhochschule Aufgabe 3 Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der Vorlesung angegeben) und folgender Ausschnitt einer Programmabfolge: 
+..., Load, Sprung, Addition, ODER-Operation, Store, Subtraktion, Sprung, AND-Operation, ...
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Skizzieren Sie graphisch eine (mögliche) Ausführungsabfolge, unter der Annahme, das beim 1. Sprung zu einer nicht vorhergesehenen Adresse gesprungen wird ("branch prediction“ war falsch).} \\
+	\item 
+	\textit{Beschreiben Sie in Ihren Worten, was ein "pipeline flush“ bedeutet. Lösung: (2 Punkte) } \\
+	
+\end{enumerate}
+\newpage
+
+% Aufgabe 4		a:
+\section{Aufgabe}
+Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Begründen 	Sie, warum eine n-stufige Pipeline nicht automatisch zu einer n-fachen Leistungssteigerung führt, selbst wenn es gelingt, die Zykluszeit auf 1/n zu reduzieren ("perfekte Gleichverteilung“ der Stufen - in der Praxis eigentlich nicht realisierbar). Lösung:(4 Punkte)} \\	
+\end{enumerate}
+\newpage
+
+% Aufgabe 5		a:	b:	c:	d:
+\section{Aufgabe}
+Gegeben sei ein Prozessor ohne Pipeline mit der "bekannten“ Befehlsabarbeitung (siehe Vorlesung) und einer Zykluszeit von 20MHz. Ein Analyse hat ergeben, dass die einzelnen Teilschritte sehr unterschiedliche Zeit erfordern:\\
+z. B. "Befehl laden“ $\leq$ 10ns, "Register lesen“  $\leq$ 3ns, "Rechenoperation durchführen“  $\leq$ 5ns, "Speicherzugriff“  $\leq$ 20ns und "Register schreiben“  $\leq$ 5ns, ... \\
+Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisherigen Teilschritte erfordern gleich viel Zeit). 
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Wie gross ist die Zykluszeit des neuen Prozessors? Lösung: (3 Punkte) } \\	
+	\item 
+	\textit{Um wie viel schneller wird nun ein Befehl maximal ausgeführt? Lösung: (3 Punkte)} \\	
+	\item 
+	\textit{Um wie viel schneller wird ein Programm maximal ausgeführt? Lösung: (2 Punkte) } \\
+	\item 
+	\textit{Wie	könnte eine "bessere“ Pipeline-Struktur entwickelt werden? Lösung: (2 Punkte)  } \\
+\end{enumerate}
+
+% Aufgabe 6		a:
+\section{Aufgabe}
+Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
+\begin{enumerate}[label=\alph*)]
+	\item 
+	\textit{Recherchieren Sie die Pipelinestruktur und Kenndaten von zwei aktuellen Mikroprozessoren. Bitte Kenndaten angeben und Struktur skizieren, inkl. Quellenangabe. Lösung: (6 Punkte) } \\	
+\end{enumerate}
+\newpage
+\newpage
+
+\end{document}
