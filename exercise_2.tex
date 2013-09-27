@@ -36,37 +36,49 @@
 \begin{document}
 \maketitle
 
-% Aufgabe 1  	a:	b:	c:	d:
+% Aufgabe 1  	a: OK	b: OK	c: OK	d: 
 \section{Aufgabe}
 Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-Wert von 1.45 (der Prozessor verfügt über keine Pipeline). Ein Programm benötigt zur Ausführung 150‘000 Befehle.
 
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Wie lang ist die ungefähre Ausführungszeit des	Programms? Lösung: (3 Punkte)}\\
+	$ (1 / 1.25 GHz)*(150'000 * 1.45) = 1.7400 * 10^{-4} s$
 	\item
 	\textit{Wieso ist der berechnete Wert nur ein Näherungswert? Lösung: (2 Punkte)}\\
+	Da Der CPI-Wert "nur" der Durchschnitt ist, wird je nach tatsächlich ausgeführten Befehlen eine andere Ausführungszeit erreicht. (z.B. Nur Befehle welche mehrere Zyklen zur Ausführung verwenden, oder nur Befehle die einen Zyklus brauchen) 
 	\item
 	\textit{Der Prozessor wird durch einen leistungsfähigeren Prozessor mit 0.4 ns Taktzykluszeit und einem CPI-Wert von 1.8 ersetzt. Wie lang ist nun die Ausführungszeit des Programms? Lösung: (2 Punkte)}\\
+	$ 0.4 ns *(150'000 * 1.8) = 10'800 ns = 1.08 * 10^{-5} s$
 	\item
 	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("overclocking“). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? 	Lösung: (2 Punkte)}\\
 \end{enumerate}
 \newpage
 
-% Aufgabe 2		a:	b:
+% Aufgabe 2		a:	OK b: OK
 \section{Aufgabe}
 Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 Byte (für Daten und Befehle). 
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Welchen Wert beinhaltet der Befehlszähler jeweils nach Ausführung der jeweiligen Befehle der folgenden Befehlssequenz (der Initialwert sei 24 048 für den ersten Befehl): Ladebefehl, Ladebefehl, Addition, unbedingter Sprung um -12, Speicherbefehl, unbedingter Sprung um + 8, Addition... ? Lösung: (4 Punkte)} \\
+	Initial: 24 048\\
+	1. Ladebefehl: 24 049\\
+	2. Ladebefehl: 24 050\\
+	3. Addition: 24 051\\
+	4. Unbedingter Sprung: 24 039 \\
+	5. Speicherbefehl: 24 040\\
+	6. Unbedingter Sprung: 24 048 \\
+	...
 	\item
 	\textit{Was sehen Sie als Informatiker sofort? Lösung: (2 Punkte)} \\
+	Es Handelt sich um eine Endlosschleife / Nicht-Terminierenden-Code.
 		
 \end{enumerate}
 
 
 % Aufgabe 3		a:	b:
 \section{Aufgabe}
-Zürcher Fachhochschule Aufgabe 3 Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der Vorlesung angegeben) und folgender Ausschnitt einer Programmabfolge: 
+Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der Vorlesung angegeben) und folgender Ausschnitt einer Programmabfolge: 
 ..., Load, Sprung, Addition, ODER-Operation, Store, Subtraktion, Sprung, AND-Operation, ...
 \begin{enumerate}[label=\alph*)]
 	\item 
@@ -77,12 +89,13 @@ Zürcher Fachhochschule Aufgabe 3 Gegeben sei ein Prozessor mit 4-stufiger Pipel
 \end{enumerate}
 \newpage
 
-% Aufgabe 4		a:
+% Aufgabe 4		a: OK
 \section{Aufgabe}
 Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Begründen 	Sie, warum eine n-stufige Pipeline nicht automatisch zu einer n-fachen Leistungssteigerung führt, selbst wenn es gelingt, die Zykluszeit auf 1/n zu reduzieren ("perfekte Gleichverteilung“ der Stufen - in der Praxis eigentlich nicht realisierbar). Lösung:(4 Punkte)} \\	
+	Beim Pipelining wird nach dem Laden des Befehls bereits der nächste Geladen, dies setzt voraus, dass der nachfolgende Befehl mit einer hohen Genauigkeit vorausgesagt werden kann ("Branch Prediction"). Durch die spezielle Architektur, die für das Pipelining notwendig ist, erhöht sich die Komplexität innerhalb des Prozessores um ein vielfaches. Durch die zusätzlich notwendigen Mechanismen zur Kontrolle, Abschirmung, etc. wird auch Leistung benötigt, was der Grund dafür ist, dass keine n-fache Leistungssteigerung erzielt werden kann.
 \end{enumerate}
 \newpage
 
