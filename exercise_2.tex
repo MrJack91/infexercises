@@ -47,22 +47,20 @@ Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-We
 	
 	\item
 	\textit{Wieso ist der berechnete Wert nur ein Näherungswert? Lösung: (2 Punkte)}\\
-	%TODO Was meinst du zu diesem Satz?
 	Da der CPI-Wert der Durchschnitt der Zyklen eines Befehles definiert, kann man daraus nicht folgern, dass sich der Zeit-Aufwand der Ausführung genau aus diesem ableiten lässt. Wenn es z.B. mehrere Befehle gibt, die mehrere Zyklen benötigen, so wird die Ausführung länger dauern.
-%	Da der CPI-Wert "`nur"' der Durchschnitt ist, wird je nach tatsächlich ausgeführten Befehlen eine andere Ausführungszeit erreicht. (z.B. nur Befehle welche mehrere Zyklen zur Ausführung verwenden, oder nur Befehle die einen Zyklus brauchen) 
 	\item
 	\textit{Der Prozessor wird durch einen leistungsfähigeren Prozessor mit 0.4 ns Taktzykluszeit und einem CPI-Wert von 1.8 ersetzt. Wie lang ist nun die Ausführungszeit des Programms? Lösung: (2 Punkte)}\\
 	% $ 0.4 ns *(150'000 * 1.8) = 10'800 ns = 1.08 * 10^{-5} s$
 	
 	%TODO
-	% \textbf{Nicht?}\\	
+	% \textbf{Nicht?}\\	Hmm...Dann wäre es aber 1.08 * 10^{-8}, da ansonsten der Wert zu gross ist..
 	$ (150'000*1.8)*(0.4*10^{-9}) = 0.000108 = 10^{-4} s$\\
 	eigentlich: $1.08*10^{-4} s$, aber nur eine Stelle ist signifikant.
 			
 	\item
 	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("`overclocking"'). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? 	Lösung: (2 Punkte)}\\
 	
-	%TODO vielleicht ;)
+	%TODO vielleicht ;) Stern hat im Unterricht was erwähnt, in den Folien steht es leider nicht. Der Buss könnte es sein, bin mir aber nicht sicher.
 	Weil die Busse nicht mithalten können. Das heisst	der CPU muss öfters auf die Daten warten und kann nichts machen. Die Ausführung dauert darum nicht schneller.
 	
 \end{enumerate}
@@ -75,6 +73,7 @@ Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 B
 	\item 
 	\textit{Welchen Wert beinhaltet der Befehlszähler jeweils nach Ausführung der jeweiligen Befehle der folgenden Befehlssequenz (der Initialwert sei 24'048 für den ersten Befehl): Ladebefehl, Ladebefehl, Addition, unbedingter Sprung um -12, Speicherbefehl, unbedingter Sprung um + 8, Addition... ? Lösung: (4 Punkte)} \\
 	%TODO stimmt das so? Wieso erhöht jeder Ladebefehl den Befehlszähler?
+	% Da ja alles ein eigenständiger Befehl ist, habe ich angenommen, dass dann auch der Zähler jedesmal erhöht wird. Evtl. können wir ihn im Unterricht nochmals fragen.
 	Initial: 24'048\\
 	1. Ladebefehl: 24'049\\
 	2. Ladebefehl: 24'050\\
@@ -85,6 +84,7 @@ Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 B
 	...
 	\item
 	\textit{Was sehen Sie als Informatiker sofort? Lösung: (2 Punkte)} \\
+	%TODO: Evtl. ist es auch ein Unterprogramm oder eine normale Schleife...
 	Es Handelt sich um eine Endlosschleife / Nicht-Terminierenden-Code.
 		
 \end{enumerate}
