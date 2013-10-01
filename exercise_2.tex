@@ -11,6 +11,11 @@
 \usepackage{array}
 \usepackage{ragged2e}
 
+\usepackage{geometry}
+%\usepackage{siunitx}
+%\usepackage{amsmath}
+
+
 \usetikzlibrary{arrows,automata}
 % \usepackage[latin1]{inputenc}
 
@@ -18,9 +23,9 @@
 \author{Daniel Brun, Michael Hadorn\vspace{-2ex}}
 
 \setlength{\droptitle}{-6em}     % Eliminate the default vertical space
-\addtolength{\droptitle}{-4pt}   % Only a guess. Use this for adjustment
+% \addtolength{\droptitle}{-4pt}   % Only a guess. Use this for adjustment
 
-\newcolumntype{P}[1]{>{\centering\hspace{0pt}}p{#1}}
+% \newcolumntype{P}[1]{>{\centering\hspace{0pt}}p{#1}}
 
 \pagestyle{fancy}
 % clear any old style settings
@@ -33,11 +38,29 @@
 
 \usepackage{color}
 
+
+% \geometry{top=3cm,left=2cm,right=2cm,bottom=3cm}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+
+%\ifthenelse{\lengthtest { \paperwidth = 11in}}
+%	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+%	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+%		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+%		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+%	}
+
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{0pt plus 0.5ex}
+
+
 \begin{document}
 \maketitle
 
 % Aufgabe 1  	a: OK	b: OK	c: OK	d: 
-\section{Aufgabe}
+\section*{Aufgabe 1}
 Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-Wert von 1.45 (der Prozessor verfügt über keine Pipeline). Ein Programm benötigt zur Ausführung 150‘000 Befehle.
 
 \begin{enumerate}[label=\alph*)]
@@ -54,20 +77,20 @@ Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-We
 	
 	%TODO
 	% \textbf{Nicht?}\\	Hmm...Dann wäre es aber 1.08 * 10^{-8}, da ansonsten der Wert zu gross ist..
-	$ (150'000*1.8)*(0.4*10^{-9}) = 0.000108 = 10^{-4} s$\\
-	eigentlich: $1.08*10^{-4} s$, aber nur eine Stelle ist signifikant.
+	$ (150'000*1.8)*(0.4*10^{-9}) = 0.000108 s$\\
+	$1.08*10^{-4} s$ (mit korrekten Signifikantenstellen)
 			
 	\item
 	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("`overclocking"'). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? 	Lösung: (2 Punkte)}\\
 	
 	%TODO vielleicht ;) Stern hat im Unterricht was erwähnt, in den Folien steht es leider nicht. Der Buss könnte es sein, bin mir aber nicht sicher.
-	Weil die Busse nicht mithalten können. Das heisst	der CPU muss öfters auf die Daten warten und kann nichts machen. Die Ausführung dauert darum nicht schneller.
+	Weil die Busse nicht mithalten können. Das heisst die CPU muss öfters auf die Daten warten und kann nichts machen. Die Ausführung dauert darum nicht schneller.
 	
 \end{enumerate}
 \newpage
 
 % Aufgabe 2		a:	OK b: OK
-\section{Aufgabe}
+\section*{Aufgabe 2}
 Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 Byte (für Daten und Befehle). 
 \begin{enumerate}[label=\alph*)]
 	\item 
@@ -91,7 +114,7 @@ Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 B
 
 
 % Aufgabe 3		a:	b:
-\section{Aufgabe}
+\section*{Aufgabe 3}
 Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der Vorlesung angegeben) und folgender Ausschnitt einer Programmabfolge: 
 ..., Load, Sprung, Addition, ODER-Operation, Store, Subtraktion, Sprung, AND-Operation, ...
 \begin{enumerate}[label=\alph*)]
@@ -104,7 +127,7 @@ Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der V
 \newpage
 
 % Aufgabe 4		a: OK
-\section{Aufgabe}
+\section*{Aufgabe 4}
 Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
 \begin{enumerate}[label=\alph*)]
 	\item 
@@ -114,7 +137,7 @@ Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelini
 \newpage
 
 % Aufgabe 5		a:	b:	c:	d:
-\section{Aufgabe}
+\section*{Aufgabe 5}
 Gegeben sei ein Prozessor ohne Pipeline mit der "`bekannten"' Befehlsabarbeitung (siehe Vorlesung) und einer Zykluszeit von 20MHz. Ein Analyse hat ergeben, dass die einzelnen Teilschritte sehr unterschiedliche Zeit erfordern:\\
 z. B. "`Befehl laden"' $\leq$ 10ns, "`Register lesen"' $\leq$ 3ns, "`Rechenoperation durchführen"' $\leq$ 5ns, "`Speicherzugriff"' $\leq$ 20ns und "`Register schreiben"' $\leq$ 5ns, ... \\
 Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisherigen Teilschritte erfordern gleich viel Zeit). 
@@ -130,11 +153,11 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 \end{enumerate}
 
 % Aufgabe 6		a:
-\section{Aufgabe}
+\section*{Aufgabe 6}
 Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Recherchieren Sie die Pipelinestruktur und Kenndaten von zwei aktuellen Mikroprozessoren. Bitte Kenndaten angeben und Struktur skizieren, inkl. Quellenangabe. Lösung: (6 Punkte) } \\	
+	\textit{Recherchieren Sie die Pipelinestruktur und Kenndaten von zwei aktuellen Mikroprozessoren. Bitte Kenndaten angeben und Struktur skizzieren, inkl. Quellenangabe. Lösung: (6 Punkte) } \\	
 \end{enumerate}
 \newpage
 \newpage
