@@ -32,3 +32,6 @@
 *.tdo
 *.bak
 *.pdf
+
+# Mac
+.DS_Store
