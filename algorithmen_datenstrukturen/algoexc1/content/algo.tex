@@ -5,45 +5,66 @@
 
 \section*{Aufgabe 4}
 
+Gerade Fibanocci Zahlen bis 4'000'000.
+Anschliessend die Summe davon.
+
+\begin{center}
+% Style changes
+\small\renewcommand{\arraystretch}{1.4}
+% tabular
+\small
+\rowcolors{1}{tablerowcolor}{tablebodycolor} % mark even rows grey
+\begin{tabularx}{0.25\textwidth}{rr}
+\rowcolor{tableheadcolor}
+\hline
+\textbf{\#Fib} & \textbf{Wert} \\
+\hline
+3 & 2 \\
+6 & 8 \\
+9 & 34 \\
+12 & \num{144} \\
+15 & \num{610} \\
+18 & \num{2584} \\
+21 & \num{10946} \\
+24 & \num{46368} \\
+27 & \num{196418} \\
+30 & \num{832040} \\
+33 & \num{3524578} \\
+\hline
+\rowcolor{tablesubheadcolor}
+\textbf{Summe} & \textbf{\num{4613732}}\\
+\hline
+\end{tabularx}
+\end{center}
+
+
 \begin{table}[ht]
 \centering
-\small\renewcommand{\arraystretch}{1.4}  
+% \small\renewcommand{\arraystretch}{1.4}  
 \rowcolors{1}{tablerowcolor}{tablebodycolor}
 %
 \captionabove[]{Gerade Fibanocci Zahlen bis 4'000'000.}
 \label{tab:IsingModel}
 %
-\begin{tabularx}{0.5\textwidth}{lXXX}
+%\begin{tabularx}{0.5\textwidth}{r l}
+\begin{tabularx}{0.3\textwidth}{r r}
 \hline
 \rowcolor{tableheadcolor}
-lattice & $d$ & $q$ & $T_\text{mf}/T_c$ \\
+\textbf{\#Fib} & \textbf{Wert} \\
 \hline
-square  & 2 & 4 & 1.763 \\
-%
-triangular & 2 & 6 & 1.648 \\
-%
-diamond & 3 & 4 & 1.479 \\
-%
-simple cubic & 3 & 6 & 1.330 \\
-%
-bcc & 3 & 8 & 1.260 \\
-%
-fcc & 3 & 12 & 1.225 \\
+2 & 2 \\
+5 & 8 \\
+8 & 34 \\
+11 & \num{144} \\
+14 & \num{610} \\
+17 & \num{2584} \\
+20 & \num{10946} \\
+23 & \num{46368} \\
+26 & \num{196418} \\
+29 & \num{832040} \\
+32 & \num{3524578} \\
+\hline
+\textbf{Summe} & \textbf{\num{4613732}}\\
 \hline
 \end{tabularx}
 \end{table}
-
-fib to add: 2
-fib to add: 8
-fib to add: 34
-fib to add: 144
-fib to add: 610
-fib to add: 2584
-fib to add: 10946
-fib to add: 46368
-fib to add: 196418
-fib to add: 832040
-fib to add: 3524578
-Es wurden 33 Fibanocci Zahlen berechnet.
-
-Sum of even numbers: 4613732
