@@ -111,6 +111,28 @@
 
 \input{preamble/makeCommands.tex}
 
+%Configure Code-Listing
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+ 
+\lstset{language=Java,
+aboveskip=3mm,
+belowskip=3mm,
+basicstyle={\small\ttfamily}, 
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{gray},
+numbersep=10pt,
+frame=single,
+tabsize=1,
+showspaces=false,
+showstringspaces=false}
+
 \listfiles % list all loaded files at end of document
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -160,11 +182,11 @@
 
 
 
-\include{content/0-Introduction}
-\include{content/1-Theory}
-\include{content/2-Experiments}
-\include{content/3-Results}
-\include{content/4-Summery}
+%\include{content/0-Introduction}
+%\include{content/1-Theory}
+%\include{content/2-Experiments}
+%\include{content/3-Results}
+%\include{content/4-Summery}
 
 %%% -- end of main content
 

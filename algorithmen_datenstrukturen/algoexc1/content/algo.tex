@@ -1,10 +1,53 @@
-\chapter*{Algorithmus und Datenstruktur - Übungsserie}
+\chapter*{Algorithmen und Datenstrukturen - Aufgabenserie 2}
 
-\section*{Aufgabe 1}
+\section*{Aufgabe 1 - Grundlagen zur Laufzeitkomplexität}
+\begin{enumerate}
+	\item
+	%1. Anzahl Elemente einer Matrix, Grad eines Polynmos, Läng eines Textes, Rekursion / Verschachtelung,
+	%2.t = f(n)
+	%3.
+	%Einflussfaktoren: Hardware (Prozessor(en), arbeits- und Zwischenspeicher, Systemzeitgeber), Betriebssystem ( Andere Anwendungen und Systemprozesse, %Sicherheitseinstellungen, virtueller Speicher, …), Programmiersprache / Bibliotheken (Interpretation, Bytecode, Maschinencode), Compiler (Optimierungen, %Laufzeitoptimierungen, Garbage Collector,…)
+	%4.90\% der Laufzeit eines Codes wird nur in 10\% des Codes verbracht. Daher sollten diese 10\% optimiert werden und nicht die anderen 90\% des Codes, welche nur selten ausgeführt werden. Um eine Laufzeitanalyse für eine Optimierung vorzunehmen kann man einen Profiler verwenden.
+	%5. Nein, es kann durchaus sein, dass der Lineare-Algorithmus vor allem zu Beginn mehr Zeit benötigt als ein Exponentieller-Algorithmus. Voraussetzung dafür ist, dass der Exponentielle-Algorithmus klein Anfängt, bzw. einige Zeit benötigt um zu "wachsen".
+\end{enumerate}
 
+\section*{Aufgabe 2  Landau Notation}
+\begin{enumerate}
+	\item
+	\textit{Falsch, da $F \in O(G) \land G \in O(2^{2^x}) \implies F \in O(2^{2^x})$}
+	\item
+	\textit{Wahr, da durch die Definition von O folgendes gilt: $0 \leq f(n) \leq c*g(n), n\geq n_0$ ($c, n_0$) Konstanten. Da $F \in O(2^{2^x})$ ist auch $F \in O(2^x)$ (mit c = 2)}
+	\item
+	\textit{Unklar, je nach dem wie G aussieht gibt es keine Konstante $c$, sodass $g(n) \leq c * O(1)$}
+	\item
+	\textit{Wahr, da $F \in O(F) \land F \in O(G) \implies O(F) \subset O(G) $}
+\end{enumerate}
 
-\section*{Aufgabe 4}
+\section*{Aufgabe 3 - Diamant}
 
+\lstinputlisting[language=Java]{content/src/StarSquare.java}
+Feinanalyse des Algorithmus:
+
+\begin{tabular}{l | c | c | c |}
+Anweisung & Anzahl & Einzelgewicht & Gewicht \\
+\hline
+1	int dimension = anArray.length;	&	1	&	& 	1.0		\\
+2	int middleLine = ((dimension - 1) / 2);	&	1	&	1.0 + 1.4 + 8.0	& 	10.4	\\
+3.	int offset = 0;	&	1	&	& 	1.0	\\
+4.	for (int col = 0; col <= middleLine; col++) \{	&	(n -1)/2+2	& 	&  1.5		\\
+5.	anArray[middleLine][col] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
+6.	anArray[middleLine + offset][col] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
+7.	anArray[middleLine - offset][col] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
+8.	anArray[middleLine][dimension - col - 1] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
+9.	anArray[middleLine + offset][dimension - col - 1] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
+10.	anArray[middleLine - offset][dimension - col - 1] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
+11.	offset++;	&		(n -1)/2+1		&	1.0 + 1.4	& 	2.4	\\
+12.	\}
+\end{tabular}\\
+Laufzeit $t = 1 + 10.4 + 1 + ((n-1)/2 + 2)*1.5 + ((n-1)/2 + 1)*4.2*6 + ((n-1)/2 + 1)*2.4$\\
+$t = 27.6*(\frac{n-1}{2} + 1) + 1.5*(\frac{n-1}{2} + 2) + 12.4 $\\
+
+\section*{Aufgabe 4 - Fibonacci reloaded}
 Gerade Fibanocci Zahlen bis 4'000'000.
 Anschliessend die Summe davon.
 
