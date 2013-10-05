@@ -165,11 +165,27 @@ showstringspaces=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Definition of acronyms
-\input{content/Z-Acronyms.tex}
+%\input{content/Z-Acronyms.tex}
 
 % required for hyperref (not displayed)
 \pagenumbering{alph}\setcounter{page}{1}%
 \pagestyle{empty}
+
+\frontmatter
+\IfPackageLoaded{scrpage2}{\pagestyle{scrheadings}}
+
+\IfPackagesLoaded{glossaries,longtable,tabu}{%
+  \clearpage
+  % print out acronym list   
+  \IfGlossariesStyleDefined{longtabuFancyHeader}%
+   {\printglossary[type=\acronymtype,style=longtabuFancyHeader]}%
+  % print out symbol list 
+  \IfGlossariesStyleDefined{longtabuFancyHeader}%
+   {\printglossary[type=symbolslist,style=longtabuFancyHeader]}%
+  % print out glossary
+  \printglossary[style=altlist]
+} % end of glossaries
+
 
 % --- Main Document --- --- --- --- --- --- ---
 \mainmatter
@@ -178,7 +194,7 @@ showstringspaces=false}
 %
 \include{content/algo}
 
-\cleardoublepage
+%\cleardoublepage
 
 
 
@@ -201,14 +217,14 @@ showstringspaces=false}
 }% end of bibliography
 
 %% -- list of figures and tables --
-\cleardoublepage\IfDefined{phantomsection}{\phantomsection}\label{sec:lof}
-\listoffigures
-\cleardoublepage\IfDefined{phantomsection}{\phantomsection}\label{sec:lot}
-\listoftables
+%\cleardoublepage\IfDefined{phantomsection}{\phantomsection}\label{sec:lof}
+%\listoffigures
+%\cleardoublepage\IfDefined{phantomsection}{\phantomsection}\label{sec:lot}
+%\listoftables
 
 
 % add todo list (remove for final document!)
-\input{content/Z-Todo.tex}
+%\input{content/Z-Todo.tex}
 
 %%% document END %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
