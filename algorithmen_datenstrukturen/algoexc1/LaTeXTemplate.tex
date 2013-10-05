@@ -164,28 +164,12 @@ showstringspaces=false}
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Definition of acronyms
-%\input{content/Z-Acronyms.tex}
-
 % required for hyperref (not displayed)
 \pagenumbering{alph}\setcounter{page}{1}%
 \pagestyle{empty}
 
 \frontmatter
 \IfPackageLoaded{scrpage2}{\pagestyle{scrheadings}}
-
-\IfPackagesLoaded{glossaries,longtable,tabu}{%
-  \clearpage
-  % print out acronym list   
-  \IfGlossariesStyleDefined{longtabuFancyHeader}%
-   {\printglossary[type=\acronymtype,style=longtabuFancyHeader]}%
-  % print out symbol list 
-  \IfGlossariesStyleDefined{longtabuFancyHeader}%
-   {\printglossary[type=symbolslist,style=longtabuFancyHeader]}%
-  % print out glossary
-  \printglossary[style=altlist]
-} % end of glossaries
-
 
 % --- Main Document --- --- --- --- --- --- ---
 \mainmatter
