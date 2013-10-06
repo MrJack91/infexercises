@@ -53,6 +53,8 @@ by Daniel Braun und Michael Hadorn, Inf I3b
 \section*{Aufgabe 3 - Diamant}
 
 \lstinputlisting[language=Java]{content/src/StarSquare.java}
+
+\begin{landscape}
 Feinanalyse des Algorithmus:
 
 \begin{tabular}{l | c | c | c |}
@@ -63,17 +65,17 @@ Anweisung & Anzahl & Einzelgewicht & Gewicht \\
 3.	int offset = 0;	&	1	&	& 	1.0	\\
 4.	for (int col = 0; col <= middleLine; col++) \{	&	(n -1)/2+2	& 	&  1.5		\\
 5.	anArray[middleLine][col] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
-6.	anArray[middleLine + offset][col] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
-7.	anArray[middleLine - offset][col] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
-8.	anArray[middleLine][dimension - col - 1] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
-9.	anArray[middleLine + offset][dimension - col - 1] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
-10.	anArray[middleLine - offset][dimension - col - 1] = '*';	&	(n -1)/2+1	&	& 	4.2	\\
+6.	anArray[middleLine + offset][col] = '*';	&	(n -1)/2+1	& 1.0 + 4.2	& 	5.2	\\
+7.	anArray[middleLine - offset][col] = '*';	&	(n -1)/2+1	& 1.0 + 4.2	& 	5.2	\\
+8.	anArray[middleLine][dimension - col - 1] = '*';	&	(n -1)/2+1	& 1.0 + 1.0 + 4.2	& 	6.2	\\
+9.	anArray[middleLine + offset][dimension - col - 1] = '*';	&	(n -1)/2+1	&	1.0 + 1.0 + 1.0 + 4.2	& 	7.2	\\
+10.	anArray[middleLine - offset][dimension - col - 1] = '*';	&	(n -1)/2+1	&	1.0 + 1.0 + 1.0 + 4.2	& 	7.2	\\
 11.	offset++;	&		(n -1)/2+1		&	1.0 + 1.4	& 	2.4	\\
 12.	\}
 \end{tabular}\\
-Laufzeit $t = 1 + 10.4 + 1 + ((n-1)/2 + 2)*1.5 + ((n-1)/2 + 1)*4.2*6 + ((n-1)/2 + 1)*2.4$\\
-$t = 27.6*(\frac{n-1}{2} + 1) + 1.5*(\frac{n-1}{2} + 2) + 12.4 $\\
-
+Laufzeit $t = 1 + 10.4 + 1 + ((n-1)/2 + 2)*1.5 + ((n-1)/2 + 1)*4.2*1 + ((n-1)/2 + 1)*2.4 + 2 * ((n-1)/2 + 1)*5.4 + 1 * ((n-1)/2 + 1)*6.2 + + 2 * ((n-1)/2 + 1)*7.2$\\
+$t = 38*(\frac{n-1}{2} + 1) + 1.5*(\frac{n-1}{2} + 2) + 12.4 $\\
+\end{landscape}
 \clearpage
 
 \section*{Aufgabe 4 - Fibonacci reloaded}
