@@ -50,18 +50,17 @@ Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-We
 	Da der CPI-Wert der Durchschnitt der Zyklen eines Befehles definiert, kann man daraus nicht folgern, dass sich der Zeit-Aufwand der Ausführung genau aus diesem ableiten lässt. Wenn es z.B. mehrere Befehle gibt, die mehrere Zyklen benötigen, so wird die Ausführung länger dauern.
 	\item
 	\textit{Der Prozessor wird durch einen leistungsfähigeren Prozessor mit 0.4 ns Taktzykluszeit und einem CPI-Wert von 1.8 ersetzt. Wie lang ist nun die Ausführungszeit des Programms? Lösung: (2 Punkte)}\\
-	% $ 0.4 ns *(150'000 * 1.8) = 10'800 ns = 1.08 * 10^{-5} s$
+	% $ 0.4 ns *(150'000 * 1.8) = 10'800 ns = 1.08 * 10^{-4} s$
 	
-	%TODO
-	% \textbf{Nicht?}\\	Hmm...Dann wäre es aber 1.08 * 10^{-8}, da ansonsten der Wert zu gross ist..
-	$ (150'000*1.8)*(0.4*10^{-9}) = 0.000108 = 10^{-4} s$\\
-	eigentlich: $1.08*10^{-4} s$, aber nur eine Stelle ist signifikant.
+	$ (150'000*1.8)*(0.4*10^{-9}) = 0.000108 s = 1.08 * 10^{-4} s$\\
+
 			
 	\item
-	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("`overclocking"'). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? 	Lösung: (2 Punkte)}\\
+	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("overclocking"). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? 	Lösung: (2 Punkte)}\\
 	
 	%TODO vielleicht ;) Stern hat im Unterricht was erwähnt, in den Folien steht es leider nicht. Der Buss könnte es sein, bin mir aber nicht sicher.
-	Weil die Busse nicht mithalten können. Das heisst	der CPU muss öfters auf die Daten warten und kann nichts machen. Die Ausführung dauert darum nicht schneller.
+	Die Leistung eines Prozessors wird nicht nur durch die Taktzykluszeit bestimmt (diese wird beim Übertakten erhöht). Neben der Taktzykluszeit spielt auch die umgebende Hardware (Speicher, etc.) eine Rolle. Auch kann es sein, dass je nach Einteilung der Befehlsgruppen die Leistungssteigerung in einem Bereich erzielt wird, welcher nicht alltägliche / seltene Befehle beinhaltet.
+	%Weil die Busse nicht mithalten können. Das heisst	der CPU muss öfters auf die Daten warten und kann nichts machen. Die Ausführung dauert darum nicht schneller.
 	
 \end{enumerate}
 \newpage
@@ -150,7 +149,8 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 	Ein Programm wird nun maximal 5 x so schnell wie vorher ausgeführt. (Idealfall)
 	\item 
 	\textit{Wie	könnte eine "`bessere"' Pipeline-Struktur entwickelt werden? Lösung: (2 Punkte)  } \\
-	%TODO Sollte der Prozess nicht in mehrere kleinere Stufen aufgeteilt werden (also nicht in weniger Stufen). So können mehrere kurze Befehle gleichzeitig ausgeführt werden.
+	%TODO Sollte der Prozess nicht in mehrere kleinere Stufen aufgeteilt werden (also nicht in weniger Stufen). So können mehrere kurze Befehle gleichzeitig ausgeführt werden. -
+	% Könnte auch sein, aber ist das möglich? Befehlszähler auslesen /decodieren, etc. ist ja praktisch schon der "kleinste Schritt" Damit keine Wartezeit entsteht müssten alle Stufen gleich lang sein.
 	Es könnten weniger Stufen verwendet werden (geringere Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.).
 \end{enumerate}
 
@@ -168,9 +168,11 @@ Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelini
 		Frequenz & 4.7/5.0 GHz\\
 		Gesamter L2-Cache & 8MB\\
 		L3-Cache & 8MB\\
-		Bauform & socket AM3+\\
+		Bauform & Socket AM3+\\
 		Leistungsaufnahme & 220W\\
 		Fertigungs-Technologie & 32nm SOI\\
+		Mikroarchitektur & Bulldozer \\
+		Befehlssatz & x86/AMD64 \\
 	\end{tabular}
 	
 	\includegraphics[width=1\textwidth]{images/AMD_Bulldozer.png}
@@ -192,9 +194,11 @@ Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelini
 			Frequenz & 2.6 GHz\\
 			Gesamter L2-Cache & 1024 KB\\
 			L3-Cache & 6MB\\
-			Bauform & BGA-1364\\ %TODO Stimmt das?!
+			Bauform & LGA 2011\\ 
 			Leistungsaufnahme & 47W\\
 			% Fertigungs-Technologie & ?? \\
+			Mikroarchitektur & Sandy Bridge (E)\\
+			Befehlssatz & x86 \\
 			Anzahl Kerne/ Anzahl Threads & 4 / 8\\
 			Speichertypen & DDR3L-1333,1600\\
 			Grafik & Intel® Iris™ Pro graphics 5200\\
@@ -213,6 +217,8 @@ Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelini
 	
 	
 	%TODO Skizze der Struktur
+	% Was meinsch zu dene? http://www.elektroniknet.de/uploads/media_uploads/images/1298475607-39-blockdiagramm-sandybridge.jpg
+	%http://pics.computerbase.de/3/2/2/9/8/6.png
 	
 	http://www.intel.de/content/www/de/de/processors/core/core-i7-processor.html\\
 	http://en.wikipedia.org/wiki/Sandy\_Bridge-E\\
