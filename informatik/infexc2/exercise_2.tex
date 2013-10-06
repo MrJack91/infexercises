@@ -134,7 +134,12 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 \begin{enumerate}[label=\alph*)]
 	\item 
 	\textit{Wie gross ist die Zykluszeit des neuen Prozessors? Lösung: (3 Punkte) } \\
-	t = (5 + 5 - 1) * 20MHz = 18 MHz \\
+	
+	%TODO Annahme wir setzen für die Zykluszeit die effektive Zeit der Ausführung eines Zykluses ein: 1/180000000 s = 5.555555556e-09s -> 5.555556 ns
+	% 	t = (5 + 5 - 1) * 5.555556 ns = 50.0004 ns
+	% -> Die neue Zykluszeit beträgt so: 50 ns
+	
+	t = (5 + 5 - 1) * 20MHz = 180 MHz \\
 	Die neue Zykluszeit beträgt	180MHz.\\ %TODO: 5*20MHz = 100, aber gemäss Slide 61 sind es 180MHz
 
 	\item 
@@ -145,24 +150,73 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 	Ein Programm wird nun maximal 5 x so schnell wie vorher ausgeführt. (Idealfall)
 	\item 
 	\textit{Wie	könnte eine "`bessere"' Pipeline-Struktur entwickelt werden? Lösung: (2 Punkte)  } \\
-	Es könnten weniger Stufen verwendet werden (geringer Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.).
+	%TODO Sollte der Prozess nicht in mehrere kleinere Stufen aufgeteilt werden (also nicht in weniger Stufen). So können mehrere kurze Befehle gleichzeitig ausgeführt werden.
+	Es könnten weniger Stufen verwendet werden (geringere Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.).
 \end{enumerate}
+
+\newpage
 
 % Aufgabe 6		a:
 \section{Aufgabe}
 Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Recherchieren Sie die Pipelinestruktur und Kenndaten von zwei aktuellen Mikroprozessoren. Bitte Kenndaten angeben und Struktur skizieren, inkl. Quellenangabe. Lösung: (6 Punkte) } \\
-	AMD FX Eight-Core-Prozessor Black Edition
-	http://www.amd.com/de/products/desktop/processors/amdfx/Pages/amdfx.aspx
-	http://de.wikipedia.org/wiki/AMD_Bulldozer	
+	\textit{Recherchieren Sie die Pipelinestruktur und Kenndaten von zwei aktuellen Mikroprozessoren. Bitte Kenndaten angeben und Struktur skizzieren, inkl. Quellenangabe. Lösung: (6 Punkte) } \\
+	\textbf{AMD FX Eight-Core-Prozessor Black Edition}\\
+	\begin{tabular}{ l l l l l l l }
+		Modellnummer & FX 9590\\
+		Frequenz & 4.7/5.0 GHz\\
+		Gesamter L2-Cache & 8MB\\
+		L3-Cache & 8MB\\
+		Bauform & socket AM3+\\
+		Leistungsaufnahme & 220W\\
+		Fertigungs-Technologie & 32nm SOI\\
+	\end{tabular}
 	
-	Intel Core i7 Sandy-Bridge
-	http://www.intel.de/content/www/de/de/processors/core/core-i7-processor.html
-	http://en.wikipedia.org/wiki/Sandy_Bridge-E
+	\includegraphics[width=1\textwidth]{images/AMD_Bulldozer.png}
+	
+%	\begin{figure}[!Hhtp]
+%	  \centering
+%	  \includegraphics[width=\textwidth]{images/AMD_Bulldozer.png}
+%	  \caption[AMD Bulldozer]{Blockdiagramm eines Bulldozer-Moduls}
+%	\end{figure}
+	
+	
+	http://www.amd.com/de/products/desktop/processors/amdfx/Pages/amdfx.aspx\\
+	http://de.wikipedia.org/wiki/AMD\_Bulldozer\\
+	\\
+	
+	\textbf{Intel Core i7 Sandy-Bridge}\\
+	\begin{tabular}{ l l l l l l l }
+			Modellnummer & Intel Core i7-4960HQ\\
+			Frequenz & 2.6 GHz\\
+			Gesamter L2-Cache & 1024 KB\\
+			L3-Cache & 6MB\\
+			Bauform & BGA-1364\\ %TODO Stimmt das?!
+			Leistungsaufnahme & 47W\\
+			% Fertigungs-Technologie & ?? \\
+			Anzahl Kerne/ Anzahl Threads & 4 / 8\\
+			Speichertypen & DDR3L-1333,1600\\
+			Grafik & Intel® Iris™ Pro graphics 5200\\
+		\end{tabular}
+
+	
+%	\begin{tabular}{ l l l l l l l }
+%		Prozessornummer & Intel® Core™ i7-4960HQ Processor (6M Cache, up to 3.70 GHz)\\
+%		Cache & 6.0 MB\\
+%		Taktfrequenz  & 2.60 GHz\\
+%		Anzahl Kerne/ Anzahl Threads & 4 / 8\\
+%		Max. TDP/ Leistung & 47\\
+%		Speichertypen & DDR3L-1333,1600\\
+%		Grafik & Intel® Iris™ Pro graphics 5200\\
+%	\end{tabular}
+	
+	
+	%TODO Skizze der Struktur
+	
+	http://www.intel.de/content/www/de/de/processors/core/core-i7-processor.html\\
+	http://en.wikipedia.org/wiki/Sandy\_Bridge-E\\
 \end{enumerate}
-\newpage
-\newpage
+
 
 \end{document}
