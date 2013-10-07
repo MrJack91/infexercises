@@ -42,21 +42,20 @@ Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-We
 
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Wie lang ist die ungefähre Ausführungszeit des	Programms? Lösung: (3 Punkte)}\\
+	\textit{Wie lang ist die ungefähre Ausführungszeit des	Programms? Lösung: (3 Punkte)}
+	
 	$ (1 / 1.25 GHz)*(150'000 * 1.45) = 1.74 * 10^{-4} s$
 	
 	\item
 	\textit{Wieso ist der berechnete Wert nur ein Näherungswert? Lösung: (2 Punkte)}\\
 	Da der CPI-Wert der Durchschnitt der Zyklen eines Befehles definiert, kann man daraus nicht folgern, dass sich der Zeit-Aufwand der Ausführung genau aus diesem ableiten lässt. Wenn es z.B. mehrere Befehle gibt, die mehrere Zyklen benötigen, so wird die Ausführung länger dauern.
 	\item
-	\textit{Der Prozessor wird durch einen leistungsfähigeren Prozessor mit 0.4 ns Taktzykluszeit und einem CPI-Wert von 1.8 ersetzt. Wie lang ist nun die Ausführungszeit des Programms? Lösung: (2 Punkte)}\\
-	% $ 0.4 ns *(150'000 * 1.8) = 10'800 ns = 1.08 * 10^{-4} s$
+	\textit{Der Prozessor wird durch einen leistungsfähigeren Prozessor mit 0.4 ns Taktzykluszeit und einem CPI-Wert von 1.8 ersetzt. Wie lang ist nun die Ausführungszeit des Programms? Lösung: (2 Punkte)}
 	
 	$ (150'000*1.8)*(0.4*10^{-9}) = 0.000108 s = 1.08 * 10^{-4} s$\\
-
 			
 	\item
-	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("overclocking"). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? 	Lösung: (2 Punkte)}\\
+	\textit{Der Prozessor (von c) wird um 10\% übertaktet ("overclocking"). Die erzielte Leistungssteigerung beträgt in der Realität aber nur knapp 5\%. Wieso? Lösung: (2 Punkte)}
 	
 	%TODO vielleicht ;) Stern hat im Unterricht was erwähnt, in den Folien steht es leider nicht. Der Buss könnte es sein, bin mir aber nicht sicher.
 	Die Leistung eines Prozessors wird nicht nur durch die Taktzykluszeit bestimmt (diese wird beim Übertakten erhöht). Neben der Taktzykluszeit spielt auch die umgebende Hardware (Speicher, etc.) eine Rolle. Auch kann es sein, dass je nach Einteilung der Befehlsgruppen die Leistungssteigerung in einem Bereich erzielt wird, welcher nicht alltägliche / seltene Befehle beinhaltet.
@@ -70,7 +69,8 @@ Gegeben sei ein Prozessor mit einer Taktzykluszeit von 1.25 GHz und einem CPI-We
 Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 Byte (für Daten und Befehle). 
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Welchen Wert beinhaltet der Befehlszähler jeweils nach Ausführung der jeweiligen Befehle der folgenden Befehlssequenz (der Initialwert sei 24'048 für den ersten Befehl): Ladebefehl, Ladebefehl, Addition, unbedingter Sprung um -12, Speicherbefehl, unbedingter Sprung um + 8, Addition... ? Lösung: (4 Punkte)} \\
+	\textit{Welchen Wert beinhaltet der Befehlszähler jeweils nach Ausführung der jeweiligen Befehle der folgenden Befehlssequenz (der Initialwert sei 24'048 für den ersten Befehl): Ladebefehl, Ladebefehl, Addition, unbedingter Sprung um -12, Speicherbefehl, unbedingter Sprung um + 8, Addition... ? Lösung: (4 Punkte)}
+	
 	Initial: 24'048\\
 	1. Ladebefehl: 24'049\\
 	2. Ladebefehl: 24'050\\
@@ -80,7 +80,8 @@ Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 B
 	6. Unbedingter Sprung: 24'048 \\
 	...
 	\item
-	\textit{Was sehen Sie als Informatiker sofort? Lösung: (2 Punkte)} \\
+	\textit{Was sehen Sie als Informatiker sofort? Lösung: (2 Punkte)}
+	
 	Es Handelt sich um eine Endlosschleife / Nicht-Terminierenden-Code.
 		
 \end{enumerate}
@@ -93,7 +94,8 @@ Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der V
 ..., Load, Sprung, Addition, ODER-Operation, Store, Subtraktion, Sprung, AND-Operation, ...
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Skizzieren Sie graphisch eine (mögliche) Ausführungsabfolge, unter der Annahme, das beim 1. Sprung zu einer nicht vorhergesehenen Adresse gesprungen wird ("`branch prediction"' war falsch).} \\\\
+	\textit{Skizzieren Sie graphisch eine (mögliche) Ausführungsabfolge, unter der Annahme, das beim 1. Sprung zu einer nicht vorhergesehenen Adresse gesprungen wird ("`branch prediction"' war falsch).}
+	
 	\begin{tabular}{r | c | c | c | c | c | c | c | c | c }
 	Schritt & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
 	\hline
@@ -110,7 +112,8 @@ Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der V
 	O: Operantend bereitstellen\\
 	E: Operationen ausführen\\
 	\item 
-	\textit{Beschreiben Sie in Ihren Worten, was ein "`pipeline flush"' bedeutet. Lösung: (2 Punkte) } \\
+	\textit{Beschreiben Sie in Ihren Worten, was ein "`pipeline flush"' bedeutet. Lösung: (2 Punkte) }
+	
 	Wurde ein Befehl falsch geraten ("Branch prediction" lag falsch), müssen die bereits "voraus" bearbeiteten Befehle wieder entfernt und an der korrekten Stelle weitergefahren werden.
 	
 \end{enumerate}
@@ -121,7 +124,8 @@ Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der V
 Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Begründen 	Sie, warum eine n-stufige Pipeline nicht automatisch zu einer n-fachen Leistungssteigerung führt, selbst wenn es gelingt, die Zykluszeit auf 1/n zu reduzieren ("`perfekte Gleichverteilung"' der Stufen - in der Praxis eigentlich nicht realisierbar). Lösung:(4 Punkte)} \\	
+	\textit{Begründen 	Sie, warum eine n-stufige Pipeline nicht automatisch zu einer n-fachen Leistungssteigerung führt, selbst wenn es gelingt, die Zykluszeit auf 1/n zu reduzieren ("`perfekte Gleichverteilung"' der Stufen - in der Praxis eigentlich nicht realisierbar). Lösung:(4 Punkte)}
+	
 	Beim Pipelining wird nach dem Laden des Befehls bereits der nächste Geladen, dies setzt voraus, dass der nachfolgende Befehl mit einer hohen Genauigkeit vorausgesagt werden kann ("`Branch Prediction"'). Durch die spezielle Architektur, die für das Pipelining notwendig ist, erhöht sich die Komplexität innerhalb des Prozessores um ein vielfaches. Durch die zusätzlich notwendigen Mechanismen zur Kontrolle, Abschirmung, etc. wird auch Leistung benötigt, was der Grund dafür ist, dass keine n-fache Leistungssteigerung erzielt werden kann. Auch kann es vorkommen, dass wenn die Branch-Prediction oft falsch ist, keine grosse Leistungssteigerung erzielt werden kann.
 \end{enumerate}
 \newpage
@@ -133,7 +137,7 @@ z. B. "`Befehl laden"' $\leq$ 10ns, "`Register lesen"' $\leq$ 3ns, "`Rechenopera
 Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisherigen Teilschritte erfordern gleich viel Zeit). 
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Wie gross ist die Zykluszeit des neuen Prozessors? Lösung: (3 Punkte) } \\
+	\textit{Wie gross ist die Zykluszeit des neuen Prozessors? Lösung: (3 Punkte) } 
 	
 	Effektive Zeit der Ausführung eines Befehls:\\
 	1s/180000000MHz = 5.555555556e-09s = 5.555556 ns pro Befehl\\
@@ -147,10 +151,12 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 	\textit{Um wie viel schneller wird nun ein Befehl maximal ausgeführt? Lösung: (3 Punkte)} \\
 	Der einzelne Befehl wird immer noch gleich schnell ausgeführt. (Idealfall)	
 	\item 
-	\textit{Um wie viel schneller wird ein Programm maximal ausgeführt? Lösung: (2 Punkte) } \\
+	\textit{Um wie viel schneller wird ein Programm maximal ausgeführt? Lösung: (2 Punkte) }
+	
 	Ein Programm wird nun maximal 5 x so schnell wie vorher ausgeführt. (Idealfall)
 	\item 
-	\textit{Wie	könnte eine "`bessere"' Pipeline-Struktur entwickelt werden? Lösung: (2 Punkte)  } \\
+	\textit{Wie	könnte eine "`bessere"' Pipeline-Struktur entwickelt werden? Lösung: (2 Punkte)  } 
+	
 	% Sollte der Prozess nicht in mehrere kleinere Stufen aufgeteilt werden (also nicht in weniger Stufen). So können mehrere kurze Befehle gleichzeitig ausgeführt werden. -
 	% Könnte auch sein, aber ist das möglich? Befehlszähler auslesen /decodieren, etc. ist ja praktisch schon der "kleinste Schritt" Damit keine Wartezeit entsteht müssten alle Stufen gleich lang sein.
 	Es könnten weniger Stufen verwendet werden (geringere Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.).	
@@ -163,7 +169,8 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelining.
 \begin{enumerate}[label=\alph*)]
 	\item 
-	\textit{Recherchieren Sie die Pipelinestruktur und Kenndaten von zwei aktuellen Mikroprozessoren. Bitte Kenndaten angeben und Struktur skizzieren, inkl. Quellenangabe. Lösung: (6 Punkte) } \\
+	\textit{Recherchieren Sie die Pipelinestruktur und Kenndaten von zwei aktuellen Mikroprozessoren. Bitte Kenndaten angeben und Struktur skizzieren, inkl. Quellenangabe. Lösung: (6 Punkte) }
+	
 	\textbf{AMD FX Eight-Core-Prozessor Black Edition}\\
 	\begin{tabular}{ l l l l l l l }
 		Modellnummer & FX 9590\\
