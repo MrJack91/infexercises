@@ -114,7 +114,7 @@ Gegeben sei ein Prozessor mit 4-stufiger Pipeline (die vier Stufen, wie in der V
 	\item 
 	\textit{Beschreiben Sie in Ihren Worten, was ein "`pipeline flush"' bedeutet. Lösung: (2 Punkte) }
 	
-	Wurde ein Befehl falsch geraten ("Branch prediction" lag falsch), müssen die bereits "voraus" bearbeiteten Befehle wieder entfernt und an der korrekten Stelle weitergefahren werden.
+	Wurde ein Befehl falsch geraten ("`Branch prediction"' lag falsch), müssen die bereits "`voraus"' bearbeiteten Befehle wieder entfernt und an der korrekten Stelle weitergefahren werden.
 	
 \end{enumerate}
 \newpage
@@ -132,8 +132,8 @@ Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelini
 
 % Aufgabe 5		a:	OK	b:	OK	c:	OK	d:	
 \section{Aufgabe}
-Gegeben sei ein Prozessor ohne Pipeline mit der "`bekannten"' Befehlsabarbeitung (siehe Vorlesung) und einer Zykluszeit von 20MHz. Ein Analyse hat ergeben, dass die einzelnen Teilschritte sehr unterschiedliche Zeit erfordern:\\
-z. B. "`Befehl laden"' $\leq$ 10ns, "`Register lesen"' $\leq$ 3ns, "`Rechenoperation durchführen"' $\leq$ 5ns, "`Speicherzugriff"' $\leq$ 20ns und "`Register schreiben"' $\leq$ 5ns, ... \\
+Gegeben sei ein Prozessor ohne Pipeline mit der "`bekannten"' Befehlsabarbeitung (siehe Vorlesung) und einer Zykluszeit von 20MHz. Ein Analyse hat ergeben, dass die einzelnen Teilschritte sehr unterschiedliche Zeit erfordern:\\\\
+z. B. "`Befehl laden"' $\leq$ 10ns, "`Register lesen"' $\leq$ 3ns, "`Rechenoperation durchführen"' $\leq$ 5ns, "`Speicherzugriff"' $\leq$ 20ns und "`Register schreiben"' $\leq$ 5ns, ... \\\\
 Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisherigen Teilschritte erfordern gleich viel Zeit). 
 \begin{enumerate}[label=\alph*)]
 	\item 
@@ -159,7 +159,7 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 	
 	% Sollte der Prozess nicht in mehrere kleinere Stufen aufgeteilt werden (also nicht in weniger Stufen). So können mehrere kurze Befehle gleichzeitig ausgeführt werden. -
 	% Könnte auch sein, aber ist das möglich? Befehlszähler auslesen /decodieren, etc. ist ja praktisch schon der "kleinste Schritt" Damit keine Wartezeit entsteht müssten alle Stufen gleich lang sein.
-	Es könnten weniger Stufen verwendet werden (geringere Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.).	
+	Es könnten weniger Stufen verwendet werden (geringere Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.). Auch könnten die einzelnen Pipeline-Stufen optimiert und besser aufeinander abgestimmt werden, sodass möglichst wenig Leerlauf / Wartezeit entsteht.	
 \end{enumerate}
 
 \newpage
