@@ -85,6 +85,7 @@ Gegeben sei ein einfacher Prozessor ohne Pipelining mit einer Wortbreite von 2 B
 		
 \end{enumerate}
 
+\newpage
 
 % Aufgabe 3		a:	OK	b:	OK
 \section{Aufgabe}
@@ -134,12 +135,13 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 	\item 
 	\textit{Wie gross ist die Zykluszeit des neuen Prozessors? Lösung: (3 Punkte) } \\
 	
-	%TODO Annahme wir setzen für die Zykluszeit die effektive Zeit der Ausführung eines Zykluses ein: 1/180000000 s = 5.555555556e-09s -> 5.555556 ns
-	% 	t = (5 + 5 - 1) * 5.555556 ns = 50.0004 ns
-	% -> Die neue Zykluszeit beträgt so: 50 ns
+	Effektive Zeit der Ausführung eines Befehls:\\
+	1s/180000000MHz = 5.555555556e-09s = 5.555556 ns pro Befehl\\
+	t = (5 + 5 - 1) * 5.555556 ns = 50.0004 ns\\
+	Die neue Zykluszeit beträgt also: 50 ns
 	
-	t = (5 + 5 - 1) * 20MHz = 180 MHz \\
-	Die neue Zykluszeit beträgt	180MHz.\\ %TODO: 5*20MHz = 100, aber gemäss Slide 61 sind es 180MHz
+	% t = (5 + 5 - 1) * 20MHz = 180 MHz \\
+	% Die neue Zykluszeit beträgt	180MHz.\\
 
 	\item 
 	\textit{Um wie viel schneller wird nun ein Befehl maximal ausgeführt? Lösung: (3 Punkte)} \\
@@ -149,9 +151,9 @@ Sie implementieren denselben Prozessor mit einer 5-stufigen Pipeline (die bisher
 	Ein Programm wird nun maximal 5 x so schnell wie vorher ausgeführt. (Idealfall)
 	\item 
 	\textit{Wie	könnte eine "`bessere"' Pipeline-Struktur entwickelt werden? Lösung: (2 Punkte)  } \\
-	%TODO Sollte der Prozess nicht in mehrere kleinere Stufen aufgeteilt werden (also nicht in weniger Stufen). So können mehrere kurze Befehle gleichzeitig ausgeführt werden. -
+	% Sollte der Prozess nicht in mehrere kleinere Stufen aufgeteilt werden (also nicht in weniger Stufen). So können mehrere kurze Befehle gleichzeitig ausgeführt werden. -
 	% Könnte auch sein, aber ist das möglich? Befehlszähler auslesen /decodieren, etc. ist ja praktisch schon der "kleinste Schritt" Damit keine Wartezeit entsteht müssten alle Stufen gleich lang sein.
-	Es könnten weniger Stufen verwendet werden (geringere Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.).
+	Es könnten weniger Stufen verwendet werden (geringere Komplexität), Optimierung der Befehlssätze (Format, Datenorganisation, ...). Es müssen alle Komponenten aufeinander abgestimmt sein (Gruppierung der Befehle, etc.).	
 \end{enumerate}
 
 \newpage
@@ -175,7 +177,7 @@ Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelini
 		Befehlssatz & x86/AMD64 \\
 	\end{tabular}
 	
-	\includegraphics[width=1\textwidth]{images/AMD_Bulldozer.png}
+	\includegraphics[width=0.85\textwidth]{images/AMD_Bulldozer.png}
 	
 %	\begin{figure}[!Hhtp]
 %	  \centering
@@ -203,26 +205,16 @@ Eine effektive Möglichkeit der Leistungssteigerung bei Prozessoren ist Pipelini
 			Speichertypen & DDR3L-1333,1600\\
 			Grafik & Intel® Iris™ Pro graphics 5200\\
 		\end{tabular}
-
 	
-%	\begin{tabular}{ l l l l l l l }
-%		Prozessornummer & Intel® Core™ i7-4960HQ Processor (6M Cache, up to 3.70 GHz)\\
-%		Cache & 6.0 MB\\
-%		Taktfrequenz  & 2.60 GHz\\
-%		Anzahl Kerne/ Anzahl Threads & 4 / 8\\
-%		Max. TDP/ Leistung & 47\\
-%		Speichertypen & DDR3L-1333,1600\\
-%		Grafik & Intel® Iris™ Pro graphics 5200\\
-%	\end{tabular}
-	
-	
-	%TODO Skizze der Struktur
+	% Skizze der Struktur
 	% Was meinsch zu dene? http://www.elektroniknet.de/uploads/media_uploads/images/1298475607-39-blockdiagramm-sandybridge.jpg
 	%http://pics.computerbase.de/3/2/2/9/8/6.png
+	
+	\includegraphics[width=0.85\textwidth]{images/sandybridge.jpg}\\
+	Bild: http://www.elektroniknet.de/uploads/media\_uploads/images/1298475607-39-blockdiagramm-sandybridge.jpg\\
 	
 	http://www.intel.de/content/www/de/de/processors/core/core-i7-processor.html\\
 	http://en.wikipedia.org/wiki/Sandy\_Bridge-E\\
 \end{enumerate}
-
 
 \end{document}
