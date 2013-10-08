@@ -9,14 +9,21 @@ by Daniel Braun und Michael Hadorn, Inf I3b
 	Beispiele die die Laufzeit beeinflussen können sind:
 	\begin{enumerate}
 		\item \textbf{Länge des Inputs Textes}\\
-		Es kann sein, dass der eine Algorithmus für kürzere Inputs schneller ist, jedoch sich für längere Inputs nicht eignet und umgkehrt.
+			Es kann sein, dass der eine Algorithmus für kürzere Inputs schneller ist, jedoch sich für längere Inputs nicht eignet und umgkehrt.
+		
+		\item \textbf{Komplexität}\\
+			Ein Algorithmus kann ein komplexes Problem effizienter oder eben nicht so effizient lösen. Das Resultat ist das selbe, aber der ineffiziente dauert länger.
+		
+		% \item \textbf{}\\
+				
+		% \item \textbf{}\\
 			
 		%Anzahl Elemente einer Matrix, Grad eines Polynmos, Läng eines Textes, Rekursion / Verschachtelung,
 	\end{enumerate}
 	
 	\item % Aufgabe 1.2
 	Mit der O-Notation. t = O(n).\\
-	Dabei können Konstanten vernachlässigt werden, da die sowieso nur einen kleinen Teil der Ausführungszeit benötigen. Der wirkliche Wachstum ist abhängig vom Input.
+	Dabei können Konstanten vernachlässigt werden, da die sowieso nur einen kleinen Teil der Ausführungszeit benötigen. Der interessante Wachstum ist abhängig vom Input.
 	
 	\item % Aufgabe 1.3
 	Folgende externe Einflüsse können sich auf die Laufzeit des Algorithmuses auswirken:\\
@@ -47,11 +54,14 @@ by Daniel Braun und Michael Hadorn, Inf I3b
 	\item
 	\textit{Unklar, je nach dem wie G aussieht gibt es keine Konstante $c$, sodass $g(n) \leq c * O(1)$}
 	\item
-	\textit{Wahr, da $F \in O(F) \land F \in O(G) \implies O(F) \subset O(G) $}
+	\textit{Wahr, da $F \in O(F) \land F \in O(G) \implies O(F) \subseteq O(G) $}
 \end{enumerate}
+
+\newpage
 
 \section*{Aufgabe 3 - Diamant}
 
+%mögliche Optimierung: Erster Loop bei fillWithStars() überspringen, dafür die zwei Werte (jeweils nur die Mitte) vorinitialisieren. Zudem kann die Mittellinie auch fertig vorinitialisiert werden und somit aus der Schleife entfernt werden. Sprich: Die Schleife von 1 bis middleofline-1 laufen lassen.
 \lstinputlisting[language=Java]{content/src/StarSquare.java}
 
 \begin{landscape}
@@ -75,6 +85,7 @@ Anweisung & Anzahl & Einzelgewicht & Gewicht \\
 \end{tabular}\\
 Laufzeit $t = 1 + 10.4 + 1 + ((n-1)/2 + 2)*1.5 + ((n-1)/2 + 1)*4.2*1 + ((n-1)/2 + 1)*2.4 + 2 * ((n-1)/2 + 1)*5.4 + 1 * ((n-1)/2 + 1)*6.2 + + 2 * ((n-1)/2 + 1)*7.2$\\
 $t = 38*(\frac{n-1}{2} + 1) + 1.5*(\frac{n-1}{2} + 2) + 12.4 $\\
+\boldmath{$t = 19.75x + 33.65 $}\\
 \end{landscape}
 \clearpage
 
