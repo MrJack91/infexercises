@@ -1,0 +1,74 @@
+%  ersetzen: (stehen lassen für jeweiligen replace nach copy&paste vom pdf)
+%	* ä mit ä
+%	* ö mit ö
+%	* ü mit ü
+%	* anführungszeichen...
+
+\chapter*{Algorithmen und Datenstrukturen - Aufgabenserie 3}
+\begin{flushright}
+by Daniel Brun und Michael Hadorn, Inf I3b
+\end{flushright}
+\section*{Aufgabe 1 – nochmal Komplexität}
+
+Vergleichen Sie das Wachstum untenstehender Programme und geben Sie diese in der Landau-Notation an.\\
+
+
+while x < n do\\
+	x := x + 1\\
+	n := n - 1\\	
+end\\
+
+
+while x < n do\\
+	n := n / 2\\
+	x := 2 * x\\
+end\\
+
+\newpage
+
+\section*{Aufgabe 2 – Listen}
+Implementieren Sie den Datentyp einer einfach verketteten Liste (mit integer Datenfel- dern). Die Listen sollen folgende Funktionalitäten aufweisen:\\
+
+\begin{itemize}
+	\item
+		Das erste Element der Liste auslesen.
+	\item
+		Das letzte Element der Liste auslesen.
+	\item
+		Ein Objekt am Anfang der Liste hinzufügen.
+	\item
+		Ein Objekt am Schluss der Liste hinzufügen.
+	\item
+		Anzahl Elemente der Liste zurückgeben.
+	\item
+		Mit einer anderen Liste vergleichen.
+	\item
+		Abfragen ob ein bestimmtes Objekt in der Liste vorkommt.
+\end{itemize}
+
+% \lstinputlisting[language=Java]{content/src/StarSquare.java}
+
+\newpage
+
+\section*{Aufgabe 3 – Menge}
+Benutzen Sie Ihre Implementation von Listen aus der ersten Aufgabe und implemen- tieren Sie den Datentyp einer Menge mit folgenden Funktionalitäten:
+
+\begin{itemize}
+	\item
+		Abfrage ob ein bestimmtes Element zur Menge gehört.
+	\item
+		Die Menge als String von der Form {x1, x2, . . . } zurückgeben.
+	\item
+		Ein Element hinzufügen.
+	\item
+		Mit einer anderen Menge vereinigen.
+	\item
+		mit einer anderen Menge schneiden.
+	\item
+		Anzahl Elemente der Menge abfragen. Beachten Sie, dass mehrfach vorkommen- de Elemente nur einmal gezählt werden sollen.
+	\item
+		Mit einer anderen Menge vergleichen. Beachten Sie, dass beim Vergleich von Mengen die Reihenfolge und Wiederholungen keine Rolle spielen.
+		
+\begin{itemize}
+
+% \lstinputlisting[language=Java]{content/src/StarSquare.java}
