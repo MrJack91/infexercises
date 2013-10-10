@@ -58,6 +58,7 @@ local.properties
 .classpath
 .project
 .settings/
+.metadata/
 
 # Intellij
 .idea/
