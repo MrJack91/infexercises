@@ -132,7 +132,7 @@ Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+
 			\#106 = s & Init temp/result var \\
 			& \\
 			LWDD R00, \#104 & akku: load var c (to multiplicate with 8)\\
-			SLL & value = 2x c \\ %TODO: SLL oder LS?
+			SLL & value = 2x c \\ %TODO: SLL oder LS (SLA)?
 			SLL & value = 4x c\\
 			SLL & value = 8x c\\
 			SWDD R00, \#106 & write akku to temp var\\
