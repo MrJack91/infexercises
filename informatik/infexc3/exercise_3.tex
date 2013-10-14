@@ -42,98 +42,121 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Skizzieren Sie graphisch (schematisch), wie eine For- und eine While-Schleife, die 10-mal \(n \ge 0\) durchlaufen wird, umgesetzt werden könnte. (4 Punkte)}
-	%while
-	% 1) Bedingung berechnen & in Register schreiben
-	% 2) Test Register auf null
-	% 2a) positiv: Kein Sprung, Ausführung, Rücksprung zu Schritt 1
-	% 2b) negativ: Sprung zu 1. Befehl nach Schleife
+		
+		%TODO mha: wie genau soll das aussehen? Notation? - Ich begreife nicht wie wir den Counter als while abbilden sollen. Habe mir Skizzen gezeichnet, aber verstehe es nicht...
+		%while -> p.33
+			% 1) Bedingung berechnen & in Register schreiben
+			% 2) Test Register auf null
+				% 2a) positiv: Kein Sprung, Ausführung, Rücksprung zu Schritt 1
+				% 2b) negativ: Sprung zu 1. Befehl nach Schleife
 	
-	%for (Lösung für zweite Frage)
-	% 1) Schleifenzähler initialisieren (> 0) und in Register speichern
-	% 2) Befehle ausführen
-	% 3) Zähler um 1 reduzieren
-	% 4) Test Schleifenzähler auf null
-	% 4a) negativ: Sprung zu 1. Befehl 
-	% 4b) positiv: Kein Sprung
+	
+	%TODO mha: Hier ein Entwurf: https://docs.google.com/drawings/d/1G_d7kC5rVWmTCPEIGl2dgUg-T0XShsYCb4RZekhaa88/edit
+		%for (Lösung für zweite Frage)
+				% 1) Schleifenzähler initialisieren (> 0) und in Register speichern
+				% 2) Befehle ausführen
+				% 3) Zähler um 1 reduzieren
+				% 4) Test Schleifenzähler auf null
+					% 4a) negativ: Sprung zu 1. Befehl 
+					% 4b) positiv: Kein Sprung
 	
 	\item
 		\textit{Mit welcher Einschränkung ist es möglich, die FOR-Schleife mit nur einem Sprungbefehl zu realisieren? Skizzieren Sie auch diesen Fall. (2 Punkte)}
 		% Wenn zu Beginn der Schleife keine Prüfung erfolgt	
-			
+		%TODO mha: also wie im Beispiel des For's oben (in Aufgabe 1b)?
+		
+		
 \end{enumerate}
 
 
-% Aufgabe 2	 	a: - OK	b: - OK
+% Aufgabe 2	 	a: OK	b: OK
 \section*{Aufgabe 2}
 Das Steuerwerk eines Rechners dekodiert die Befehle aus dem OP- Code bzw. dem Maschinencode; für Benutzer sind Befehle mit mnemonische Symbolen leichter zu lesen (und schreiben). Gehen Sie vom Befehlssatz für den "`Mini-Power-PC"' aus.
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Geben Sie für die folgenden Befehle mit mnemonische Symbolen den Maschinencode an: (4 Punkte)}
-		- LWDD 1, #240 	: 0100010011110000
-		- ADDD #62		: 1000000000111110
-		- Not			: 0000000010000000
-		- BCD #15		: 0011100000001111
+		
+			\begin{tabular}[h]{l l}
+				LWDD 1, \#240 & 0100 0100 1111 0000\\
+				ADDD \#62 & 1000 0000 0011 1110\\
+				Not & 0000 0000 1000 0000\\
+				BCD \#15 & 0011 1000 0000 1111\\
+			\end{tabular}
 	
 	\item
 		\textit{"'Dekodieren"' Sie die folgenden Befehle in Maschinencode so weit es möglich ist (mnemonische Symbol und Beschreibung): (4 Punkte)}
 
-		- 00011111 11101111 : BC R3
-		- 01011010 00000000 : LWDD R2,#512 
-		- 00001011 00011010 : OR R2
-		- 01100001 11110110 : SWDD R0, #502
+			\begin{tabular}[h]{l l}
+				0001 1111 1110 1111 & BC R3\\
+				0101 1010 0000 0000 & LWDD R2, \#512 \\
+				0000 1011 0001 1010 & OR R2 \\
+				0110 0001 1111 0110 & SWDD Akku, \#502\\ %TODO mha: R0 mit Akku ersetzt, stimmt so oder?
+			\end{tabular}
 
 \end{enumerate}
 
-% Aufgabe 3		 	a: -	b: - OK
+% Aufgabe 3		 	a: (OK?)	b: OK
 \section*{Aufgabe 3}
 Der Befehlssatz für den "`Mini-Power-PC"' ist sehr klein / eingeschränkt. Sie haben gelernt, dass Zugriffe auf den Arbeitsspeicher sehr langsam sind (zum Teil deutlich mehr als 100 Zyklen).
 
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Welchen Befehlstyp würden Sie auf jeden Fall ergänzen, um die Code-Ausführung erheblich zu beschleunigen? Lösung: (3 Punkte)}
+		
+		Man sollte direkt vom Akku den Wert in ein Register schreiben können und umgekehrt. Sonst muss man diesen Wert immer via Arbeitsspeicher hin und her kopieren.
 		%Wert aus dem Akku in ein Register schreiben -> sonst muss man immer über den Arbeitsspeicher gehen
 		
 	\item
 		\textit{Kann mit dem Befehlssatz ein Arbeitsspeicher von 16 KiB genutzt werden? Antwort bitte begründen. Lösung: (3 Punkte)}
-		Nein, für die Adressierung stehen jeweils nur 10 Bit zur Verfügung, damit können ohne zusätzliche Komponenten oder eine anderen Aufbau (Unterteilung Arbeitsspeicher) nicht mehr als 1 KiB adressiert werden.
+		
+		Nein, für die Adressierung stehen jeweils nur 10 Bit zur Verfügung, damit können ohne zusätzliche Komponenten oder einem anderen Aufbau (andere Unterteilung des Arbeitsspeicher) nicht mehr als 1 KiB adressiert werden.
 			
 \end{enumerate}
 
-% Aufgabe 4		 	a: -	b: -	c: -
+\newpage
+
+% Aufgabe 4		 	a: OK	b: -	c: -
 \section*{Aufgabe 4}
 Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+8*c soll über ein Programm für den „Mini-Power-PC berechnet werden.
 
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Schreiben Sie den Programm-Code mit mnemonische Symbolen (in Assembler) (6 Punkte)}
-		#100 = a
-		#102 = b
-		#104 = c
-		#106 = s
 		
-		LWDD R00, #104
-		SLL %TODO: SLL oder LS?
-		SLL
-		SLL
-		SLL
-		SWDD R00, #106
-		
-		LWDD R00, #102
-		SLL
-		SLL
-		
-		LWDD R01, #102	
-		ADD R01
-		
-		LWDD R01, #106	
-		ADD R01
-				
-		SWDD R00, #106
-	
-		END
-		
+		\begin{tabular}[h]{l | l}
+			\textbf{Befehl} & \textbf{Comment}\\
+			\hline
+			\#100 = a & Init operation var a\\
+			\#102 = b & Init operation var b\\
+			\#104 = c & Init operation var c\\
+			\#106 = s & Init temp/result var \\
+			& \\
+			LWDD R00, \#104 & akku: load var c (to multiplicate with 8)\\
+			SLL & value = 2x c \\ %TODO: SLL oder LS?
+			SLL & value = 4x c\\
+			SLL & value = 8x c\\
+			SWDD R00, \#106 & write akku to temp var\\
+			& \\
+			LWDD R00, \#102 & akku: read var b \\
+			SLL & value = 2x b\\
+			SLL & value = 4x b\\
+			& \\
+			LWDD R01, \#100 & r01: load var a\\ %TODO mha: #102 to 100 gewechselt
+			ADD R01 & add akku (4xb) and r01 (a)\\
+			& \\
+			LWDD R01, \#106	 & r01: load temp (8xc) \\
+			ADD R01 & add temp to akku \\
+			& \\
+			SWDD R00, \#106 & write akku to var c -> result\\
+			& \\
+			END & \\
+			
+		\end{tabular}
+
 	\item
 			\textit{Übersetzen Sie den Code in Maschinencode (4 Punkte)}
+			
+			%TODO mha: Erst wenn der erste Teil stimmt.
 			
 	\item
 			\textit{Berechnen Sie mit Hilfe Ihres Programms: (4 Punkte)}
