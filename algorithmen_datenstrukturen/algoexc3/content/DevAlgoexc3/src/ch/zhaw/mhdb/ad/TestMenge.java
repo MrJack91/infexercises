@@ -18,7 +18,6 @@ public class TestMenge {
 	 */
 	public static void main(String[] args) {
 		new TestMenge().execute();
-
 	}
 
 }
