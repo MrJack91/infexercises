@@ -65,11 +65,12 @@ public class Menge {
 	/**
 	 * Gets the first entry of the 'Menge'.
 	 * 
-	 * @return the first entry of the list or null if the ist is empty.
+	 * @return the first entry of the list or null if the list is empty.
 	 */
 	private ListEntry getFirstEntry(){
-		return list.getFirstElement();
+		return list.getFirstEntry();
 	}
+	
 	/**
 	 * Adds a new element to the 'Menge'.
 	 * 
@@ -124,7 +125,10 @@ public class Menge {
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		int hashCode = 67;
+		
+		hashCode = 67 * hashCode + list.hashCode();
+		
+		return hashCode();
 	}
 }

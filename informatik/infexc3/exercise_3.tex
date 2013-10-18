@@ -90,12 +90,12 @@ Das Steuerwerk eines Rechners dekodiert die Befehle aus dem OP- Code bzw. dem Ma
 				0001 1111 1110 1111 & BC R3\\
 				0101 1010 0000 0000 & LWDD R2, \#512 \\
 				0000 1011 0001 1010 & OR R2 \\
-				0110 0001 1111 0110 & SWDD Akku, \#502\\ %TODO mha: R0 mit Akku ersetzt, stimmt so oder?
+				0110 0001 1111 0110 & SWDD Akku, \#502\\ %TODO mha: R0 mit Akku ersetzt, stimmt so oder? DBRU: R0 == AKKU, kommt von daher nicht drauf an ;-)
 			\end{tabular}
 
 \end{enumerate}
 
-% Aufgabe 3		 	a: (OK?)	b: OK
+% Aufgabe 3		 	a: OK	b: OK
 \section*{Aufgabe 3}
 Der Befehlssatz für den "`Mini-Power-PC"' ist sehr klein / eingeschränkt. Sie haben gelernt, dass Zugriffe auf den Arbeitsspeicher sehr langsam sind (zum Teil deutlich mehr als 100 Zyklen).
 
@@ -103,8 +103,7 @@ Der Befehlssatz für den "`Mini-Power-PC"' ist sehr klein / eingeschränkt. Sie 
 	\item
 		\textit{Welchen Befehlstyp würden Sie auf jeden Fall ergänzen, um die Code-Ausführung erheblich zu beschleunigen? Lösung: (3 Punkte)}
 		
-		Man sollte direkt vom Akku den Wert in ein Register schreiben können und umgekehrt. Sonst muss man diesen Wert immer via Arbeitsspeicher hin und her kopieren.
-		%Wert aus dem Akku in ein Register schreiben -> sonst muss man immer über den Arbeitsspeicher gehen
+		Man sollte direkt vom Akku den Wert in ein anderes Register schreiben können und umgekehrt. Sonst muss man diesen Wert immer via Arbeitsspeicher hin und her kopieren.
 		
 	\item
 		\textit{Kann mit dem Befehlssatz ein Arbeitsspeicher von 16 KiB genutzt werden? Antwort bitte begründen. Lösung: (3 Punkte)}

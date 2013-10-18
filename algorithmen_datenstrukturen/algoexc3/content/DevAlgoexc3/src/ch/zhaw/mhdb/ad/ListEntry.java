@@ -15,13 +15,24 @@ public class ListEntry {
 	/**
 	 * Creates a new entry with the given value.
 	 * 
-	 * @param value the value.
+	 * @param aValue the value.
 	 */
-	public ListEntry(Integer value) {
-		super();
-		this.value = value;
+	public ListEntry(Integer aValue) {
+		value = aValue;
 		nextEntry = null;
 	}
+	
+	/**
+	 * Creates a new entry with the given value and the given successor.
+	 * 
+	 * @param aValue the value.
+	 * @param aNextEntry the next entry.
+	 */
+	public ListEntry(Integer aValue, ListEntry aNextEntry) {
+		value = aValue;
+		nextEntry = aNextEntry;
+	}
+
 
 	/**
 	 * @return the nextEntry
