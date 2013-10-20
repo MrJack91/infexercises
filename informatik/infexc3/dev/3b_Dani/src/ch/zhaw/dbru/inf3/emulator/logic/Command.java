@@ -5,6 +5,7 @@ package ch.zhaw.dbru.inf3.emulator.logic;
 
 import java.util.BitSet;
 
+import ch.zhaw.dbru.inf3.command.CommandEnum;
 import ch.zhaw.dbru.inf3.emulator.MPCConstants;
 
 /**

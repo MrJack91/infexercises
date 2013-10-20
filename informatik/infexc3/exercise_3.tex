@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{array}
 \usepackage{ragged2e}
+\usepackage{graphicx} 
 
 \usetikzlibrary{arrows,automata}
 % \usepackage[latin1]{inputenc}
@@ -42,31 +43,36 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Skizzieren Sie graphisch (schematisch), wie eine For- und eine While-Schleife, die 10-mal \(n \ge 0\) durchlaufen wird, umgesetzt werden könnte. (4 Punkte)}
-		
+		\begin{figure}[htbp] 
+		  \centering
+		     \includegraphics[width=0.7\textwidth]{Inf3_S3_1a_1.png}
+		  \caption{While-Schleife}
+		  \label{fig:Bild1}
+		\end{figure}
+		%https://docs.google.com/drawings/d/1\_YFmJ5a7F1tx8m\_IIUfy4ascIyVCVj32IRuIXcOcRvA/edit
 		%TODO mha: wie genau soll das aussehen? Notation? - Ich begreife nicht wie wir den Counter als while abbilden sollen. Habe mir Skizzen gezeichnet, aber verstehe es nicht...
 		%DBRU: Denke es ist so gemeint: https://docs.google.com/drawings/d/1_YFmJ5a7F1tx8m_IIUfy4ascIyVCVj32IRuIXcOcRvA/edit
-		%while -> p.33
-			% 1) Bedingung berechnen & in Register schreiben
-			% 2) Test Register auf null
-				% 2a) positiv: Kein Sprung, Ausführung, Rücksprung zu Schritt 1
-				% 2b) negativ: Sprung zu 1. Befehl nach Schleife
 	
-	
-	%TODO mha: Hier ein Entwurf: https://docs.google.com/drawings/d/1G_d7kC5rVWmTCPEIGl2dgUg-T0XShsYCb4RZekhaa88/edit
-		%for (Lösung für zweite Frage)
-				% 1) Schleifenzähler initialisieren (> 0) und in Register speichern
-				% 2) Befehle ausführen
-				% 3) Zähler um 1 reduzieren
-				% 4) Test Schleifenzähler auf null
-					% 4a) negativ: Sprung zu 1. Befehl 
-					% 4b) positiv: Kein Sprung
-	
+		%TODO mha: Hier ein Entwurf: https://docs.google.com/drawings/d/1G_d7kC5rVWmTCPEIGl2dgUg-T0XShsYCb4RZekhaa88/edit
+
+		\begin{figure}[htbp] 
+		  \centering
+	     	\includegraphics[width=0.7\textwidth]{Inf3_S3_1a_2.png}
+		  \caption{For-Schleife}
+		  \label{fig:Bild2}
+		\end{figure}
+		%https://docs.google.com/drawings/d/11hUDpEWd6Zmy8Of3nCZrn0jRb9Csq_RhUc_yzb9JpHY/
 	\item
 		\textit{Mit welcher Einschränkung ist es möglich, die FOR-Schleife mit nur einem Sprungbefehl zu realisieren? Skizzieren Sie auch diesen Fall. (2 Punkte)}
 		Wenn sicher ist, dass die Schleife immer mind. einmal durchlaufen wird ("'do-while"') kann die Schleife auch wie folgt realisiert werden:
 		%TODO mha: also wie im Beispiel des For's oben (in Aufgabe 1b)?
 		%Vorschlag: https://docs.google.com/drawings/d/17wt3-Yg_U2SNcq4RHwBMPir3X0XLH7qGZR3rXht-N_A/edit
-		
+		\begin{figure}[htbp] 
+	  		\centering
+		     	\includegraphics[width=0.7\textwidth]{Inf3_S3_1b.png}
+	  		\caption{For-Schleife}
+	  		\label{fig:Bild3}
+		\end{figure}
 		
 \end{enumerate}
 
@@ -133,14 +139,14 @@ Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+
 			\#106 = s & Init temp/result var \\
 			& \\
 			LWDD R00, \#104 & akku: load var c (to multiplicate with 8)\\
-			SLL & value = 2x c \\ %TODO: SLL oder LS (SLA)?
-			SLL & value = 4x c\\
-			SLL & value = 8x c\\
+			SLA & value = 2x c \\ %TODO: DBRU SLL oder SLA?, SLA (http://de.wikipedia.org/wiki/Arithmetische_Verschiebung#Arithmetische_Verschiebung)
+			SLA & value = 4x c\\
+			SLA & value = 8x c\\
 			SWDD R00, \#106 & write akku to temp var\\
 			& \\
 			LWDD R00, \#102 & akku: read var b \\
-			SLL & value = 2x b\\
-			SLL & value = 4x b\\
+			SLA & value = 2x b\\
+			SLA & value = 4x b\\
 			& \\
 			LWDD R01, \#100 & r01: load var a\\ %TODO mha: #102 to 100 gewechselt
 			ADD R01 & add akku (4xb) and r01 (a)\\
@@ -157,6 +163,25 @@ Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+
 	\item
 			\textit{Übersetzen Sie den Code in Maschinencode (4 Punkte)}
 			
+			01000000 01101000 \\
+			00001000 00000000 \\
+			00001000 00000000 \\
+			00001000 00000000 \\
+			01100000 01101010 \\
+			\\
+			01000000 01100110 \\
+			00001000 00000000 \\
+			00001000 00000000 \\
+			\\
+			01001000 01100100 \\
+			00000111 10000000 \\
+			\\
+			01001000 01101010 \\
+			00000111 10000000 \\
+			\\
+			01100000 01101010 \\
+			\\
+			00000000 00000000
 			%TODO mha: Erst wenn der erste Teil stimmt.
 			
 	\item
@@ -166,6 +191,8 @@ Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+
 			- Summe für a=25, b=-14 und c=-123
 			- Summe für a=-125, b=10’000 und c=16
 			- Summe für a=1000, b=10’000 und c=-2’000
+			
+			%TODO: DBRU: Ist hier einfach das Resultat verlangt oder auch die Zwischenschritte in Binärcode?, Was meinst du?
 \end{enumerate}
 
 \end{document}

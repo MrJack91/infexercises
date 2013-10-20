@@ -34,7 +34,7 @@ public class BinaryUtils {
 
 		return result.toString();
 	}
-
+	
 	/**
 	 * Converts a {@link BitSet} to an int.
 	 * 

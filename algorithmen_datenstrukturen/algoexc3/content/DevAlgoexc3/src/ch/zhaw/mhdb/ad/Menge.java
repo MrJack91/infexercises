@@ -34,20 +34,26 @@ public class Menge {
 	 *            The 'Menge' to cut.
 	 */
 	public void cut(Menge aMenge) {
+
+		List cutList = new List();
 		
-		ListEntry myEntry = null;
-		while((myEntry = aMenge.getFirstEntry()) != null){
-			if(!aMenge.containsElement(myEntry.getValue())){
-				//TODO: Remove element from list.
-			}
+		ListEntry entry = getFirstEntry();
+		if (entry != null) {
+			do {
+				if (aMenge.containsElement(entry.getValue())) {
+					cutList.addOnLastPosition(entry.getValue());
+				}
+			} while ((entry = entry.getNextEntry()) != null);
 		}
+		list = cutList;
 	}
 
 	/**
 	 * Aggregates / Joins / Units the given 'Menge' with this instance of
 	 * 'Menge'.
 	 * 
-	 * @param aMenge The 'Menge' to aggregate.
+	 * @param aMenge
+	 *            The 'Menge' to aggregate.
 	 * 
 	 */
 	public void aggregate(Menge aMenge) {
@@ -55,10 +61,12 @@ public class Menge {
 			throw new IllegalArgumentException(
 					"The parameter aMenge must not be null");
 		}
-		
-		ListEntry entry = null;
-		while((entry = aMenge.getFirstEntry()) != null){
-			addElement(entry.getValue());
+
+		ListEntry entry = aMenge.getFirstEntry();
+		if (entry != null) {
+			do {
+				addElement(entry.getValue());
+			} while ((entry = entry.getNextEntry()) != null);
 		}
 	}
 
@@ -67,14 +75,15 @@ public class Menge {
 	 * 
 	 * @return the first entry of the list or null if the list is empty.
 	 */
-	private ListEntry getFirstEntry(){
+	private ListEntry getFirstEntry() {
 		return list.getFirstEntry();
 	}
-	
+
 	/**
 	 * Adds a new element to the 'Menge'.
 	 * 
-	 * @param anInt the element to add.
+	 * @param anInt
+	 *            the element to add.
 	 * @return True if the element was added successfully.
 	 */
 	public void addElement(Integer anInt) {
@@ -84,7 +93,8 @@ public class Menge {
 	/**
 	 * Checks if an element is part of the 'Menge'.
 	 * 
-	 * @param anInt The element.
+	 * @param anInt
+	 *            The element.
 	 * @return True if the element is part of the 'Menge'
 	 */
 	public boolean containsElement(Integer anInt) {
@@ -98,17 +108,20 @@ public class Menge {
 	 */
 	public String toString() {
 		StringBuffer buf = new StringBuffer("{");
-		
-		ListEntry entry = null;
-		while((entry = getFirstEntry()) != null){
-			buf.append(entry.getValue());
-			
-			if(entry.getNextEntry() != null){
-				buf.append(", ");
-			}
+
+		ListEntry entry = getFirstEntry();
+		if (entry != null) {
+			do {
+				buf.append(entry.getValue());
+
+				if (entry.getNextEntry() != null) {
+					buf.append(", ");
+				}
+			} while ((entry = entry.getNextEntry()) != null);
 		}
+
 		buf.append("}");
-		
+
 		return buf.toString();
 	}
 
@@ -118,17 +131,45 @@ public class Menge {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object arg0) {
-		// Reihenfolge & Wiederholungen egal.
-		return super.equals(arg0);
+	public boolean equals(Object anObject) {
+		if (anObject == this) {
+			return true;
+		}
+
+		if (!(anObject instanceof Menge)) {
+			return false;
+		}
+
+		Menge aMenge = (Menge) anObject;
+
+		ListEntry entry = getFirstEntry();
+		if (entry != null) {
+			do {
+				if(!aMenge.containsElement(entry.getValue())){
+					return false;
+				}
+			} while ((entry = entry.getNextEntry()) != null);
+		}
+		
+		entry = aMenge.getFirstEntry();
+		if (entry != null) {
+			do {
+				if(!containsElement(entry.getValue())){
+					return false;
+				}
+			} while ((entry = entry.getNextEntry()) != null);
+		}
+
+		// TODO:  Review
+		return true;
 	}
 
 	@Override
 	public int hashCode() {
 		int hashCode = 67;
-		
+
 		hashCode = 67 * hashCode + list.hashCode();
-		
+
 		return hashCode();
 	}
 }

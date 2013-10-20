@@ -1,15 +1,19 @@
 /**
  * 
  */
-package ch.zhaw.dbru.inf3.emulator.logic;
+package ch.zhaw.dbru.inf3.command;
 
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import ch.zhaw.dbru.inf3.emulator.logic.Command;
+
 /**
  * @author Daniel Brun
  * 
+ * Assembler command set.
+ * Used for the assembler compiler and the 'Mini-Power-PC'.
  */
 public class CommandSet {
 
@@ -49,11 +53,25 @@ public class CommandSet {
 		commands.put(cmINC.getCommand(), cmINC);
 
 		Command cmDEC = new Command(CommandEnum.DEC);
-		cmDEC.allocateUsage(0, 9, Command.OPSCODE);
+		cmDEC.allocateUsage(0, 3, Command.OPSCODE);
 		cmDEC.setBits(false, false, false, false, false, true);
 		commands.put(cmDEC.getCommand(), cmDEC);
 		
+		Command cmLWDD = new Command(CommandEnum.LWDD);
+		cmLWDD.allocateUsage(0, 3, Command.OPSCODE);
+		cmLWDD.allocateUsage(4, 6, Command.OPERAND_ONE);
+		cmLWDD.allocateUsage(6, 16, Command.OPERAND_TWO);
+		cmLWDD.setBits(false, true);
+		commands.put(cmLWDD.getCommand(), cmLWDD);
 		
+		Command cmSWDD = new Command(CommandEnum.SWDD);
+		cmSWDD.allocateUsage(0, 9, Command.OPSCODE);
+		cmSWDD.allocateUsage(4, 6, Command.OPERAND_ONE);
+		cmSWDD.allocateUsage(6, 16, Command.OPERAND_TWO);
+		cmSWDD.setBits(false,true, true);
+		commands.put(cmSWDD.getCommand(), cmSWDD);
+		
+		//TODO: Complete command set
 		
 		
 		Command cmEND = new Command(CommandEnum.END);
@@ -73,7 +91,7 @@ public class CommandSet {
 	}
 
 	/**
-	 * Gets the comand to the given binary command.
+	 * Gets the command which corresponds to the given binary command.
 	 * 
 	 * @param aBinaryCommand
 	 *            the binary command.

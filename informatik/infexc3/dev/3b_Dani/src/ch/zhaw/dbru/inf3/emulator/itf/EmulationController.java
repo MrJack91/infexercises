@@ -5,6 +5,8 @@ package ch.zhaw.dbru.inf3.emulator.itf;
 
 import java.util.BitSet;
 
+import ch.zhaw.dbru.inf3.emulator.logic.Memory;
+
 /**
  * @author Daniel Brun
  *
@@ -20,4 +22,14 @@ public interface EmulationController {
 	public void startProgramm(BitSet anAddress);
 	
 	public void step();
+	
+	public void registerHandler(EmulationHandler aHandler);
+
+	/**
+	 * @param aBinData
+	 * @return
+	 */
+	public BitSet loadProgramToMemory(BitSet[] someBinData);
+	
+	public Memory getMemory();
 }

@@ -32,7 +32,7 @@ public class Memory {
 	public BitSet getData(BitSet anAddr) {
 		int convAddr = BinaryUtils.convertBitSetToInt(anAddr);
 
-		if (convAddr > store.length) {
+		if (convAddr >= store.length) {
 			// TODO: Throw exc
 		}
 
@@ -60,5 +60,29 @@ public class Memory {
 			store[convAddr + (i * MPCConstants.BF_W_LENGTH)] = someData[i];
 		}
 		
+	}
+
+	/**
+	 * @return
+	 */
+	public int getTotalBytes() {
+		// TODO Auto-generated method stub
+		return 1024;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getWidthInByte() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getAddrWidth() {
+		// TODO Auto-generated method stub
+		return 10;
 	}
 }

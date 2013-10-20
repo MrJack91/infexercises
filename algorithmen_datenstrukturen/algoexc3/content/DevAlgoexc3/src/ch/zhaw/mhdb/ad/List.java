@@ -37,14 +37,14 @@ public class List {
 	 * 
 	 * @return the element or null if the list is empty.
 	 */
-	protected ListEntry getFirstEntry(){
+	protected ListEntry getFirstEntry() {
 		if (firstEntry == null) {
 			return null;
 		}
 
 		return firstEntry;
 	}
-	
+
 	/**
 	 * Returns the last element of the list.
 	 * 
@@ -84,13 +84,17 @@ public class List {
 	 *            the integer to add.
 	 */
 	public void addOnLastPosition(Integer anInteger) {
-		ListEntry entry = firstEntry;
-		while ((entry = entry.getNextEntry()) != null) {
+		if (firstEntry == null) {
+			firstEntry = new ListEntry(anInteger);
+		} else {
+			ListEntry entry = firstEntry;
+			do {
 
-			if (entry.getNextEntry() == null) {
-				entry.setNextEntry(new ListEntry(anInteger));
-				break;
-			}
+				if (entry.getNextEntry() == null) {
+					entry.setNextEntry(new ListEntry(anInteger));
+					break;
+				}
+			} while ((entry = entry.getNextEntry()) != null);
 		}
 	}
 
@@ -103,12 +107,14 @@ public class List {
 	 */
 	public boolean containsElement(Integer anInteger) {
 
-		ListEntry entry = firstEntry;
-		while ((entry = entry.getNextEntry()) != null) {
+		if (firstEntry != null) {
+			ListEntry entry = firstEntry;
+			do {
 
-			if (entry.getValue().equals(anInteger)) {
-				return true;
-			}
+				if (entry.getValue().equals(anInteger)) {
+					return true;
+				}
+			} while ((entry = entry.getNextEntry()) != null);
 		}
 		return false;
 	}
@@ -136,7 +142,7 @@ public class List {
 	@Override
 	public int hashCode() {
 		int hash = 59;
-		
+
 		ListEntry entry = firstEntry;
 		while ((entry = entry.getNextEntry()) != null) {
 			hash = 61 * hash + entry.hashCode();
@@ -147,33 +153,33 @@ public class List {
 
 	@Override
 	public boolean equals(Object anObject) {
-		
-		if(anObject == this){
+
+		if (anObject == this) {
 			return true;
 		}
-		
-		if(!(anObject instanceof List)){
+
+		if (!(anObject instanceof List)) {
 			return false;
 		}
-		
+
 		List aList = (List) anObject;
-		
-		if(firstEntry != null && aList != null){
-			if(!firstEntry.equals(aList.getFirstEntry())){
+
+		if (firstEntry != null && aList != null) {
+			if (!firstEntry.equals(aList.getFirstEntry())) {
 				return false;
 			}
 			ListEntry entry = firstEntry;
 			ListEntry aEntry = aList.getFirstEntry();
 			while ((entry = entry.getNextEntry()) != null) {
 				aEntry = aEntry.getNextEntry();
-				
-				if(!entry.equals(aEntry)){
+
+				if (!entry.equals(aEntry)) {
 					return false;
 				}
-				
+
 			}
 		}
-		
+
 		return true;
 	}
 }
