@@ -46,7 +46,7 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 		\textit{Skizzieren Sie graphisch (schematisch), wie eine For- und eine While-Schleife, die 10-mal \(n \ge 0\) durchlaufen wird, umgesetzt werden könnte. (4 Punkte)}
 		\begin{figure}[H]
 		  \centering
-		     \includegraphics[width=0.7\textwidth]{Inf3_S3_1a_1.png}
+		     \includegraphics[width=0.7\textwidth]{images/Inf3_S3_1a_1.png}
 		  \caption{While-Schleife}
 		  \label{fig:Bild1}
 		\end{figure}
@@ -58,7 +58,7 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 
 		\begin{figure}[H]
 		  \centering
-	     	\includegraphics[width=0.7\textwidth]{Inf3_S3_1a_2.png}
+	     	\includegraphics[width=0.7\textwidth]{images/Inf3_S3_1a_2.png}
 		  \caption{For-Schleife}
 		  \label{fig:Bild2}
 		\end{figure}
@@ -70,7 +70,7 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 		%Vorschlag: https://docs.google.com/drawings/d/17wt3-Yg_U2SNcq4RHwBMPir3X0XLH7qGZR3rXht-N_A/edit
 		\begin{figure}[H] 
 	  		\centering
-		     	\includegraphics[width=0.7\textwidth]{Inf3_S3_1b.png}
+		     	\includegraphics[width=0.7\textwidth]{images/Inf3_S3_1b.png}
 	  		\caption{For-Schleife}
 	  		\label{fig:Bild3}
 		\end{figure}
@@ -204,22 +204,59 @@ Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+
 			
 	\item
 			\textit{Berechnen Sie mit Hilfe Ihres Programms: (4 Punkte)}
+			Im Bild ist jeweils der Zustand der Register, Akku, Speicher nach der Ausführung des Programmes zu sehen.
 			
+			
+			% ************
 			\textit{Summe für a=14, b=7 und c=66}\\
-%14
-%0
-%7
-%0
-%66
+			14 + 4*7 + 8*66 = \textbf{570} (korrekt)
 			
-			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{images/4c_a.png}
+				\caption{Mini Power PC Output: 14 + 4*7 + 8*66}
+				\label{fig:Bild1}
+			\end{figure}
+
+
+			% ************
 			\textit{Summe für a=25, b=-14 und c=-123}\\
+			25 + 4*(-14) + 8*(-123) = \textbf{-1015} (korrekt)
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{images/4c_b.png}
+				\caption{Mini Power PC Output: 25 + 4*(-14) + 8*(-123)}
+				\label{fig:Bild1}
+			\end{figure}
 			
 			
-			\textit{Summe für a=-125, b=10’000 und c=16}\\
+			% ************
+			\textit{Summe für a=-125, b=10’000 und c=16}
+			
+			(-125) + 4*10000 + 8*16 = \textbf{7235}\\
+			(stimmt nicht, da overflow beim 4*10000 rechnen)
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{images/4c_c.png}
+				\caption{Mini Power PC Output: (-125) + 4*10000 + 8*16}
+				\label{fig:Bild1}
+			\end{figure}
 			
 			
-			\textit{Summe für a=1000, b=10’000 und c=-2’000}\\
+			% ************
+			\textit{Summe für a=1000, b=10’000 und c=-2’000}
+			
+			1000 + 4*10000 + 8*(-2000) = \textbf{-7768}\\
+			(stimmt auch hier nicht, da overflow beim 4*10000 rechnen)
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{images/4c_d.png}
+				\caption{Mini Power PC Output: 1000 + 4*10000 + 8*(-2000)}
+				\label{fig:Bild1}
+			\end{figure}
 			
 			
 			%TODO: DBRU: Ist hier einfach das Resultat verlangt oder auch die Zwischenschritte in Binärcode?, Was meinst du?
