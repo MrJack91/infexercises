@@ -11,6 +11,7 @@
 \usepackage{array}
 \usepackage{ragged2e}
 \usepackage{graphicx} 
+\usepackage{float}
 
 \usetikzlibrary{arrows,automata}
 % \usepackage[latin1]{inputenc}
@@ -43,7 +44,7 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Skizzieren Sie graphisch (schematisch), wie eine For- und eine While-Schleife, die 10-mal \(n \ge 0\) durchlaufen wird, umgesetzt werden könnte. (4 Punkte)}
-		\begin{figure}[htbp] 
+		\begin{figure}[H]
 		  \centering
 		     \includegraphics[width=0.7\textwidth]{Inf3_S3_1a_1.png}
 		  \caption{While-Schleife}
@@ -55,7 +56,7 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 	
 		%TODO mha: Hier ein Entwurf: https://docs.google.com/drawings/d/1G_d7kC5rVWmTCPEIGl2dgUg-T0XShsYCb4RZekhaa88/edit
 
-		\begin{figure}[htbp] 
+		\begin{figure}[H]
 		  \centering
 	     	\includegraphics[width=0.7\textwidth]{Inf3_S3_1a_2.png}
 		  \caption{For-Schleife}
@@ -67,7 +68,7 @@ Kontrollstrukturen, wie z. B. Schleifen in höheren Programmiersprachen, werden 
 		Wenn sicher ist, dass die Schleife immer mind. einmal durchlaufen wird ("'do-while"') kann die Schleife auch wie folgt realisiert werden:
 		%TODO mha: also wie im Beispiel des For's oben (in Aufgabe 1b)?
 		%Vorschlag: https://docs.google.com/drawings/d/17wt3-Yg_U2SNcq4RHwBMPir3X0XLH7qGZR3rXht-N_A/edit
-		\begin{figure}[htbp] 
+		\begin{figure}[H] 
 	  		\centering
 		     	\includegraphics[width=0.7\textwidth]{Inf3_S3_1b.png}
 	  		\caption{For-Schleife}
@@ -131,13 +132,16 @@ Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+
 		\textit{Schreiben Sie den Programm-Code mit mnemonische Symbolen (in Assembler) (6 Punkte)}
 		
 		\begin{tabular}[h]{l | l}
-			\textbf{Befehl} & \textbf{Comment}\\
+			\textbf{Speicher Aufbau} & \textbf{Comment}\\
 			\hline
 			\#100 = a & Init operation var a\\
 			\#102 = b & Init operation var b\\
 			\#104 = c & Init operation var c\\
 			\#106 = s & Init temp/result var \\
 			& \\
+			\hline
+			\textbf{Befehl} & \textbf{Comment}\\
+			\hline
 			LWDD R00, \#104 & akku: load var c (to multiplicate with 8)\\
 			SLA & value = 2x c \\ %TODO: DBRU SLL oder SLA?, SLA (http://de.wikipedia.org/wiki/Arithmetische_Verschiebung#Arithmetische_Verschiebung)
 			SLA & value = 4x c\\
@@ -173,24 +177,50 @@ Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+
 			00001000 00000000 \\
 			00001000 00000000 \\
 			\\
-			01001000 01100100 \\
+			01000100 01100100 \\ % old 01001000 01100100
 			00000111 10000000 \\
 			\\
-			01001000 01101010 \\
+			01000100 01101010 \\ % 01001000 01101010
 			00000111 10000000 \\
 			\\
 			01100000 01101010 \\
 			\\
 			00000000 00000000
-			%TODO mha: Erst wenn der erste Teil stimmt.
+			
+%LWDD 0, #504
+%SLA
+%SLA
+%SLA
+%SWDD 0, #506
+%LWDD 0, #502
+%SLA
+%SLA
+%LWDD 1, #500
+%ADD 1
+%LWDD 1, #506
+%ADD 1
+%SWDD 0, #506
+%END
 			
 	\item
 			\textit{Berechnen Sie mit Hilfe Ihres Programms: (4 Punkte)}
 			
-			- Summe für a=14, b=7 und c=66
-			- Summe für a=25, b=-14 und c=-123
-			- Summe für a=-125, b=10’000 und c=16
-			- Summe für a=1000, b=10’000 und c=-2’000
+			\textit{Summe für a=14, b=7 und c=66}\\
+%14
+%0
+%7
+%0
+%66
+			
+			
+			\textit{Summe für a=25, b=-14 und c=-123}\\
+			
+			
+			\textit{Summe für a=-125, b=10’000 und c=16}\\
+			
+			
+			\textit{Summe für a=1000, b=10’000 und c=-2’000}\\
+			
 			
 			%TODO: DBRU: Ist hier einfach das Resultat verlangt oder auch die Zwischenschritte in Binärcode?, Was meinst du?
 \end{enumerate}
