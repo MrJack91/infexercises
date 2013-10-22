@@ -27,10 +27,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import ch.zhaw.dbru.inf3.compiler.AssemblerCompiler;
 import ch.zhaw.dbru.inf3.compiler.exception.AssemblerCompilationException;
+import ch.zhaw.dbru.inf3.emulator.MPCConstants;
 import ch.zhaw.dbru.inf3.emulator.itf.EmulationController;
 import ch.zhaw.dbru.inf3.emulator.itf.EmulationHandler;
 import ch.zhaw.dbru.inf3.emulator.logic.BinaryUtils;
-import ch.zhaw.dbru.inf3.emulator.logic.Memory;
+import ch.zhaw.dbru.inf3.memory.Memory;
 
 public class GuiEmulator extends JFrame implements EmulationHandler,
 		ActionListener {
@@ -224,7 +225,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	@Override
 	public void updateCommandCounter(BitSet aBfz) {
 		setRecordValue(SLID_BFZ,
-				StringUtils.reverse(BinaryUtils.convertBitSetToString(aBfz)));
+				StringUtils.reverse(BinaryUtils.convertBitSetToString(aBfz, MPCConstants.BF_LENGTH)));
 	}
 
 	/*
@@ -238,7 +239,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	public void updateRegisters(BitSet[] someRegisters) {
 		for (int i = 0; i < someRegisters.length; i++) {
 			setRecordValue("r" + i, StringUtils.reverse(BinaryUtils
-					.convertBitSetToString(someRegisters[i])));
+					.convertBitSetToString(someRegisters[i], MPCConstants.BF_LENGTH)));
 		}
 	}
 
@@ -252,7 +253,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	@Override
 	public void updateCommandRegister(BitSet aCr) {
 		setRecordValue(SLID_BFR,
-				StringUtils.reverse(BinaryUtils.convertBitSetToString(aCr)));
+				StringUtils.reverse(BinaryUtils.convertBitSetToString(aCr, MPCConstants.BF_LENGTH)));
 	}
 
 	/*
@@ -326,7 +327,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 						// Set compiled data to ui and update it.
 						for (BitSet bs : binData) {
 							binStrData.add(BinaryUtils
-									.convertBitSetToString(bs));
+									.convertBitSetToString(bs, controller.getMemory().getFullWidth()));
 						}
 						progCompTableModel.setData(binStrData);
 						progCompTable.updateUI();

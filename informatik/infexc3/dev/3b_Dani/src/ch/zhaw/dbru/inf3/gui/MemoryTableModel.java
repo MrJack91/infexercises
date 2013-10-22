@@ -3,10 +3,14 @@
  */
 package ch.zhaw.dbru.inf3.gui;
 
+import java.util.BitSet;
+
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.commons.lang3.StringUtils;
+
 import ch.zhaw.dbru.inf3.emulator.logic.BinaryUtils;
-import ch.zhaw.dbru.inf3.emulator.logic.Memory;
+import ch.zhaw.dbru.inf3.memory.Memory;
 
 /**
  * @author Daniel Brun
@@ -24,6 +28,7 @@ public class MemoryTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 3352370284875596307L;
 
+	private static final int MEM_COLS = 10;
 	private Memory memory;
 	private int colCount;
 	private int rowCount;
@@ -36,9 +41,8 @@ public class MemoryTableModel extends AbstractTableModel {
 	 */
 	public MemoryTableModel(Memory aMemory) {
 		memory = aMemory;
-		// TODO: memory.getWidthInByte() * 10 + 1
-		colCount = 10 + 1;
-		rowCount = memory.getTotalBytes() / memory.getWidthInByte() / 10;
+		colCount = (memory.getWidth() * MEM_COLS) + 1;
+		rowCount = memory.getMaxAddrMem() / memory.getWidth() / MEM_COLS;
 	}
 
 	/*
@@ -71,18 +75,20 @@ public class MemoryTableModel extends AbstractTableModel {
 		switch (aColumnIndex) {
 		case 0:
 			return "#"
-					+ (aRowIndex * 10 * memory.getWidthInByte())
+					+ (aRowIndex * MEM_COLS * memory.getWidth())
 					+ "-#"
-					+ ((aRowIndex + 1) * 10 * memory.getWidthInByte() - memory
-							.getWidthInByte()) + ":";
+					+ ((aRowIndex + 1) * MEM_COLS * memory.getWidth() - memory
+							.getWidth()) + ":";
 		default: {
-			// TODO: Evtl change to 10 * memory.get... (2)
-			int addr = (aRowIndex * 10) + (aColumnIndex - 1) * 2;
+			int addr = (aRowIndex * MEM_COLS * memory.getWidth())
+					+ (aColumnIndex - 1);
+			
+			String retStr = StringUtils.reverse(BinaryUtils.convertBitSetToString(memory
+					.getDataWithWidth(
+							BinaryUtils.createBitSetFromInt(addr,
+									memory.getAddrWidth()), 1),8));
 
-			String retStr = BinaryUtils.convertBitSetToString(memory
-					.getData(BinaryUtils.createBitSetFromInt(addr,
-							memory.getAddrWidth())));
-
+			System.out.println(aRowIndex + "/ " + aColumnIndex + ": " + addr + " " + retStr);
 			if (retStr.matches("0+")) {
 				retStr = "";
 			}
@@ -98,7 +104,7 @@ public class MemoryTableModel extends AbstractTableModel {
 	 */
 	@Override
 	public boolean isCellEditable(int aRowIndex, int aColumnIndex) {
-		return (aColumnIndex > 0);
+		return (aColumnIndex > 0) && aRowIndex > 0;
 	}
 
 	/*
@@ -107,10 +113,41 @@ public class MemoryTableModel extends AbstractTableModel {
 	 * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object,
 	 * int, int)
 	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object,
+	 * int, int)
+	 */
 	@Override
 	public void setValueAt(Object aValue, int aRowIndex, int aColumnIndex) {
-		// TODO Implement
-		super.setValueAt(aValue, aRowIndex, aColumnIndex);
+		if (isCellEditable(aRowIndex, aColumnIndex)) {
+			if (aValue instanceof String) {
+				String value = (String) aValue;
+				
+				if (value.trim().equals("")) {
+					value = "00000000";
+				}
+
+				BitSet res = null;
+				if (!value.matches("(0*1*)*")) {
+					try {
+						Integer intVal = Integer.parseInt(value);
+						res = BinaryUtils.createBitSetFromIntStandard(intVal);
+					} catch (NumberFormatException e) {
+						throw new IllegalArgumentException("Es sind nur Binärzahlen oder Dezimalzahlen erlaubt!", e);
+					}
+					
+				}else{
+					res = BinaryUtils.createBitSetFromStringStandard(StringUtils.reverse(value));
+				}
+				
+				int addr = (aRowIndex * MEM_COLS * memory.getWidth())
+						+ (aColumnIndex - 1);
+				
+				memory.setData(BinaryUtils.createBitSetFromIntStandard(addr), res);
+			}
+		}
 	}
 
 	/**

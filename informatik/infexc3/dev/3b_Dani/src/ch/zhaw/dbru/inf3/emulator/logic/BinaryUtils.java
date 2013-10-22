@@ -13,9 +13,10 @@ public class BinaryUtils {
 	 * 
 	 * @param aBitSet
 	 *            the bit set to convert.
+	 * @param aFullWidth the full width
 	 * @return the binary string.
 	 */
-	public static String convertBitSetToString(BitSet aBitSet) {
+	public static String convertBitSetToString(BitSet aBitSet, int aFullWidth) {
 		StringBuffer result = new StringBuffer();
 
 		if (aBitSet != null) {
@@ -27,7 +28,7 @@ public class BinaryUtils {
 				}
 			}
 
-			for (int i = result.length(); i < MPCConstants.BF_LENGTH; i++) {
+			for (int i = result.length(); i < aFullWidth; i++) {
 				result.append("0");
 			}
 		}
@@ -40,11 +41,12 @@ public class BinaryUtils {
 	 * 
 	 * @param aBitSet
 	 *            the bit set to convert.
+	 * @param aFullWidth the full width.
 	 * @return the int representation.
 	 */
-	public static int convertBitSetToInt(BitSet aBitSet) {
+	public static int convertBitSetToInt(BitSet aBitSet, int aFullWidth) {
 		return Integer.valueOf(
-				StringUtils.reverse(convertBitSetToString(aBitSet)), 2);
+				StringUtils.reverse(convertBitSetToString(aBitSet, aFullWidth)), 2);
 	}
 
 	/**
@@ -146,5 +148,21 @@ public class BinaryUtils {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Converts the given string into a bitset.
+	 * 
+	 * @param aString the string to convert.
+	 * @return the created bitset.
+	 */
+	public static BitSet createBitSetFromStringStandard(String aString) {
+		BitSet res = new BitSet();
+		if (aString != null) {
+			for (int i = 0; i < aString.length(); i++) {
+				res.set(i, aString.charAt(i) == '1');
+			}
+		}
+		return res;
 	}
 }

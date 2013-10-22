@@ -24,7 +24,21 @@ public class Menge {
 	 * @return the count.
 	 */
 	public int getSize() {
-		return list.getSize();
+		int counter = 0;
+		
+		List tmpList = new List();
+		
+		ListEntry entry = getFirstEntry();
+		if (entry != null) {
+			do {
+				if (!tmpList.containsElement(entry.getValue())) {
+					tmpList.addOnFirstPosition(entry.getValue());
+					counter++;
+				}
+			} while ((entry = entry.getNextEntry()) != null);
+		}
+		
+		return counter;
 	}
 
 	/**
@@ -160,7 +174,6 @@ public class Menge {
 			} while ((entry = entry.getNextEntry()) != null);
 		}
 
-		// TODO:  Review
 		return true;
 	}
 

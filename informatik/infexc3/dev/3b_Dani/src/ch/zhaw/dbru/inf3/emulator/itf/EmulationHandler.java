@@ -5,7 +5,7 @@ package ch.zhaw.dbru.inf3.emulator.itf;
 
 import java.util.BitSet;
 
-import ch.zhaw.dbru.inf3.emulator.logic.Memory;
+import ch.zhaw.dbru.inf3.memory.Memory;
 
 /**
  * @author Daniel Brun
