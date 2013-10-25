@@ -84,6 +84,12 @@ public class AssemblerCompiler {
 
 		// Get command and stub
 		Command command = commandSet.getComand(bf);
+		
+		if (command == null) {
+			throw new AssemblerCompilationException("Der Befehl '"
+					+ splitted[0] + "' konnte nicht gefunden werden!");
+		}
+		
 		BitSet bitCom = command.getStub();
 
 		// Process arguments
@@ -117,8 +123,8 @@ public class AssemblerCompiler {
 								"Der erste Operand ist zu lange!");
 					}
 
-					for (int i = 0; i < op1BS.length(); i++) {
-						bitCom.set(startOp1 + i, op1BS.get(i));
+					for (int i = lenOp1 - 1; i >= 0; i--) {
+						bitCom.set(startOp1 + (lenOp1 - i - 1), op1BS.get(i));
 					}
 
 				}
@@ -150,9 +156,9 @@ public class AssemblerCompiler {
 							throw new AssemblerCompilationException(
 									"Der zweite Operand ist zu lange!");
 						}
-
-						for (int i = 0; i < op2BS.length(); i++) {
-							bitCom.set(startOp2 + i, op2BS.get(i));
+						
+						for (int i = lenOp2 - 1; i >= 0; i--) {
+							bitCom.set(startOp2 + (lenOp2 - i - 1), op2BS.get(i));
 						}
 
 					}

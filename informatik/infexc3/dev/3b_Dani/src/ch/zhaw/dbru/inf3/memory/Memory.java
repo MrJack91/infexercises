@@ -60,11 +60,11 @@ public class Memory {
 	 * @return the data with the given width.
 	 */
 	public BitSet getDataWithWidth(BitSet anAddr, int aWidth) {
-		int convAddr = BinaryUtils.convertBitSetToInt(anAddr, addrWidth);
+		int convAddr = BinaryUtils.convertBitSetToInt(anAddr);
 
 		if (convAddr >= store.length) {
 			throw new MemoryException("Die addressierte Adresse '"
-					+ BinaryUtils.convertBitSetToString(anAddr,addrWidth) + "' ("
+					+ BinaryUtils.convertBitSetToString(anAddr) + "' ("
 					+ convAddr
 					+ ") befindet sich ausserhalb des Speicherbereiches!");
 		}
@@ -100,11 +100,11 @@ public class Memory {
 	 *            the data to store.
 	 */
 	public void setData(BitSet anAddr, BitSet someData, int aWidth) {
-		int convAddr = BinaryUtils.convertBitSetToInt(anAddr,addrWidth);
+		int convAddr = BinaryUtils.convertBitSetToInt(anAddr);
 
 		if (convAddr > store.length) {
 			throw new MemoryException("Die addressierte Adresse '"
-					+ BinaryUtils.convertBitSetToString(anAddr,addrWidth) + "' ("
+					+ BinaryUtils.convertBitSetToString(anAddr) + "' ("
 					+ convAddr
 					+ ") befindet sich ausserhalb des Speicherbereiches!");
 		}
@@ -129,11 +129,11 @@ public class Memory {
 	 *            the data to store.
 	 */
 	public void setData(BitSet anAddr, BitSet[] someData) {
-		int convAddr = BinaryUtils.convertBitSetToInt(anAddr,addrWidth);
+		int convAddr = BinaryUtils.convertBitSetToInt(anAddr);
 
 		if (convAddr > store.length) {
 			throw new MemoryException("Die addressierte Adresse '"
-					+ BinaryUtils.convertBitSetToString(anAddr,addrWidth) + "' ("
+					+ BinaryUtils.convertBitSetToString(anAddr) + "' ("
 					+ convAddr
 					+ ") befindet sich ausserhalb des Speicherbereiches!");
 		}

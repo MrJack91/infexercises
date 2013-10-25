@@ -1,0 +1,112 @@
+\documentclass[10pt]{article}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{graphicx} 
+\usepackage{float}
+
+\usetikzlibrary{arrows,automata}
+% \usepackage[latin1]{inputenc}
+
+\title{Informatik 3 Übung - Teil 4\vspace{-2ex}}
+\author{Daniel Brun, Michael Hadorn\vspace{-2ex}}
+
+\setlength{\droptitle}{-6em}     % Eliminate the default vertical space
+\addtolength{\droptitle}{-4pt}   % Only a guess. Use this for adjustment
+
+\newcolumntype{P}[1]{>{\centering\hspace{0pt}}p{#1}}
+
+\pagestyle{fancy}
+% clear any old style settings
+\fancyhead{}
+\fancyfoot{}
+
+\lhead{ZHAW: Informatik 3}
+\rhead{Daniel Brun, Michael Hadorn, Inf 3b}
+\fancyfoot[LE,RO]{\thepage}
+
+\usepackage{color}
+
+\begin{document}
+\maketitle
+
+% Aufgabe 1  	a: -	b: -
+\section*{Aufgabe 1}
+Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Leistung aktueller Computer bzw.Prozessoren.
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{Recherchieren Sie aktuellen Werte für die Zugriffszeiten in Rechnern (Lesen und Schreiben) für:}
+		\begin{itemize}
+			\item \textit{SDRAM (1st-Level-Cache)}
+			\item \textit{DRAM (Arbeitsspeicher)}
+			\item \textit{Festplatten (Massenspeicher)}
+			\item \textit{Solid State Disks (als Massenspeicher)}
+		\end{itemize}
+		\textit{(Bitte mit Quellenangaben belegen - 4 Punkte)}
+		
+		\begin{itemize}
+			\item \textit{SDRAM (1st-Level-Cache)}: 3.4ns (http://www.farnell.com/datasheets/1645115.pdf)
+			\item \textit{DRAM (Arbeitsspeicher)}:  %TODO: DBRU: http://www.kingston.com/datasheets/KHX24C11T3K4_32X.pdf
+			\item \textit{Festplatten (Massenspeicher)} http://www.seagate.com/files/www-content/product-content/savvio-fam/savvio-10k/savvio-10k-7/de/docs/enterprise-performance-10k-hdd-data-sheet-ds1785-1-1304de.pdf
+			%3.4 ms https://www.digitec.ch/
+			\item \textit{Solid State Disks (als Massenspeicher)}: Lesen: 40$\mu s$ / Schreiben: 65 $\mu s$ $http://ark.intel.com/de/products/71916/Intel-SSD-DC-S3700-Series-800GB-2_5in-SATA-6Gbs-25nm-MLC$
+		\end{itemize}
+\end{enumerate}
+
+
+% Aufgabe 2	 	a: OK	b: OK
+\section*{Aufgabe 2}
+Das Steuerwerk eines Rechners dekodiert die Befehle aus dem OP- Code bzw. dem Maschinencode; für Benutzer sind Befehle mit mnemonische Symbolen leichter zu lesen (und schreiben). Gehen Sie vom Befehlssatz für den "`Mini-Power-PC"' aus.
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{Geben Sie für die folgenden Befehle mit mnemonische Symbolen den Maschinencode an: (4 Punkte)}
+		
+			\begin{tabular}[h]{l l}
+				LWDD 1, \#240 & 0100 0100 1111 0000\\
+				ADDD \#62 & 1000 0000 0011 1110\\
+				Not & 0000 0000 1000 0000\\
+				BCD \#15 & 0011 1000 0000 1111\\
+			\end{tabular}
+	
+	\item
+
+\end{enumerate}
+
+% Aufgabe 3		 	a: OK	b: OK
+\section*{Aufgabe 3}
+Der Befehlssatz für den "`Mini-Power-PC"' ist sehr klein / eingeschränkt. Sie haben gelernt, dass Zugriffe auf den Arbeitsspeicher sehr langsam sind (zum Teil deutlich mehr als 100 Zyklen).
+
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{Welchen Befehlstyp würden Sie auf jeden Fall ergänzen, um die Code-Ausführung erheblich zu beschleunigen? Lösung: (3 Punkte)}
+		
+		Man sollte direkt vom Akku den Wert in ein anderes Register schreiben können und umgekehrt. Sonst muss man diesen Wert immer via Arbeitsspeicher hin und her kopieren.
+		
+	\item
+		\textit{Kann mit dem Befehlssatz ein Arbeitsspeicher von 16 KiB genutzt werden? Antwort bitte begründen. Lösung: (3 Punkte)}
+		
+		Nein, für die Adressierung stehen jeweils nur 10 Bit zur Verfügung, damit können ohne zusätzliche Komponenten oder einem anderen Aufbau (andere Unterteilung des Arbeitsspeicher) nicht mehr als 1 KiB adressiert werden.
+			
+\end{enumerate}
+
+\newpage
+
+% Aufgabe 4		 	a: OK	b: -	c: -
+\section*{Aufgabe 4}
+Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+8*c soll über ein Programm für den „Mini-Power-PC berechnet werden.
+
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{Schreiben Sie den Programm-Code mit mnemonische Symbolen (in Assembler) (6 Punkte)}
+
+\end{enumerate}
+
+\end{document}

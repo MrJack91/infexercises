@@ -21,6 +21,7 @@ import ch.zhaw.dbru.inf3.memory.Memory;
  */
 public class MiniPowerPC implements Runnable, EmulationController {
 
+	private static final int THREAD_PAUSE = 2000;
 	private Thread mpThread;
 	private int currentMode = EmulationController.MODE_FAST;
 
@@ -58,6 +59,8 @@ public class MiniPowerPC implements Runnable, EmulationController {
 			registers[i] = new BitSet(MPCConstants.BF_LENGTH);
 			carryFlags[i] = false;
 		}
+		
+		commandRegister = new BitSet(MPCConstants.BF_LENGTH);
 	}
 
 	/*
@@ -83,8 +86,17 @@ public class MiniPowerPC implements Runnable, EmulationController {
 
 			execCommand(operandOne, operandTwo);
 
-			if (currentMode == MODE_SLOW || currentMode == MODE_STEP) {
+			if (currentMode == MODE_SLOW) {
 				updateHandlers();
+				try {
+					Thread.sleep(THREAD_PAUSE);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			if(currentMode == MODE_STEP){
+				updateHandlers();
+				running = false;
 			}
 		}
 
@@ -144,12 +156,10 @@ public class MiniPowerPC implements Runnable, EmulationController {
 		int lenOp = baseCm.getLengthOfType(aType);
 
 		if (startOp > -1) {
-			int posC = 0;
 			result = new BitSet(lenOp);
 
-			for (int i = startOp; i < startOp + lenOp; i++) {
-				result.set(posC, commandRegister.get(i));
-				posC++;
+			for (int i = 0; i < lenOp; i++) {
+				result.set(i, commandRegister.get(startOp + lenOp - 1 - i));
 			}
 		}
 
@@ -173,36 +183,114 @@ public class MiniPowerPC implements Runnable, EmulationController {
 		// http://de.wikipedia.org/wiki/Arithmetische_Verschiebung#Arithmetische_Verschiebung
 		switch (ce) {
 		case CLR:
-			regIndex = BinaryUtils.convertBitSetToInt(anOp1, memory.getAddrWidth());
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
 
 			registers[regIndex].clear();
 			carryFlags[regIndex] = false;
 			break;
 		case ADD:
-			regIndex = BinaryUtils.convertBitSetToInt(anOp1, memory.getAddrWidth());
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
 
 			carryFlags[0] = BinaryUtils.addBitSets(registers[0],
-					registers[regIndex], carryFlags[0]);
+					registers[regIndex]);
 			break;
 		case ADDD:
-			carryFlags[0] = BinaryUtils.addBitSets(registers[0], anOp1,
-					carryFlags[0]);
+			int length = baseCm.getLengthOfType(Command.OPERAND_ONE);
+			BinaryUtils.expandBitSet(anOp1,length-1);
+			carryFlags[0] = BinaryUtils.addBitSets(registers[0],anOp1);
 			break;
 		case INC:
 			carryFlags[0] = BinaryUtils.addBitSets(registers[0],
-					BinaryUtils.createBitSetFromIntStandard(1), carryFlags[0]);
+					BinaryUtils.createBitSetFromIntStandard(1));
 			break;
 		case DEC:
 			carryFlags[0] = BinaryUtils.addBitSets(registers[0],
-					BinaryUtils.createBitSetFromIntStandard(-1), carryFlags[0]);
+					BinaryUtils.createBitSetFromIntStandard(-1));
 			break;
 		case LWDD:
-			regIndex = BinaryUtils.convertBitSetToInt(anOp1, memory.getAddrWidth());
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
 			registers[regIndex] = memory.getData(anOp2);
 			break;
 		case SWDD:
-			regIndex = BinaryUtils.convertBitSetToInt(anOp1, memory.getAddrWidth());
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
 			memory.setData(anOp2, registers[regIndex]);
+			break;
+		case SRA:
+			carryFlags[0] = BinaryUtils.shiftRight(registers[0], true);
+			break;
+		case SLA:
+			carryFlags[0] = BinaryUtils.shiftLeft(registers[0], true);
+			break;
+		case SRL:
+			carryFlags[0] = BinaryUtils.shiftRight(registers[0], false);
+			break;
+		case SLL:
+			carryFlags[0] = BinaryUtils.shiftLeft(registers[0], false);
+			break;
+		case AND:
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
+			registers[0].and(registers[regIndex]);
+			break;
+		case OR:
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
+			registers[0].or(registers[regIndex]);
+			break;
+		case NOT:
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
+			registers[0].andNot(registers[regIndex]);
+			break;
+		case BZ:
+			incStep = 0;
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
+
+			if (BinaryUtils.compareBitSetToInt(registers[0], 0)) {
+				commandCounter = registers[regIndex];
+			}
+			break;
+		case BNZ:
+			incStep = 0;
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
+
+			if (!BinaryUtils.compareBitSetToInt(registers[0], 0)) {
+				commandCounter = registers[regIndex];
+			}
+			break;
+		case BC:
+			incStep = 0;
+			regIndex = BinaryUtils.convertBitSetToInt(anOp1);
+
+			if (carryFlags[0]) {
+				commandCounter = registers[regIndex];
+			}
+			break;
+		case B:
+			incStep = 0;
+			commandCounter = registers[regIndex];
+			break;
+		case BZD:
+			incStep = 0;
+
+			if (BinaryUtils.compareBitSetToInt(registers[0], 0)) {
+				commandCounter = anOp1;
+			}
+			break;
+		case BNZD:
+			incStep = 0;
+
+			if (!BinaryUtils.compareBitSetToInt(registers[0], 0)) {
+				commandCounter = anOp1;
+			}
+			break;
+		case BCD:
+			incStep = 0;
+
+			if (carryFlags[0]) {
+				commandCounter = anOp1;
+			}
+			break;
+		case BD:
+			incStep = 0;
+			commandCounter = anOp1;
 			break;
 		case END:
 			incStep = 0;
@@ -215,7 +303,7 @@ public class MiniPowerPC implements Runnable, EmulationController {
 		}
 
 		BinaryUtils.addBitSets(commandCounter,
-				BinaryUtils.createBitSetFromIntStandard(incStep), false);
+				BinaryUtils.createBitSetFromIntStandard(incStep));
 	}
 
 	/*
@@ -237,6 +325,7 @@ public class MiniPowerPC implements Runnable, EmulationController {
 	@Override
 	public void startProgramm(BitSet anAddr) {
 		commandCounter = anAddr;
+		updateHandlers();
 	}
 
 	/*

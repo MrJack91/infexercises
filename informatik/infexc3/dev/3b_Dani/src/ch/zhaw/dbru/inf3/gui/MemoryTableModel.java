@@ -82,13 +82,11 @@ public class MemoryTableModel extends AbstractTableModel {
 		default: {
 			int addr = (aRowIndex * MEM_COLS * memory.getWidth())
 					+ (aColumnIndex - 1);
-			
-			String retStr = StringUtils.reverse(BinaryUtils.convertBitSetToString(memory
-					.getDataWithWidth(
-							BinaryUtils.createBitSetFromInt(addr,
-									memory.getAddrWidth()), 1),8));
+			System.out.println(addr + " " + BinaryUtils.createBitSetFromInt(addr,memory.getAddrWidth()));
+			String retStr = StringUtils.reverse(
+					BinaryUtils.convertBitSetToString(memory.getDataWithWidth(
+							BinaryUtils.createBitSetFromInt(addr,memory.getAddrWidth()), 1)).substring(0, 9));
 
-			System.out.println(aRowIndex + "/ " + aColumnIndex + ": " + addr + " " + retStr);
 			if (retStr.matches("0+")) {
 				retStr = "";
 			}

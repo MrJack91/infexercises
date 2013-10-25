@@ -13,14 +13,21 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +59,9 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	private AssemblerCompiler compiler;
 	private EmulationController controller;
 
-	private JPanel progOverviewPanel;
+	private JPanel centerPanel;
+
+	private JPanel progUpperPanel;
 
 	private JScrollPane progPane;
 	private JTable progTable;
@@ -62,7 +71,6 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	private JTable progCompTable;
 	private ListTableModel progCompTableModel;
 
-	private JPanel memoryPanel;
 	private JScrollPane memoryPane;
 	private JTable memoryTable;
 	private MemoryTableModel memoryTableModel;
@@ -74,6 +82,12 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 
 	private JPanel settingsPanel;
 	private JPanel statePanel;
+
+	private JPanel modePanel;
+	private ButtonGroup rbGroup;
+	private JRadioButton rbStep;
+	private JRadioButton rbSlow;
+	private JRadioButton rbFast;
 
 	private JFileChooser fileChooser;
 
@@ -99,42 +113,83 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 
 		// Set Frame settings
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(600, 380));
+		setPreferredSize(new Dimension(1375, 600));
+
+		try {
+			// Set System L&F
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (UnsupportedLookAndFeelException e) {
+			// handle exception
+		} catch (ClassNotFoundException e) {
+			// handle exception
+		} catch (InstantiationException e) {
+			// handle exception
+		} catch (IllegalAccessException e) {
+			// handle exception
+		}
 
 		// Set visible
 		pack();
+		// setResizable(false);
 		setVisible(true);
 	}
 
 	private void initComponents() {
 
-		//TODO: SplitPane
-		
-		// Create overview panel for code and compiled code
-		progOverviewPanel = new JPanel();
-		progOverviewPanel.setLayout(new GridLayout(1, 2));
+		// Create overview panel for upper panel
+		progUpperPanel = new JPanel();
+		progUpperPanel.setLayout(new BoxLayout(progUpperPanel,
+				BoxLayout.LINE_AXIS));
+
+		initStateComponents();
+		progUpperPanel.add(statePanel);
 
 		progTableModel = new ListTableModel();
+
 		progTable = new JTable(progTableModel);
+		progTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		progTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+		progTable.getColumnModel().getColumn(0).setHeaderValue("Line");
+		progTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+		progTable.getColumnModel().getColumn(1).setHeaderValue("Assembler");
 		progPane = new JScrollPane(progTable);
-		progOverviewPanel.add(progPane);
+		progPane.setPreferredSize(new Dimension(210, 160));
+		progUpperPanel.add(progPane);
 
 		progCompTableModel = new ListTableModel();
 		progCompTable = new JTable(progCompTableModel);
+		progCompTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		progCompTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+		progCompTable.getColumnModel().getColumn(0).setHeaderValue("Line");
+		progCompTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+		progCompTable.getColumnModel().getColumn(1)
+				.setHeaderValue("Maschinencode");
 		progCompPane = new JScrollPane(progCompTable);
-		progOverviewPanel.add(progCompPane);
+		progCompPane.setPreferredSize(new Dimension(210, 160));
+		progUpperPanel.add(progCompPane);
+
+		// Create Mode-Radios
+		modePanel = new JPanel();
+		modePanel.setLayout(new BoxLayout(modePanel, BoxLayout.LINE_AXIS));
+		rbGroup = new ButtonGroup();
+		rbFast = new JRadioButton("Schnell", true);
+		rbSlow = new JRadioButton("Langsam");
+		rbStep = new JRadioButton("Schritt");
+
+		rbGroup.add(rbFast);
+		rbGroup.add(rbSlow);
+		rbGroup.add(rbStep);
+
+		rbFast.addActionListener(this);
+		rbSlow.addActionListener(this);
+		rbStep.addActionListener(this);
+
+		modePanel.add(rbFast);
+		modePanel.add(rbSlow);
+		modePanel.add(rbStep);
 
 		// Create settings panel
 		settingsPanel = new JPanel();
-
-		initStateComponents();
-
-		// Create memory panel
-		memoryPanel = new JPanel();
-		memoryTableModel = new MemoryTableModel(controller.getMemory());
-		memoryTable = new JTable(memoryTableModel);
-		memoryPane = new JScrollPane(memoryTable);
-		memoryPanel.add(memoryPane);
 
 		// Create command panel
 		commandPanel = new JPanel();
@@ -143,7 +198,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 		nextBtn = new JButton("Step");
 
 		nextBtn.setEnabled(false);
-		
+
 		loadScriptBtn.addActionListener(this);
 		clearBtn.addActionListener(this);
 		nextBtn.addActionListener(this);
@@ -153,14 +208,47 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 		commandPanel.add(clearBtn);
 		commandPanel.add(nextBtn);
 
+		// Create memory panel
+		initMemoryPanel();
+
+		// Central Bottom Split
+		centerPanel = new JPanel();
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
+		centerPanel.add(progUpperPanel);
+		centerPanel.add(memoryPane);
+
 		// Set to main panel
 		getContentPane().setLayout(new BorderLayout());
 
 		getContentPane().add(settingsPanel, BorderLayout.NORTH);
-		getContentPane().add(progOverviewPanel, BorderLayout.CENTER);
-		getContentPane().add(statePanel, BorderLayout.WEST);
-		getContentPane().add(memoryPanel, BorderLayout.EAST);
+		getContentPane().add(centerPanel, BorderLayout.CENTER);
+		getContentPane().add(modePanel, BorderLayout.WEST);
 		getContentPane().add(commandPanel, BorderLayout.SOUTH);
+	}
+
+	/**
+	 * 
+	 */
+	private void initMemoryPanel() {
+
+		memoryTableModel = new MemoryTableModel(controller.getMemory());
+		memoryTable = new JTable(memoryTableModel);
+
+		memoryTable.setPreferredSize(new Dimension(1350, 400));
+
+		memoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		memoryTable.getColumnModel().getColumn(0).setHeaderValue("Range");
+		memoryTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+
+		for (int i = 1; i < memoryTableModel.getColumnCount(); i++) {
+			memoryTable.getColumnModel().getColumn(i).setPreferredWidth(60);
+			memoryTable.getColumnModel().getColumn(i)
+					.setHeaderValue((i - 1) + "");
+		}
+
+		memoryPane = new JScrollPane(memoryTable);
+		memoryPane.setPreferredSize(new Dimension(1350, 400));
 	}
 
 	private void initStateComponents() {
@@ -171,6 +259,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 		// Create state panel
 		statePanel = new JPanel();
 		statePanel.setLayout(new GridLayout(7, 3, 8, 0));
+		statePanel.setPreferredSize(new Dimension(300, 160));
 
 		createLabelRecord(SLID_BFR, "Befehlsregister:");
 		createLabelRecord(SLID_BFZ, "Befehlszähler:");
@@ -211,8 +300,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	 */
 	private void setRecordValue(String anId, String aBinaryValue) {
 		stateValueLabelBin.get(anId).setText(aBinaryValue);
-		stateValueLabelDez.get(anId).setText(
-				Integer.parseInt(aBinaryValue, 2) + "");
+		stateValueLabelDez.get(anId).setText(BinaryUtils.convertBitStringToInt(aBinaryValue) + "");
 	}
 
 	/*
@@ -225,7 +313,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	@Override
 	public void updateCommandCounter(BitSet aBfz) {
 		setRecordValue(SLID_BFZ,
-				StringUtils.reverse(BinaryUtils.convertBitSetToString(aBfz, MPCConstants.BF_LENGTH)));
+				StringUtils.reverse(BinaryUtils.convertBitSetToString(aBfz)));
 	}
 
 	/*
@@ -239,7 +327,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	public void updateRegisters(BitSet[] someRegisters) {
 		for (int i = 0; i < someRegisters.length; i++) {
 			setRecordValue("r" + i, StringUtils.reverse(BinaryUtils
-					.convertBitSetToString(someRegisters[i], MPCConstants.BF_LENGTH)));
+					.convertBitSetToString(someRegisters[i])));
 		}
 	}
 
@@ -252,8 +340,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	 */
 	@Override
 	public void updateCommandRegister(BitSet aCr) {
-		setRecordValue(SLID_BFR,
-				StringUtils.reverse(BinaryUtils.convertBitSetToString(aCr, MPCConstants.BF_LENGTH)));
+		setRecordValue(SLID_BFR, BinaryUtils.convertBitSetToString(aCr));
 	}
 
 	/*
@@ -267,24 +354,30 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 		setRecordValue(SLID_CF, aFlag ? "1" : "0");
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.zhaw.dbru.inf3.emulator.itf.EmulationHandler#updateMemory(ch.zhaw.dbru.inf3.emulator.logic.Memory)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ch.zhaw.dbru.inf3.emulator.itf.EmulationHandler#updateMemory(ch.zhaw.
+	 * dbru.inf3.emulator.logic.Memory)
 	 */
 	@Override
 	public void updateMemory(Memory aMemory) {
 		memoryTableModel.setMemory(aMemory);
 		memoryTable.updateUI();
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ch.zhaw.dbru.inf3.emulator.itf.EmulationHandler#stepFinished()
 	 */
 	@Override
 	public void stepFinished() {
-		nextBtn.setEnabled(false);
-		
+		nextBtn.setEnabled(true);
+
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -297,9 +390,15 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 
 		if (source.equals(loadScriptBtn)) {
 			processActionLoadScriptFile();
-		}else if (source.equals(nextBtn)){
+		} else if (source.equals(nextBtn)) {
 			nextBtn.setEnabled(false);
 			controller.step();
+		} else if (source.equals(rbFast)) {
+			controller.setMode(EmulationController.MODE_FAST);
+		} else if (source.equals(rbSlow)) {
+			controller.setMode(EmulationController.MODE_SLOW);
+		} else if (source.equals(rbStep)) {
+			controller.setMode(EmulationController.MODE_STEP);
 		}
 	}
 
@@ -327,7 +426,7 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 						// Set compiled data to ui and update it.
 						for (BitSet bs : binData) {
 							binStrData.add(BinaryUtils
-									.convertBitSetToString(bs, controller.getMemory().getFullWidth()));
+									.convertBitSetToString(bs));
 						}
 						progCompTableModel.setData(binStrData);
 						progCompTable.updateUI();
@@ -360,5 +459,5 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 			}
 		}
 	}
-	
+
 }

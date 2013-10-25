@@ -23,6 +23,36 @@ public enum CommandEnum {
 	LWDD,
 	
 	SWDD,
+	
+	SRA,
+	
+	SLA,
+	
+	SRL,
+	
+	SLL,
+	
+	AND,
+	
+	OR,
+	
+	NOT,
+	
+	BZ,
+	
+	BNZ,
+	
+	BC,
+	
+	B,
+	
+	BZD,
+	
+	BNZD,
+	
+	BCD,
+	
+	BD,
 
 	END;
 

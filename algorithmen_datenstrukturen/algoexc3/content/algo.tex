@@ -4,7 +4,6 @@
 %	* ü mit ü
 %	* anführungszeichen...
 
-%TODO: Chömmer echt d Site "`länger"' mache? Une hets immer zimmli vill Leerflächi... fühle dich frei... :s i has probiert, aber nid usegfunge...
 \chapter*{Algorithmen und Datenstrukturen - Aufgabenserie 3}
 \begin{flushright}
 by Daniel Brun und Michael Hadorn, Inf I3b
@@ -25,26 +24,11 @@ while x < n do\\
 	x := 2 * x\\
 end\\
 
-%TODO mha: genügt es da nicht, in jedem Case die Laufzeit als $O(n-x)$ anzugeben?
-%TODO dbru: Weisses ned, im Script han i das mit dene 3 Cases gfunde...
 \subsection*{Algorithmus 1}
+Der erste Algorithmus hat eine lineare Laufzeit ($O(n)$). Die Laufzeit bei einem höheren Input bleibt im Verhältnis immer gleich.
 
-\begin{itemize}
-	\item Best Case:  $x = n$ \\
-		  $\Omega(1)$
-	\item Worst Case: x = 0, $n \rightarrow \inf$ \\
-		  $O(\frac{n-x}{2}) = O(n)$ => linear
-\end{itemize}
-
-%TODO mha: wenn x=0, dann haben wir eine Endlosschleife. Auch das x-Fache von 0 ist 0. Die x. Hälfte einer Zahl wird nie null sein. Wie kommst du auf log()? - Was passiert eigentlich mit negativen Zahlen?
-%TODO: hmm...stimmt, habe mal Beispiele für Laufzeiten gegoogelt, irgendwie bin ich dann auf log(n) gekommen...weiss leider die Seite nicht mehr :-(
 \subsection*{Algorithmus 2}
-\begin{itemize}
-	\item Best Case:  $x = n$ \\
-		  $\Omega(1)$
-	\item Worst Case: x = 0, $n \rightarrow \inf$ \\
-		  $O(\frac{n}{4}) = O(n)$ => linear
-\end{itemize}
+Der zweite Algorithmus hat eine logarithmische Laufzeit ($O(log(n))$). Bei einer Verdoppelung des Inputs nimmt die Laufzeit im Verhältnis nur minim zu.
 
 \newpage
 
