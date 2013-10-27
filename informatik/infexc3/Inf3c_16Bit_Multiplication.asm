@@ -3,6 +3,9 @@ CLR R1
 LWDD R2, #500 ;Ersten Faktor in das 2. Register laden (Zähler)
 LWDD R3, #502 ;Zweiter Faktor in das 3. Register laden
 
+SWDD R0, #602 ;
+SWDD R2, #604 
+LWDD R0, #604
 
 
 -Faktoren laden
