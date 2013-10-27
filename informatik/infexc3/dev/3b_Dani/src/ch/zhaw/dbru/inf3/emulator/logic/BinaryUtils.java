@@ -20,7 +20,7 @@ public class BinaryUtils {
 	 *            the bit set to convert.
 	 * @return the binary string.
 	 */
-	public static String convertBitSetToString(BitSet aBitSet) {
+	public static String convertBitSetToStringSW(BitSet aBitSet, int aWidth) {
 		StringBuffer result = new StringBuffer();
 
 		if (aBitSet != null) {
@@ -32,9 +32,9 @@ public class BinaryUtils {
 				}
 			}
 
-			// fill width 0 till the end (Case of Two-complement is solved by
+			// fill with 0 till the end (Case of Two-complement is solved by
 			// the nature of the two-complement )
-			for (int i = result.length(); i < MPCConstants.BF_LENGTH; i++) {
+			for (int i = result.length(); i < aWidth; i++) {
 				result.append("0");
 			}
 		}
@@ -42,6 +42,16 @@ public class BinaryUtils {
 		return result.toString();
 	}
 
+	/**
+	 * Converts a {@link BitSet} to a binary string.
+	 * 
+	 * @param aBitSet
+	 *            the bit set to convert.
+	 * @return the binary string.
+	 */
+	public static String convertBitSetToString(BitSet aBitSet) {
+		return convertBitSetToStringSW(aBitSet,MPCConstants.BF_LENGTH);
+	}
 	/**
 	 * Converts a {@link BitSet} to an int.
 	 * 
@@ -52,9 +62,22 @@ public class BinaryUtils {
 	 * @return the int representation.
 	 */
 	public static int convertBitSetToInt(BitSet aBitSet) {
-		return convertBitStringToInt(StringUtils
-				.reverse(convertBitSetToString(aBitSet)));
+		return convertBitSetToIntSW(aBitSet, MPCConstants.BF_LENGTH);
 	}
+	
+	/**
+	 * Converts a {@link BitSet} to an int.
+	 * 
+	 * @param aBitSet
+	 *            the bit set to convert.
+	 * @param aWidth the width
+	 * @return the int representation.
+	 */
+	public static int convertBitSetToIntSW(BitSet aBitSet, int aWidth) {
+		return convertBitStringToInt(StringUtils
+				.reverse(convertBitSetToStringSW(aBitSet, aWidth)));
+	}
+	
 
 	/**
 	 * Performs an addition based on the 2-Complement and stores the value in
@@ -69,12 +92,6 @@ public class BinaryUtils {
 	public static boolean addBitSets(BitSet aSummandOne, BitSet aSummandTwo) {
 		boolean carryFlag = false;
 		BitSet tmpResult = new BitSet(MPCConstants.BF_LENGTH);
-
-		// Check length
-		if (aSummandOne.length() != aSummandTwo.length()) {
-			throw new MiniPowerPCException(
-					"Es können nur gleich lange Binär-Operanden addiert werden!");
-		}
 
 		// Iterate over all positions
 		for (int i = 0; i < MPCConstants.BF_LENGTH; i++) {
@@ -143,7 +160,7 @@ public class BinaryUtils {
 
 		String intBin = StringUtils.reverse(Integer.toBinaryString(anInt));
 
-		if (intBin.length() > aLength) {
+		if (intBin.length() > (aLength-1)) {
 			throw new MiniPowerPCException(
 					"Die Länge der konvertierten Zahl ist grösser als maximal erlaubt!");
 		}
@@ -312,7 +329,7 @@ public class BinaryUtils {
 			binaryString = "-" + binBuf.toString();
 		}
 		
-		result = Integer.valueOf(binaryString);
+		result = Integer.valueOf(binaryString,2);
 		
 		return result;
 	}

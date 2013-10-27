@@ -12,6 +12,7 @@
 \usepackage{ragged2e}
 \usepackage{graphicx} 
 \usepackage{float}
+\usepackage{epsfig}
 
 \usetikzlibrary{arrows,automata}
 % \usepackage[latin1]{inputenc}
@@ -59,54 +60,93 @@ Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Lei
 			%3.4 ms https://www.digitec.ch/
 			\item \textit{Solid State Disks (als Massenspeicher)}: Lesen: 40$\mu s$ / Schreiben: 65 $\mu s$ $http://ark.intel.com/de/products/71916/Intel-SSD-DC-S3700-Series-800GB-2_5in-SATA-6Gbs-25nm-MLC$
 		\end{itemize}
+		\item 
+			\textit{Was sind die Vorteileund Nachteileder DDR(x)-SDRAM Speicherbausteine(x steht für leer, 2und 3) gegenüber klassischen  DRAM-Bausteinen? Lösung: (3 Punkte)}
+		
+		%TODO: Bitte reviewen, ist glaub ich noch nicht alles korrekt...schaue es mir später nochmals an.
+		Im Gegensatz zum klassischen DRAM verwendet der DDR RAM (double data rate) den Anstieg und den Abfall des Takt-Signales um Daten zu transferieren. Dadurch wird fast eine Verdoppelung der Geschwindigkeit erreicht. Der DDR RAM ist doppelt so schnell wie das Mainboard (Memory-Bus) getaktet. Damit eine Beschleunigung erreicht werden kann, muss die Anzahl angeforderter Daten (zusammenhängende Daten) gleich oder grösser als die doppelte Busbreite sein (Prefetch-Mechanismus). Ansonsten würde sich die Frequenz der Zugriffe auf die Speicherzellen nicht erhöht, wird beim DDR RAM der Prefetch-Mechanismus verwendet. Bei DDR-2, bzw. DDR-3 RAM wird ein vier-, bzw. achtfach-Prefetching verwendet. 
+		
+		SDRAM (Synchronous DRAM) Weiterentwicklung des klassischen DRAM (dazwischen gab es noch EDO RAM). Beim SDRAM werden die Daten erst bei Erhalt eines Signales vom System transferiert. 
+		
+		%Source: http://www.proprofs.com/mwiki/index.php/Understanding_RAM_Types:_DRAM_SDRAM_DIMM_SIMM_And_More
+		%Source: http://www.ehow.com/about_5518628_ddr-ram-vs-sdram.html
+		%Source: http://de.wikipedia.org/wiki/Double_Data_Rate
 \end{enumerate}
 
 
-% Aufgabe 2	 	a: OK	b: OK
+% Aufgabe 2	 	a: 	
 \section*{Aufgabe 2}
-Das Steuerwerk eines Rechners dekodiert die Befehle aus dem OP- Code bzw. dem Maschinencode; für Benutzer sind Befehle mit mnemonische Symbolen leichter zu lesen (und schreiben). Gehen Sie vom Befehlssatz für den "`Mini-Power-PC"' aus.
+Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr günstigen Kosten (virtuell) nutzen können.
 \begin{enumerate}[label=\alph*)]
 	\item
-		\textit{Geben Sie für die folgenden Befehle mit mnemonische Symbolen den Maschinencode an: (4 Punkte)}
-		
-			\begin{tabular}[h]{l l}
-				LWDD 1, \#240 & 0100 0100 1111 0000\\
-				ADDD \#62 & 1000 0000 0011 1110\\
-				Not & 0000 0000 1000 0000\\
-				BCD \#15 & 0011 1000 0000 1111\\
-			\end{tabular}
-	
-	\item
-
-\end{enumerate}
-
-% Aufgabe 3		 	a: OK	b: OK
-\section*{Aufgabe 3}
-Der Befehlssatz für den "`Mini-Power-PC"' ist sehr klein / eingeschränkt. Sie haben gelernt, dass Zugriffe auf den Arbeitsspeicher sehr langsam sind (zum Teil deutlich mehr als 100 Zyklen).
-
-\begin{enumerate}[label=\alph*)]
-	\item
-		\textit{Welchen Befehlstyp würden Sie auf jeden Fall ergänzen, um die Code-Ausführung erheblich zu beschleunigen? Lösung: (3 Punkte)}
-		
-		Man sollte direkt vom Akku den Wert in ein anderes Register schreiben können und umgekehrt. Sonst muss man diesen Wert immer via Arbeitsspeicher hin und her kopieren.
-		
-	\item
-		\textit{Kann mit dem Befehlssatz ein Arbeitsspeicher von 16 KiB genutzt werden? Antwort bitte begründen. Lösung: (3 Punkte)}
-		
-		Nein, für die Adressierung stehen jeweils nur 10 Bit zur Verfügung, damit können ohne zusätzliche Komponenten oder einem anderen Aufbau (andere Unterteilung des Arbeitsspeicher) nicht mehr als 1 KiB adressiert werden.
+		\textit{Geben Sie die aktuellen Grössenordnungen für}
+			\begin{itemize}
+				\item \textit{die Kosten pro MB}
+				\item \textit{die Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte)}
+				\item \textit{sowie den Durchsatz}
+			\end{itemize}
+		\textit{für ein SRAM, ein DRAM, eine Festplatte, ein Bandlaufwerk und eine DVD an. (Bitte mit Quellenangabe belegen – 5 Punkte)}
 			
+			\begin{itemize}
+				\item SRAM
+					Beim SRAM haben wir starke Preisschwankungen in Abhängigkeit der Geschwindigkeit festgestellt. Das nachfolgende Modell war das schnellste. ein Modell mit einer Kapazität von 8MB und einer Geschwindigkeit von 10 ns hat z.B. pro MB einen Preis von "`nur"' 2.25 CHF.
+					\begin{itemize}
+						\item Kosten pro MB: 21.4 CHF
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 3.4 ns (Bei 167 MHz)
+						\item Durchsatz: 1336 MB/s
+					\end{itemize}
+					Quelle: http://ch.farnell.com/cypress-semiconductor/cy7c1370d-167axi/sram-18mbit-parallel-3-4ns-100tqfp/dp/2115434
+				\item DRAM
+					\begin{itemize}
+						\item Kosten pro MB: 0.011 CHF
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
+						\item Durchsatz:
+					\end{itemize}
+					%Source: http://www.corsair.com/us/memory-by-product-family/vengeance-pro-series-memory/vengeance-pro-series-16gb-2-x-8gb-ddr3-dram-2400mhz-c10-memory-kit-cmy16gx3m2a2400c10a.html
+					%https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=235969
+				\item Festplatte
+					\begin{itemize}
+						\item Kosten pro MB: 0.000089 CHF
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 6-15 ms
+						\item Durchsatz: 182 MB/s (Festplatte intern), 6 GB/s (Puffer - Host)
+					\end{itemize}
+					%Source: http://www.wdc.com/global/products/specs/?driveID=1184&language=3
+					%https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=269455
+					% http://www.jofland.de/docs/fp/fp_kap06.htm
+				\item Brandlaufwerk
+					\begin{itemize}
+						\item Kosten pro MB:
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
+						\item Durchsatz:
+					\end{itemize}
+				\item DVD
+					\begin{itemize}
+						\item Kosten pro MB:
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
+						\item Durchsatz:
+					\end{itemize}
+			\end{itemize}	
+			Der Datendurchsatz wurde unter der Annahme eines 64-Bit Systems berechnet. (Taktfrequenz * 64 / 8 )
+
 \end{enumerate}
 
 \newpage
-
-% Aufgabe 4		 	a: OK	b: -	c: -
-\section*{Aufgabe 4}
-Gegeben sei der Befehlssatz für den "`Mini-Power-PC"'. Die Aufgabe Summe=a+4*b+8*c soll über ein Programm für den „Mini-Power-PC berechnet werden.
+% Aufgabe 3		 	a: 
+\section*{Aufgabe 3}
+Die häufigste Speichertechnologie für den Arbeitsspeicher sind aktuell noch DRAMs. Ein Nachteil der DRAM-Technologie ist u. a. der häufig erforderliche Refresh.
 
 \begin{enumerate}[label=\alph*)]
 	\item
-		\textit{Schreiben Sie den Programm-Code mit mnemonische Symbolen (in Assembler) (6 Punkte)}
-
+		\textit{Zeigen Sie anhand der beigefügten schematischen Skizze einer einzelnen DRAM-Zelle, warum ein Refresh erforderlich ist und wie dieser abläuft. (3 Punkte)}
+		
+	\begin{figure}[htbp]
+		\centering \leavevmode
+		\epsfxsize=150pt
+		\epsfbox{Aufbau_DRAM.png}
+		\caption{Aufbau DRAM-Zelle}
+	\end{figure}
+Da es in der Speicherzelle einen sogenannten Leck-Strom gibt, das heisst die gespeicherte Ladung nimmt je nach Temperaturbereich, etc. mehr oder weniger schnell ab, muss ein Refresh durchgeführt werden, damit die Daten nicht verloren gehen. Der Refresh selbst funktioniert analog einem Lese-Vorgang. Bei einem Lese-Vorgang wird die Ladung innerhalb des gelesenen Wortes "`verbraucht"'. Daher erfolgt noch jedem Lese- nochmals ein Schreibvorgang. Da nicht auf alle Zellen regelmässig ein Lese-Vorgang ausgelöst wird, muss durch einen separaten Taktgeber ein Refresh gesteuert werden. Ein Refresh-Zyklus ist um einiges schneller, als ein Lese-Vorgang. Dies liegt daran, dass zum einen nur das einzelne Wort adressiert wird und die "`gelesenen"' Daten nicht in den Output-Buffer transferiert werden müssen. Für die Steuerung des Refresh gibt es unterschiedliche Techniken / Ansätze. Dieser kann vom Speicher-Controller oder vom System gesteuert werden. Auch der Refresh selbst kann auf unterschiediche Arten durchgeführt werden (Burst refresh / Distributed refresh).
+	
+	%Source:http://en.wikipedia.org/wiki/Memory_refresh
 \end{enumerate}
-
 \end{document}
