@@ -13,6 +13,7 @@
 \usepackage{graphicx} 
 \usepackage{float}
 \usepackage{epsfig}
+\usepackage{hyperref}
 
 \usetikzlibrary{arrows,automata}
 % \usepackage[latin1]{inputenc}
@@ -54,23 +55,28 @@ Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Lei
 		\textit{(Bitte mit Quellenangaben belegen - 4 Punkte)}
 		
 		\begin{itemize}
-			\item \textit{SDRAM (1st-Level-Cache)}: 3.4ns (http://www.farnell.com/datasheets/1645115.pdf)
-			\item \textit{DRAM (Arbeitsspeicher)}:  %TODO: DBRU: http://www.kingston.com/datasheets/KHX24C11T3K4_32X.pdf
-			\item \textit{Festplatten (Massenspeicher)} http://www.seagate.com/files/www-content/product-content/savvio-fam/savvio-10k/savvio-10k-7/de/docs/enterprise-performance-10k-hdd-data-sheet-ds1785-1-1304de.pdf
+			\item \textit{SDRAM (1st-Level-Cache)}: 3.4ns (\url{http://www.farnell.com/datasheets/1645115.pdf})
+			\item \textit{DRAM (Arbeitsspeicher)}:  %TODO: DBRU: \url{http://www.kingston.com/datasheets/KHX24C11T3K4_32X.pdf}
+			\item \textit{Festplatten (Massenspeicher)} (\url{http://www.seagate.com/files/www-content/product-content/savvio-fam/savvio-10k/savvio-10k-7/de/docs/enterprise-performance-10k-hdd-data-sheet-ds1785-1-1304de.pdf})
 			%3.4 ms https://www.digitec.ch/
-			\item \textit{Solid State Disks (als Massenspeicher)}: Lesen: 40$\mu s$ / Schreiben: 65 $\mu s$ $http://ark.intel.com/de/products/71916/Intel-SSD-DC-S3700-Series-800GB-2_5in-SATA-6Gbs-25nm-MLC$
+			\item \textit{Solid State Disks (als Massenspeicher)}: Lesen: 40$\mu s$ / Schreiben: 65 $\mu s$ \url{http://ark.intel.com/de/products/71916/Intel-SSD-DC-S3700-Series-800GB-2_5in-SATA-6Gbs-25nm-MLC}
 		\end{itemize}
 		\item 
-			\textit{Was sind die Vorteileund Nachteileder DDR(x)-SDRAM Speicherbausteine(x steht für leer, 2und 3) gegenüber klassischen  DRAM-Bausteinen? Lösung: (3 Punkte)}
+			\textit{Was sind die Vorteile und Nachteile der DDR(x)-SDRAM Speicherbausteine(x steht für leer, 2 und 3) gegenüber klassischen DRAM-Bausteinen? Lösung: (3 Punkte)}
 		
 		%TODO: Bitte reviewen, ist glaub ich noch nicht alles korrekt...schaue es mir später nochmals an.
-		Im Gegensatz zum klassischen DRAM verwendet der DDR RAM (double data rate) den Anstieg und den Abfall des Takt-Signales um Daten zu transferieren. Dadurch wird fast eine Verdoppelung der Geschwindigkeit erreicht. Der DDR RAM ist doppelt so schnell wie das Mainboard (Memory-Bus) getaktet. Damit eine Beschleunigung erreicht werden kann, muss die Anzahl angeforderter Daten (zusammenhängende Daten) gleich oder grösser als die doppelte Busbreite sein (Prefetch-Mechanismus). Ansonsten würde sich die Frequenz der Zugriffe auf die Speicherzellen nicht erhöht, wird beim DDR RAM der Prefetch-Mechanismus verwendet. Bei DDR-2, bzw. DDR-3 RAM wird ein vier-, bzw. achtfach-Prefetching verwendet. 
-		
+		% mha: habe es überprüft: prefetching genauer beschrieben.
+		% 	Es wird nach Vor/Nachteil gefragt, aber konnte keine Nachteil von ddr finden... Weist du was?
+		Im Gegensatz zum klassischen DRAM verwendet der DDR RAM (double data rate) den Anstieg und den Abfall des Takt-Signales um Daten zu transferieren. Dadurch wird fast eine Verdoppelung der Geschwindigkeit erreicht. Der DDR RAM ist doppelt so schnell wie das Mainboard (Memory-Bus) getaktet. Damit eine Beschleunigung erreicht werden kann, muss die Anzahl angeforderter Daten (zusammenhängende Daten) gleich oder grösser als die doppelte Busbreite sein. 
+		Mit Hilfe des Prefetch Mechanismuses werden die nötigen Anzahl Daten geladen, indem anstatt nur ein Bit mehrere Bits gleichzeitig ausgelesen werden. Ohne Prefetch Mechanisumus würde sich die Datenmenge nicht erhöhen. Bei DDR-2, bzw. DDR-3 RAM wird ein vier-, bzw. achtfach-Prefetching verwendet. 
+
 		SDRAM (Synchronous DRAM) Weiterentwicklung des klassischen DRAM (dazwischen gab es noch EDO RAM). Beim SDRAM werden die Daten erst bei Erhalt eines Signales vom System transferiert. 
 		
 		%Source: http://www.proprofs.com/mwiki/index.php/Understanding_RAM_Types:_DRAM_SDRAM_DIMM_SIMM_And_More
 		%Source: http://www.ehow.com/about_5518628_ddr-ram-vs-sdram.html
-		%Source: http://de.wikipedia.org/wiki/Double_Data_Rate
+		% Source: http://de.wikipedia.org/wiki/Double_Data_Rate
+		% http://de.wikipedia.org/wiki/DDR-SDRAM
+		% http://de.wikipedia.org/wiki/Dynamic_Random_Access_Memory#Prefetch
 \end{enumerate}
 
 
@@ -88,20 +94,26 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 		\textit{für ein SRAM, ein DRAM, eine Festplatte, ein Bandlaufwerk und eine DVD an. (Bitte mit Quellenangabe belegen – 5 Punkte)}
 			
 			\begin{itemize}
-				\item SRAM
-					Beim SRAM haben wir starke Preisschwankungen in Abhängigkeit der Geschwindigkeit festgestellt. Das nachfolgende Modell war das schnellste. ein Modell mit einer Kapazität von 8MB und einer Geschwindigkeit von 10 ns hat z.B. pro MB einen Preis von "`nur"' 2.25 CHF.
+			
+				\item SRAM: 
+					Beim SRAM haben wir starke Preisschwankungen in Abhängigkeit der Geschwindigkeit festgestellt. Das nachfolgende Modell war das schnellste. Ein Modell mit einer Kapazität von 8MB und einer Geschwindigkeit von 10 ns hat z.B. pro MB einen Preis von "`nur"' 2.25 CHF.
 					\begin{itemize}
 						\item Kosten pro MB: 21.4 CHF
 						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 3.4 ns (Bei 167 MHz)
 						\item Durchsatz: 1336 MB/s
 					\end{itemize}
-					Quelle: http://ch.farnell.com/cypress-semiconductor/cy7c1370d-167axi/sram-18mbit-parallel-3-4ns-100tqfp/dp/2115434
+					Quelle: \url{http://ch.farnell.com/cypress-semiconductor/cy7c1370d-167axi/sram-18mbit-parallel-3-4ns-100tqfp/dp/2115434}
+
 				\item DRAM
 					\begin{itemize}
-						\item Kosten pro MB: 0.011 CHF
-						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
+						\item Kosten pro MB: 0.01 CHF
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 6.25 ns
 						\item Durchsatz:
 					\end{itemize}
+					%mha: gemäss: http://www.hardwaresecrets.com/article/Understanding-RAM-Timings/26/2
+					% wäre die Zugriffzeit die erste Zahl von 10-10-10-27 sprich 10 Zyklen bei 1600 MHZ. sprich: 1s/(1600*1000*1000)*10 zyklen = 6.25 * 10^-9 s = 6.25 ns
+					
+					
 					%Source: http://www.corsair.com/us/memory-by-product-family/vengeance-pro-series-memory/vengeance-pro-series-16gb-2-x-8gb-ddr3-dram-2400mhz-c10-memory-kit-cmy16gx3m2a2400c10a.html
 					%https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=235969
 				\item Festplatte
