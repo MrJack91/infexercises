@@ -6,6 +6,34 @@ LWDD R3, #502 ;Zweiter Faktor in das 3. Register laden
 SWDD R0, #602 ;
 SWDD R2, #604 
 LWDD R0, #604
+BZD #
+
+DEC
+BZD #
+
+LWDD R0 #602
+SLL
+BCD #
+SWDD R0 #602
+LWDD R0 #604
+DEC
+DEC
+SWDD R0 #604
+BD #
+
+
+LWDD R0 #602
+ADD R3
+BCD 
+
+SWDD R0 #602
+LWDD R0 #604
+DEC
+SWDD R0 #604
+BD #
+
+
+
 
 
 -Faktoren laden
