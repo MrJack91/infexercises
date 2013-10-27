@@ -108,10 +108,13 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 					\begin{itemize}
 						\item Kosten pro MB: 0.01 CHF
 						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 6.25 ns
-						\item Durchsatz:
+						\item Durchsatz: 12800 MB/s
+						% gemäss wiki
 					\end{itemize}
 					%mha: gemäss: http://www.hardwaresecrets.com/article/Understanding-RAM-Timings/26/2
 					% wäre die Zugriffzeit die erste Zahl von 10-10-10-27 sprich 10 Zyklen bei 1600 MHZ. sprich: 1s/(1600*1000*1000)*10 zyklen = 6.25 * 10^-9 s = 6.25 ns
+					% mha Durchsatzrechnung: (Takt der Speicherzellen (in MHz) × Bit pro Übertragung × Anzahl Taktflanken) /8 Bit
+					% Wert jedoch gemäss wiki
 					
 					
 					%Source: http://www.corsair.com/us/memory-by-product-family/vengeance-pro-series-memory/vengeance-pro-series-16gb-2-x-8gb-ddr3-dram-2400mhz-c10-memory-kit-cmy16gx3m2a2400c10a.html
@@ -125,17 +128,20 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 					%Source: http://www.wdc.com/global/products/specs/?driveID=1184&language=3
 					%https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=269455
 					% http://www.jofland.de/docs/fp/fp_kap06.htm
-				\item Brandlaufwerk
+				\item Bandlaufwerk
 					\begin{itemize}
-						\item Kosten pro MB:
+						\item Kosten pro MB: .000086 CHF (Bei Komprimierung nur noch halb so viel, sprich: .000043 CHF)
 						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
 						\item Durchsatz:
+						\item Quelle: \url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=123648}
 					\end{itemize}
+					
 				\item DVD
 					\begin{itemize}
-						\item Kosten pro MB:
+						\item Kosten pro MB: 0.0019 CHF
 						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
-						\item Durchsatz:
+						\item Durchsatz: abhängig vom Gerät. z.B. bei 24x read $\Rightarrow$ 33.24MB/s
+						\item Quelle: \url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=114111}
 					\end{itemize}
 			\end{itemize}	
 			Der Datendurchsatz wurde unter der Annahme eines 64-Bit Systems berechnet. (Taktfrequenz * 64 / 8 )
