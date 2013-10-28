@@ -15,7 +15,9 @@
 \usepackage{graphicx} 
 \usepackage{float}
 \usepackage{epsfig}
+\usepackage[hyphens]{url}
 \usepackage{hyperref}
+
 
 \usetikzlibrary{arrows,automata}
 % \usepackage[latin1]{inputenc}
@@ -42,7 +44,7 @@
 \begin{document}
 \maketitle
 
-% Aufgabe 1  	a: -	b: -
+% Aufgabe 1  	a: ok	b: -
 \section*{Aufgabe 1}
 Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Leistung aktueller Computer bzw.Prozessoren.
 \begin{enumerate}[label=\alph*)]
@@ -57,18 +59,44 @@ Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Lei
 		\textit{(Bitte mit Quellenangaben belegen - 4 Punkte)}
 		
 		\begin{itemize}
-			\item \textit{SDRAM (1st-Level-Cache)}: 3.4ns (\url{http://www.farnell.com/datasheets/1645115.pdf})
-			\item \textit{DRAM (Arbeitsspeicher)}:  %TODO: DBRU: \url{http://www.kingston.com/datasheets/KHX24C11T3K4_32X.pdf}
-			\item \textit{Festplatten (Massenspeicher)} (\url{http://www.seagate.com/files/www-content/product-content/savvio-fam/savvio-10k/savvio-10k-7/de/docs/enterprise-performance-10k-hdd-data-sheet-ds1785-1-1304de.pdf})
-			%3.4 ms https://www.digitec.ch/
-			\item \textit{Solid State Disks (als Massenspeicher)}: Lesen: 40$\mu s$ / Schreiben: 65 $\mu s$ \url{http://ark.intel.com/de/products/71916/Intel-SSD-DC-S3700-Series-800GB-2_5in-SATA-6Gbs-25nm-MLC}
+			\item \textit{SDRAM (1st-Level-Cache)}:
+			
+			\textbf{2.6 - 3.4ns}
+			(\url{http://www.farnell.com/datasheets/1645115.pdf})
+			
+			
+			\item \textit{DRAM (Arbeitsspeicher)}:  
+			
+			
+			Zugriffzeit = Zykluszeit = \textbf{49.5ns}
+			
+			%mha: ich denke so stimmt es nicht: $9 * 49.5ns = $\textbf{445.5 ns} (Anzahl Zyklen * Zykluszeit)
+
+			
+			\url{http://www.kingston.com/datasheets/KHX24C11T3K4_32X.pdf}
+			
+			
+			\item \textit{Festplatten (Massenspeicher)}
+			
+			Average Latency (ms): \textbf{2.9ms}
+			
+			(\url{http://www.seagate.com/files/www-content/product-content/savvio-fam/savvio-10k/savvio-10k-7/de/docs/enterprise-performance-10k-hdd-data-sheet-ds1785-1-1304de.pdf})
+			
+			\url{http://www.storagereview.com/seagate_enterprise_performance_10k7_review}
+			
+			
+			\item \textit{Solid State Disks (als Massenspeicher)}:
+			
+			Lesen: 50$\mu s$ / Schreiben: 65 $\mu s$ 
+			
+			\url{http://ark.intel.com/de/products/71916/Intel-SSD-DC-S3700-Series-800GB-2_5in-SATA-6Gbs-25nm-MLC}
 		\end{itemize}
 		\item 
 			\textit{Was sind die Vorteile und Nachteile der DDR(x)-SDRAM Speicherbausteine(x steht für leer, 2 und 3) gegenüber klassischen DRAM-Bausteinen? Lösung: (3 Punkte)}
 		
 		%TODO: Bitte reviewen, ist glaub ich noch nicht alles korrekt...schaue es mir später nochmals an.
 		% mha: habe es überprüft: prefetching genauer beschrieben.
-		% 	Es wird nach Vor/Nachteil gefragt, aber konnte keine Nachteil von ddr finden... Weist du was?
+		% 	Es wird nach Vor/Nachteil gefragt, aber konnte keine Nachteil von ddr finden... Weist du was? Ein Refresh muss nach meinem Wissen bei beiden durchgeführt werden.
 		Im Gegensatz zum klassischen DRAM verwendet der DDR RAM (double data rate) den Anstieg und den Abfall des Takt-Signales um Daten zu transferieren. Dadurch wird fast eine Verdoppelung der Geschwindigkeit erreicht. Der DDR RAM ist doppelt so schnell wie das Mainboard (Memory-Bus) getaktet. Damit eine Beschleunigung erreicht werden kann, muss die Anzahl angeforderter Daten (zusammenhängende Daten) gleich oder grösser als die doppelte Busbreite sein. 
 		Mit Hilfe des Prefetch Mechanismuses werden die nötigen Anzahl Daten geladen, indem anstatt nur ein Bit mehrere Bits gleichzeitig ausgelesen werden. Ohne Prefetch Mechanisumus würde sich die Datenmenge nicht erhöhen. Bei DDR-2, bzw. DDR-3 RAM wird ein vier-, bzw. achtfach-Prefetching verwendet. 
 
@@ -82,7 +110,7 @@ Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Lei
 \end{enumerate}
 
 
-% Aufgabe 2	 	a: 	
+% Aufgabe 2	 	a: 	ok
 \section*{Aufgabe 2}
 Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr günstigen Kosten (virtuell) nutzen können.
 \begin{enumerate}[label=\alph*)]
@@ -100,50 +128,92 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 				\item SRAM: 
 					Beim SRAM haben wir starke Preisschwankungen in Abhängigkeit der Geschwindigkeit festgestellt. Das nachfolgende Modell war das schnellste. Ein Modell mit einer Kapazität von 8MB und einer Geschwindigkeit von 10 ns hat z.B. pro MB einen Preis von "`nur"' 2.25 CHF.
 					\begin{itemize}
-						\item Kosten pro MB: 21.4 CHF
-						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 3.4 ns (Bei 167 MHz)
-						\item Durchsatz: 1336 MB/s
+						\item Kosten pro MB: \textbf{21.4 CHF}
+						
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): \textbf{3.4 ns} (Bei 167 MHz)
+						
+						\item Durchsatz: \textbf{1336 MB/s}
+						
+						\item Quelle:
+							
+							\url{http://ch.farnell.com/cypress-semiconductor/cy7c1370d-167axi/sram-18mbit-parallel-3-4ns-100tqfp/dp/2115434}
+						
 					\end{itemize}
-					Quelle: \url{http://ch.farnell.com/cypress-semiconductor/cy7c1370d-167axi/sram-18mbit-parallel-3-4ns-100tqfp/dp/2115434}
 
 				\item DRAM
 					\begin{itemize}
-						\item Kosten pro MB: 0.01 CHF
-						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 6.25 ns
-						\item Durchsatz: 12800 MB/s
-						% gemäss wiki
+						\item Kosten pro MB: \textbf{0.01 CHF}
+						
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): \textbf{6.25 ns}
+						
+						\item Durchsatz: \textbf{12800 MB/s}
+						
+						(via DDR3-1600 aufgelöst)
+						
+						\item Quelle:
+						
+							\url{http://en.wikipedia.org/wiki/DDR3_SDRAM}
+							
+							\url{http://www.corsair.com/us/memory-by-product-family/vengeance-pro-series-memory/vengeance-pro-series-16gb-2-x-8gb-ddr3-dram-2400mhz-c10-memory-kit-cmy16gx3m2a2400c10a.html}
+							
+							\url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=235969}
 					\end{itemize}
 					%mha: gemäss: http://www.hardwaresecrets.com/article/Understanding-RAM-Timings/26/2
 					% wäre die Zugriffzeit die erste Zahl von 10-10-10-27 sprich 10 Zyklen bei 1600 MHZ. sprich: 1s/(1600*1000*1000)*10 zyklen = 6.25 * 10^-9 s = 6.25 ns
 					% mha Durchsatzrechnung: (Takt der Speicherzellen (in MHz) × Bit pro Übertragung × Anzahl Taktflanken) /8 Bit
 					% Wert jedoch gemäss wiki
-					
-					
-					%Source: http://www.corsair.com/us/memory-by-product-family/vengeance-pro-series-memory/vengeance-pro-series-16gb-2-x-8gb-ddr3-dram-2400mhz-c10-memory-kit-cmy16gx3m2a2400c10a.html
-					%https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=235969
+
 				\item Festplatte
 					\begin{itemize}
-						\item Kosten pro MB: 0.000089 CHF
-						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): 6-15 ms
-						\item Durchsatz: 182 MB/s (Festplatte intern), 6 GB/s (Puffer - Host)
+						\item Kosten pro MB:\textbf{ 0.000089 CHF}
+						
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): \textbf{6-15 ms}
+						
+						\item Durchsatz: \textbf{182 MB/s} (Festplatte intern), \textbf{6 GB/s} (Puffer - Host)
+						
+						\item Quelle:
+						
+							\url{http://www.wdc.com/global/products/specs/?driveID=1184&language=3}
+							
+							\url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=269455}
+							
+							\url{http://www.jofland.de/docs/fp/fp_kap06.htm}
 					\end{itemize}
-					%Source: http://www.wdc.com/global/products/specs/?driveID=1184&language=3
-					%https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=269455
-					% http://www.jofland.de/docs/fp/fp_kap06.htm
+					
 				\item Bandlaufwerk
 					\begin{itemize}
-						\item Kosten pro MB: .000086 CHF (Bei Komprimierung nur noch halb so viel, sprich: .000043 CHF)
-						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
-						\item Durchsatz:
-						\item Quelle: \url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=123648}
+						\item Kosten pro MB: \textbf{0.000086 CHF}
+						
+						(Bei Komprimierung verdoppelt sich die Kapazität, entsprechend halbieren sich die Kosten pro MB: 0.000043 CHF)
+						
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): sehr lange Zugriffzeit (\textbf{mehrere Sekunden oder länger}, bedingt durch das notwendige Vor- oder Zurückspulen des Bandes. 
+						
+						\item Durchsatz: abhängig vom Gerät.
+						z.B. LTO-6 hat einen Durchsatz von: \textbf{1.4 TB/h}
+						
+						\item Quelle:
+						
+							\url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=123648}
+							
+							\url{http://de.wikipedia.org/wiki/Zugriffszeit}
+						
+							\url{http://www.quantum.com/de/products/tapedrives/ltoultrium/lto-6/index.aspx}
+						
 					\end{itemize}
 					
 				\item DVD
 					\begin{itemize}
-						\item Kosten pro MB: 0.0019 CHF
-						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte):
-						\item Durchsatz: abhängig vom Gerät. z.B. bei 24x read $\Rightarrow$ 33.24MB/s
-						\item Quelle: \url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=114111}
+						\item Kosten pro MB: \textbf{0.0019 CHF}
+						
+						\item Zugriffgeschwindigkeit auf ein einzelnes Byte (das erste Byte): ungefähr 100ns (abhängig vom Laufwerk)
+						
+						\item Durchsatz: abhängig vom Gerät. z.B. bei 24x read $\Rightarrow$ \textbf{33.24MB/s}
+						
+						\item Quelle:
+							
+							\url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=114111}
+							
+							\url{http://www.tecchannel.de/bild-zoom/401606/8/332148/IM_56F5ECEA-E383-343C-8DDA85E41FED3F4A/}
 					\end{itemize}
 			\end{itemize}	
 			Der Datendurchsatz wurde unter der Annahme eines 64-Bit Systems berechnet. (Taktfrequenz * 64 / 8 )
@@ -167,6 +237,7 @@ Die häufigste Speichertechnologie für den Arbeitsspeicher sind aktuell noch DR
 	\end{figure}
 Da es in der Speicherzelle einen sogenannten Leck-Strom gibt, das heisst die gespeicherte Ladung nimmt je nach Temperaturbereich, etc. mehr oder weniger schnell ab, muss ein Refresh durchgeführt werden, damit die Daten nicht verloren gehen. Der Refresh selbst funktioniert analog einem Lese-Vorgang. Bei einem Lese-Vorgang wird die Ladung innerhalb des gelesenen Wortes "`verbraucht"'. Daher erfolgt noch jedem Lese- nochmals ein Schreibvorgang. Da nicht auf alle Zellen regelmässig ein Lese-Vorgang ausgelöst wird, muss durch einen separaten Taktgeber ein Refresh gesteuert werden. Ein Refresh-Zyklus ist um einiges schneller, als ein Lese-Vorgang. Dies liegt daran, dass zum einen nur das einzelne Wort adressiert wird und die "`gelesenen"' Daten nicht in den Output-Buffer transferiert werden müssen. Für die Steuerung des Refresh gibt es unterschiedliche Techniken / Ansätze. Dieser kann vom Speicher-Controller oder vom System gesteuert werden. Auch der Refresh selbst kann auf unterschiediche Arten durchgeführt werden (Burst refresh / Distributed refresh).
 	
-	%Source:http://en.wikipedia.org/wiki/Memory_refresh
+	%Source: http://en.wikipedia.org/wiki/Memory_refresh
 \end{enumerate}
+
 \end{document}
