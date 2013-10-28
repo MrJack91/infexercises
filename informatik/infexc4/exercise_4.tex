@@ -151,6 +151,11 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 						
 						(via DDR3-1600 aufgelöst)
 						
+						%mha: gemäss: http://www.hardwaresecrets.com/article/Understanding-RAM-Timings/26/2
+						% wäre die Zugriffzeit die erste Zahl von 10-10-10-27 sprich 10 Zyklen bei 1600 MHZ. sprich: 1s/(1600*1000*1000)*10 zyklen = 6.25 * 10^-9 s = 6.25 ns
+						% mha Durchsatzrechnung: (Takt der Speicherzellen (in MHz) × Bit pro Übertragung × Anzahl Taktflanken) /8 Bit
+						% Wert jedoch gemäss wiki
+						
 						\item Quelle:
 						
 							\url{http://en.wikipedia.org/wiki/DDR3_SDRAM}
@@ -159,11 +164,6 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 							
 							\url{https://www.digitec.ch/ProdukteDetails2.aspx?Reiter=Details&Artikel=235969}
 					\end{itemize}
-					%mha: gemäss: http://www.hardwaresecrets.com/article/Understanding-RAM-Timings/26/2
-					% wäre die Zugriffzeit die erste Zahl von 10-10-10-27 sprich 10 Zyklen bei 1600 MHZ. sprich: 1s/(1600*1000*1000)*10 zyklen = 6.25 * 10^-9 s = 6.25 ns
-					% mha Durchsatzrechnung: (Takt der Speicherzellen (in MHz) × Bit pro Übertragung × Anzahl Taktflanken) /8 Bit
-					% Wert jedoch gemäss wiki
-
 				\item Festplatte
 					\begin{itemize}
 						\item Kosten pro MB:\textbf{ 0.000089 CHF}
