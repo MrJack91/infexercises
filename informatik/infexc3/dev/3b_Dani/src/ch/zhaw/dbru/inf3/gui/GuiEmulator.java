@@ -16,7 +16,6 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -34,10 +32,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import ch.zhaw.dbru.inf3.compiler.AssemblerCompiler;
 import ch.zhaw.dbru.inf3.compiler.exception.AssemblerCompilationException;
-import ch.zhaw.dbru.inf3.emulator.MPCConstants;
 import ch.zhaw.dbru.inf3.emulator.itf.EmulationController;
 import ch.zhaw.dbru.inf3.emulator.itf.EmulationHandler;
 import ch.zhaw.dbru.inf3.emulator.logic.BinaryUtils;
+import ch.zhaw.dbru.inf3.emulator.logic.MiniPowerPCException;
 import ch.zhaw.dbru.inf3.memory.Memory;
 
 public class GuiEmulator extends JFrame implements EmulationHandler,
@@ -300,7 +298,8 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	 */
 	private void setRecordValue(String anId, String aBinaryValue) {
 		stateValueLabelBin.get(anId).setText(aBinaryValue);
-		stateValueLabelDez.get(anId).setText(BinaryUtils.convertBitStringToInt(aBinaryValue) + "");
+		stateValueLabelDez.get(anId).setText(
+				BinaryUtils.convertBitStringToInt(aBinaryValue) + "");
 	}
 
 	/*
@@ -381,6 +380,16 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see ch.zhaw.dbru.inf3.emulator.itf.EmulationHandler#programmFinished()
+	 */
+	@Override
+	public void programmFinished() {
+		nextBtn.setEnabled(false);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
@@ -399,9 +408,25 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 			controller.setMode(EmulationController.MODE_SLOW);
 		} else if (source.equals(rbStep)) {
 			controller.setMode(EmulationController.MODE_STEP);
+		}else if (source.equals(clearBtn)){
+			reset();
 		}
 	}
 
+	/**
+	 * Performs a reset 
+	 */
+	private void reset(){
+		controller.reset();
+		nextBtn.setEnabled(false);
+		
+		progTableModel.setData(new ArrayList<String>());
+		progTable.updateUI();
+		
+		progCompTableModel.setData(new ArrayList<String>());
+		progCompTable.updateUI();
+	}
+	
 	/**
 	 * Process Action for 'LoadScript'.
 	 */
@@ -443,6 +468,13 @@ public class GuiEmulator extends JFrame implements EmulationHandler,
 										+ "\n\n" + e.getMessage(),
 								"Fehler beim Kompilieren...",
 								JOptionPane.ERROR_MESSAGE);
+						reset();
+					}catch (MiniPowerPCException e){
+						JOptionPane.showMessageDialog(this,
+								"Beim Kompilieren ist ein Fehler aufgetreten: Ein Argument überschreitet die zulässige Stellenzahl.",
+								"Fehler beim Kompilieren...",
+								JOptionPane.ERROR_MESSAGE);
+						reset();
 					}
 				} catch (IOException e) {
 					JOptionPane

@@ -46,7 +46,7 @@
 
 % Aufgabe 1  	a: ok	b: -
 \section*{Aufgabe 1}
-Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Leistung aktueller Computer bzw.Prozessoren.
+Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Leistung aktueller Computer bzw. Prozessoren.
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Recherchieren Sie aktuellen Werte für die Zugriffszeiten in Rechnern (Lesen und Schreiben) für:}
@@ -61,33 +61,30 @@ Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Lei
 		\begin{itemize}
 			\item \textit{SDRAM (1st-Level-Cache)}:
 			
-			\textbf{2.6 - 3.4ns}
-			(\url{http://www.farnell.com/datasheets/1645115.pdf})
+			\textbf{2.6 - 3.4ns}\\
+			\url{http://www.farnell.com/datasheets/1645115.pdf}
 			
 			
-			\item \textit{DRAM (Arbeitsspeicher)}:  
-			
-			
-			Zugriffzeit = Zykluszeit = \textbf{49.5ns}
-			
-			%mha: ich denke so stimmt es nicht: $9 * 49.5ns = $\textbf{445.5 ns} (Anzahl Zyklen * Zykluszeit)
+			\item \textit{DRAM (Arbeitsspeicher)}:
 
-			
+			Zugriffzeit = Zykluszeit = \textbf{49.5ns}\\
+			%mha: ich denke so stimmt es nicht: $9 * 49.5ns = $\textbf{445.5 ns} (Anzahl Zyklen * Zykluszeit)
+			%dbru: 445.5 wäre schon etwas viel, sollte schon stimmen: http://de.kioskea.net/contents/273-der-arbeitsspeicher-ram-oder-pc-speicher#sdram
 			\url{http://www.kingston.com/datasheets/KHX24C11T3K4_32X.pdf}
 			
 			
 			\item \textit{Festplatten (Massenspeicher)}
 			
-			Average Latency (ms): \textbf{2.9ms}
+			Average Latency (ms): \textbf{2.9ms}\\
 			
-			(\url{http://www.seagate.com/files/www-content/product-content/savvio-fam/savvio-10k/savvio-10k-7/de/docs/enterprise-performance-10k-hdd-data-sheet-ds1785-1-1304de.pdf})
+			\url{http://www.seagate.com/files/www-content/product-content/savvio-fam/savvio-10k/savvio-10k-7/de/docs/enterprise-performance-10k-hdd-data-sheet-ds1785-1-1304de.pdf}\\
 			
 			\url{http://www.storagereview.com/seagate_enterprise_performance_10k7_review}
 			
 			
 			\item \textit{Solid State Disks (als Massenspeicher)}:
 			
-			Lesen: 50$\mu s$ / Schreiben: 65 $\mu s$ 
+			Lesen: 50$\mu s$ / Schreiben: 65 $\mu s$ \\
 			
 			\url{http://ark.intel.com/de/products/71916/Intel-SSD-DC-S3700-Series-800GB-2_5in-SATA-6Gbs-25nm-MLC}
 		\end{itemize}
@@ -97,10 +94,11 @@ Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Lei
 		%TODO: Bitte reviewen, ist glaub ich noch nicht alles korrekt...schaue es mir später nochmals an.
 		% mha: habe es überprüft: prefetching genauer beschrieben.
 		% 	Es wird nach Vor/Nachteil gefragt, aber konnte keine Nachteil von ddr finden... Weist du was? Ein Refresh muss nach meinem Wissen bei beiden durchgeführt werden.
+		%dbru: Denke ist ok so, Info zu SDRAM auskommentiert -> nicht relevant
 		Im Gegensatz zum klassischen DRAM verwendet der DDR RAM (double data rate) den Anstieg und den Abfall des Takt-Signales um Daten zu transferieren. Dadurch wird fast eine Verdoppelung der Geschwindigkeit erreicht. Der DDR RAM ist doppelt so schnell wie das Mainboard (Memory-Bus) getaktet. Damit eine Beschleunigung erreicht werden kann, muss die Anzahl angeforderter Daten (zusammenhängende Daten) gleich oder grösser als die doppelte Busbreite sein. 
 		Mit Hilfe des Prefetch Mechanismuses werden die nötigen Anzahl Daten geladen, indem anstatt nur ein Bit mehrere Bits gleichzeitig ausgelesen werden. Ohne Prefetch Mechanisumus würde sich die Datenmenge nicht erhöhen. Bei DDR-2, bzw. DDR-3 RAM wird ein vier-, bzw. achtfach-Prefetching verwendet. 
 
-		SDRAM (Synchronous DRAM) Weiterentwicklung des klassischen DRAM (dazwischen gab es noch EDO RAM). Beim SDRAM werden die Daten erst bei Erhalt eines Signales vom System transferiert. 
+		%SDRAM (Synchronous DRAM) Weiterentwicklung des klassischen DRAM (dazwischen gab es noch EDO RAM). Beim SDRAM werden die Daten erst bei Erhalt eines %Signales vom System transferiert. 
 		
 		%Source: http://www.proprofs.com/mwiki/index.php/Understanding_RAM_Types:_DRAM_SDRAM_DIMM_SIMM_And_More
 		%Source: http://www.ehow.com/about_5518628_ddr-ram-vs-sdram.html
@@ -217,8 +215,6 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 							\url{http://www.tecchannel.de/bild-zoom/401606/8/332148/IM_56F5ECEA-E383-343C-8DDA85E41FED3F4A/}
 					\end{itemize}
 			\end{itemize}	
-			Der Datendurchsatz wurde unter der Annahme eines 64-Bit Systems berechnet. (Taktfrequenz * 64 / 8 )
-
 \end{enumerate}
 
 \newpage

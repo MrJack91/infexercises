@@ -19,4 +19,8 @@ public interface EmulationHandler {
 	public void updateCarryFlag(boolean aFlag);
 	public void stepFinished();
 	public void updateMemory(Memory aMemory);
+	/**
+	 * 
+	 */
+	public void programmFinished();
 }

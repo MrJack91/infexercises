@@ -7,7 +7,6 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import ch.zhaw.dbru.inf3.emulator.logic.Command;
 
 /**
  * @author Daniel Brun
@@ -45,6 +44,7 @@ public class CommandSet {
 		cmADDD.allocateUsage(0, 1, Command.OPSCODE);
 		cmADDD.allocateUsage(1, 16, Command.OPERAND_ONE);
 		cmADDD.setBits(true);
+		cmADDD.setOperandSignType(Command.OPERAND_ONE, Command.OPERAND_TYPE_SIGNED);
 		commands.put(cmADDD.getCommand(), cmADDD);
 
 		Command cmINC = new Command(CommandEnum.INC);
