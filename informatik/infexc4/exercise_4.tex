@@ -109,6 +109,7 @@ Die Zugriffszeiten unterschiedlicher Speicherartenbeeinflussen erheblich die Lei
 		% http://de.wikipedia.org/wiki/Dynamic_Random_Access_Memory#Prefetch
 \end{enumerate}
 
+\newpage
 
 % Aufgabe 2	 	a: 	ok
 \section*{Aufgabe 2}
@@ -221,7 +222,7 @@ Durch eine Speicherhierarchie soll der Benutzer sehr grossen Speicher zu sehr g�
 \end{enumerate}
 
 \newpage
-% Aufgabe 3		 	a: 
+% Aufgabe 3		 	a: ok
 \section*{Aufgabe 3}
 Die häufigste Speichertechnologie für den Arbeitsspeicher sind aktuell noch DRAMs. Ein Nachteil der DRAM-Technologie ist u. a. der häufig erforderliche Refresh.
 
@@ -231,13 +232,20 @@ Die häufigste Speichertechnologie für den Arbeitsspeicher sind aktuell noch DR
 		
 	\begin{figure}[htbp]
 		\centering \leavevmode
-		\epsfxsize=150pt
+		\epsfxsize=120pt
 		\epsfbox{Aufbau_DRAM.png}
 		\caption{Aufbau DRAM-Zelle}
 	\end{figure}
-Da es in der Speicherzelle einen sogenannten Leck-Strom gibt, das heisst die gespeicherte Ladung nimmt je nach Temperaturbereich, etc. mehr oder weniger schnell ab, muss ein Refresh durchgeführt werden, damit die Daten nicht verloren gehen. Der Refresh selbst funktioniert analog einem Lese-Vorgang. Bei einem Lese-Vorgang wird die Ladung innerhalb des gelesenen Wortes "`verbraucht"'. Daher erfolgt noch jedem Lese- nochmals ein Schreibvorgang. Da nicht auf alle Zellen regelmässig ein Lese-Vorgang ausgelöst wird, muss durch einen separaten Taktgeber ein Refresh gesteuert werden. Ein Refresh-Zyklus ist um einiges schneller, als ein Lese-Vorgang. Dies liegt daran, dass zum einen nur das einzelne Wort adressiert wird und die "`gelesenen"' Daten nicht in den Output-Buffer transferiert werden müssen. Für die Steuerung des Refresh gibt es unterschiedliche Techniken / Ansätze. Dieser kann vom Speicher-Controller oder vom System gesteuert werden. Auch der Refresh selbst kann auf unterschiediche Arten durchgeführt werden (Burst refresh / Distributed refresh).
+Da es in der Speicherzelle einen sogenannten Leck-Strom gibt, das heisst die gespeicherte Ladung nimmt je nach Temperaturbereich, etc. mehr oder weniger schnell ab, muss ein Refresh durchgeführt werden, damit die Daten nicht verloren gehen.
+Der Refresh selbst funktioniert analog einem Lese-Vorgang. Bei einem Lese-Vorgang wird die Ladung innerhalb des gelesenen Wortes "`verbraucht"'. Daher erfolgt noch jedem Lese- nochmals ein Schreibvorgang.
+Da nicht auf alle Zellen regelmässig ein Lese-Vorgang ausgelöst wird, muss durch einen separaten Taktgeber ein Refresh gesteuert werden. Ein Refresh-Zyklus ist um einiges schneller, als ein Lese-Vorgang. Dies liegt daran, dass zum einen nur das einzelne Wort adressiert wird und die "`gelesenen"' Daten nicht in den Output-Buffer transferiert werden müssen.
+Für die Steuerung des Refresh gibt es unterschiedliche Techniken / Ansätze. Dieser kann vom Speicher-Controller oder vom System gesteuert werden. Auch der Refresh selbst kann auf unterschiediche Arten durchgeführt werden (Burst refresh / Distributed refresh).
 	
-	%Source: http://en.wikipedia.org/wiki/Memory_refresh
+	Quelle:
+	
+		\url{http://de.wikipedia.org/wiki/Dynamic_Random_Access_Memory#Refresh}
+		
+		\url{http://en.wikipedia.org/wiki/Memory_refresh}
 \end{enumerate}
 
 \end{document}
