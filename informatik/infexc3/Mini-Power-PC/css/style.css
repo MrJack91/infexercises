@@ -1,0 +1,26 @@
+/* Control */
+.control{ float: right; margin-top: 7px; }
+.control .btn { width: 98px; }
+
+#stepCount { font-size: 17px; position: relative; top: 5px; margin-right: 6px; width: 124px; display: inline-block; }
+
+/* Akku & codeView*/
+.panel-heading { overflow: auto; }
+.headLeft { float: left; }
+.headRight { float: right; font-size: 13px; padding: 2px 8px; }
+.carrybit { font-weight: bold;  }
+#opCodeView .headRight { width: 150px; }
+
+/**/
+#opCodeView table tr td:first-child { width: 10%; }           /* First Column */
+#opCodeView table tr td:first-child + td { width: 55%; }      /* Second Column */
+#opCodeView table tr td:first-child + td + td { width: 35%; } /* Third Column */
+
+#opCodeView td, #storage td { padding: 0 8px; }
+
+#storage td { font-size: 11px; }
+
+/*
+#opCode textarea { width: 48.5%; display: inline; }
+#txtOpCodeBin { margin-left: 2.5%; }
+*/
