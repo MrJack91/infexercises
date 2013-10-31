@@ -55,7 +55,7 @@ miniPowerTemplate.main = {
    * parse binary from mnemonics
    */
   parseBinary : function (inputCommandsId, inputStorageId) {
-    // try {
+    try {
       // commands import
       var inputCommand = $('#'+inputCommandsId).val();
       $('#'+inputCommandsId).removeClass('alert-danger');
@@ -67,13 +67,11 @@ miniPowerTemplate.main = {
       miniPower.command.show(5,10);
       $('#opCodeBin').val(miniPower.command.getMnemonicsInBinary());
       $('#'+inputCommandsId).addClass('alert-success');
-    /*
     } catch (err) {
       console.log(err.message);
       $('#'+inputCommandsId).removeClass('alert-success');
       $('#'+inputCommandsId).addClass('alert-danger');
     }
-    */
 
     try {
       // storage import
@@ -81,9 +79,14 @@ miniPowerTemplate.main = {
       var inputStorage = $('#'+inputStorageId).val();
       var singleStorage = inputStorage.split('\n');
       $(singleStorage).each(function(index, value){
-        var value = miniPower.main.dec2binNegative(value);
+        value = parseInt(value);
+        if (isNaN(value)) {
+          value = 0;
+        }
+        value = miniPower.main.dec2binNegative(value);
         miniPower.storage.write(POINTER_STORAGE + index, value);
       });
+      // show next 29 entries
       miniPower.storage.show(POINTER_STORAGE, POINTER_STORAGE+29);
       $('#'+inputStorageId).addClass('alert-success');
     } catch (err) {

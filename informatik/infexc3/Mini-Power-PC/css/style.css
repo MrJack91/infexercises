@@ -11,8 +11,9 @@
 .carrybit { font-weight: bold;  }
 #opCodeView .headRight { width: 150px; }
 #opCode { height: 918px; }
+#storageInput { text-align: right; }
 
-/**/
+/*  */
 #opCodeView table tr td:first-child { width: 10%; }           /* First Column */
 #opCodeView table tr td:first-child + td { width: 55%; }      /* Second Column */
 #opCodeView table tr td:first-child + td + td { width: 35%; } /* Third Column */
