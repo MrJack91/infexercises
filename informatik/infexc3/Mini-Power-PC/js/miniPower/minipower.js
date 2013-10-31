@@ -91,6 +91,10 @@ miniPowerTemplate.main = {
       $('#'+inputStorageId).removeClass('alert-success');
       $('#'+inputStorageId).addClass('alert-danger');
     }
+
+    // save inputs to data store
+    localStorage.setItem('opCode', inputCommand);
+    localStorage.setItem('storageInput', inputStorage);
   },
 
   loadBinaryTemplate : function (mnemonics) {
@@ -426,6 +430,7 @@ $('#btnReload').bind('click', function (e) {
   miniPower.main.parseBinary('opCode', 'storageInput');
 })
 
+/*
 // set test values
 // $('#opCode').val('LWDD 0, #500\nSWDD 0, #520\nLWDD 1, #501\nSWDD 1, #521\nCLR 0\nCLR 1\nEND');
 // ADD
@@ -447,6 +452,11 @@ $('#storageInput').val('25\n0\n-14\n0\n-123');
 // $('#storageInput').val('-125\n0\n10000\n0\n16');
 // $('#storageInput').val('1000\n0\n10000\n0\n-2000');
 // $('#storageInput').val('32765\n-32765\n0\n10000\n0\n-2000');
+*/
+
+$('#opCode').val(localStorage.getItem('opCode'));
+$('#storageInput').val(localStorage.getItem('storageInput'));
+
 miniPower.main.parseBinary('opCode', 'storageInput');
 
 

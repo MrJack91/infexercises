@@ -4,12 +4,13 @@
 
 #stepCount { font-size: 17px; position: relative; top: 5px; margin-right: 6px; width: 124px; display: inline-block; }
 
-/* Akku & codeView*/
+/* Akku & codeView */
 .panel-heading { overflow: auto; }
 .headLeft { float: left; }
 .headRight { float: right; font-size: 13px; padding: 2px 8px; }
 .carrybit { font-weight: bold;  }
 #opCodeView .headRight { width: 150px; }
+#opCode { height: 918px; }
 
 /**/
 #opCodeView table tr td:first-child { width: 10%; }           /* First Column */
