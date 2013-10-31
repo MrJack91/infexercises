@@ -55,7 +55,7 @@ miniPowerTemplate.main = {
    * parse binary from mnemonics
    */
   parseBinary : function (inputCommandsId, inputStorageId) {
-    try {
+    // try {
       // commands import
       var inputCommand = $('#'+inputCommandsId).val();
       $('#'+inputCommandsId).removeClass('alert-danger');
@@ -67,11 +67,13 @@ miniPowerTemplate.main = {
       miniPower.command.show(5,10);
       $('#opCodeBin').val(miniPower.command.getMnemonicsInBinary());
       $('#'+inputCommandsId).addClass('alert-success');
+    /*
     } catch (err) {
       console.log(err.message);
       $('#'+inputCommandsId).removeClass('alert-success');
       $('#'+inputCommandsId).addClass('alert-danger');
     }
+    */
 
     try {
       // storage import
@@ -434,7 +436,7 @@ $('#btnReload').bind('click', function (e) {
 // $('#opCode').val('LWDD 0, #501\nLWDD 1, #501\nBNZ 1\nEND\nEND\nEND\nEND\nEND\nCLR 0\nCLR 1\nEND');
 // $('#opCode').val('LWDD 0, #500\nSLL\nSLL\nSLL\nSLL\nSLL\nSLL\nSLL\nSLL\nEND');
 // inf 3 aufagbe
-$('#opCode').val('LWDD 0, #504\nSLA\nSLA\nSLA\nSWDD 0, #506\nLWDD 0, #502\nSLA\nSLA\nLWDD 1, #500\nADD 1\nLWDD 1, #506\nADD 1\nSWDD 0, #506\nEND');
+$('#opCode').val('LWDD 0, #504    ; hello test\nSLA\n\nSLA\nSLA\nSWDD 0, #506\nLWDD 0, #502\nSLA\nSLA\nLWDD 1, #500\nADD 1\nLWDD 1, #506\nADD 1\nSWDD 0, #506\nEND');
 // $('#opCode').val('LWDD 0, #504\nSRA\nSRA\nSRA\nSRA\nSRA\nSRA\nSRA\nSRA\nSRA\nSWDD 0, #506\nLWDD 0, #502\nSLA\nSLA\nLWDD 1, #500\nADD 1\nLWDD 1, #506\nADD 1\nSWDD 0, #506\nEND');
 // $('#opCode').val('LWDD 0, #500\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nINC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nDEC\nEND');
 // $('#opCode').val('LWDD 0, #500\nADDD #40000\nEND');

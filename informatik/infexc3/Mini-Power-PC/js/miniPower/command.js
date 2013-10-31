@@ -18,8 +18,33 @@ function command(htmlId, start) {
    * @param binary
    * @param parts
    */
-  this.add = function (index, mnemonic, binary, parts) {
-    val = {
+  this.add = function (index, mnemonic, binary, parts, mnemonicComment) {
+
+    // init
+    if (mnemonic.length == 0) {
+      // initialize mnemonic correct if here are empty (CRLF)
+
+      binary = 0;
+      parts = new Array();
+      parts['mnemonicCommand'] = {
+        'number': 0,
+        'numberBin': 0
+      };
+      parts['reg'] = {
+        'number': 0,
+        'numberBin': 0
+      };
+      parts['adr'] = {
+        'number': 0,
+        'numberBin': 0
+      };
+      parts['value'] = {
+        'number': 0,
+        'numberBin': 0
+      };
+      mnemonicComment = '';
+    }
+    var val = {
       mnemonic: mnemonic,
       binary: miniPower.main.normalizeBin(binary).val,
       binaryShow: miniPower.main.formatBin(binary),
@@ -28,116 +53,137 @@ function command(htmlId, start) {
         reg: parts.reg,
         adr: parts.adr,
         value: parts.value
-      }
-    }
+      },
+      mnemonicComment: mnemonicComment
+    };
     this.storage.write(index, val);
   };
 
   this.addMnemonic = function (index, mnemonic) {
-    // mnemonic command
-    var singleOpWord = mnemonic.split(' ');
-    var mnemonicCommand = singleOpWord[0].toUpperCase();
-    // binary template
-    var binaryTemplate = miniPower.main.loadBinaryTemplate(mnemonicCommand);
-    // binary template placeholders
-    // var results = miniPower.main.regexSearch(/\[(.[^\[]*)_([0-9]+)\]/gi, binaryTemplate);
-    var results = miniPower.main.regexSearch(/\[(.[^\[]*)_([0-9]+)\]/gi, binaryTemplate);
-    // cut mnemonic word from commend, and split by coma
-    singleOpWord.splice(0,1);
-    var params = singleOpWord.join('').split(',');
 
-    // set all notused bits
-    if (results['notUsed'] !== undefined) {
-      var count = parseInt(results['notUsed']);
-      binaryTemplate = binaryTemplate.replace('[notUsed_' + results['notUsed'] + ']', '0'.repeat(count));
-      delete results['notUsed'];
+    mnemonic = $.trim(mnemonic);
+
+    var mnemonicCommandPart = '';
+    var binaryTemplate = '0';
+    var parts;
+    var mnemonicComment;
+
+    // check if there a empty row
+    if (mnemonic.length > 0) {
+
+      // split cmd & comment
+      var splitBySemiclon = mnemonic.split(';');
+
+      // part before comment is command; remove spaces before and after command
+      mnemonicCommandPart = $.trim(splitBySemiclon[0]);
+      mnemonicComment = $.trim(splitBySemiclon[1]);
+
+      // mnemonic command
+      var singleOpWord = mnemonicCommandPart.split(' ');
+      var mnemonicCommand = singleOpWord[0].toUpperCase();
+      // binary template
+      binaryTemplate = miniPower.main.loadBinaryTemplate(mnemonicCommand);
+      // binary template placeholders
+      // var results = miniPower.main.regexSearch(/\[(.[^\[]*)_([0-9]+)\]/gi, binaryTemplate);
+      var results = miniPower.main.regexSearch(/\[(.[^\[]*)_([0-9]+)\]/gi, binaryTemplate);
+      // cut mnemonic word from commend, and split by coma
+      singleOpWord.splice(0,1);
+      var params = singleOpWord.join('').split(',');
+
+      // set all notused bits
+      if (results['notUsed'] !== undefined) {
+        var count = parseInt(results['notUsed']);
+        binaryTemplate = binaryTemplate.replace('[notUsed_' + results['notUsed'] + ']', '0'.repeat(count));
+        delete results['notUsed'];
+      }
+
+      /*
+      console.log(mnemonic);
+      console.log(params);
+      */
+
+      // save all parts of mnemonics command
+      parts = {};
+      parts['mnemonicCommand'] = mnemonicCommand;
+
+      // go through every word
+      for (i = 0; i < params.length; i++) {
+        // clean number
+        var number = params[i].replace(/[\s#]+/gi, '');
+        if (number.length == 0) {
+          break;
+        }
+        number = parseInt(number);
+
+        // get the first key
+        var firstKey = miniPower.main.getFirstKey(results);
+        // replace dynamic placeholders with normalized binary
+        switch (firstKey) {
+          case 'reg':
+          case 'adr':
+            var numberBin = miniPower.main.dec2bin(number);
+            var count = parseInt(results[firstKey]);
+
+            /*
+            console.log('command: ' + firstKey);
+            console.log('count: ' + count);
+            console.log('number: ' + number);
+            console.log('numberBin: ' + numberBin);
+
+            console.log('binaryTemplate: ' + binaryTemplate);
+            */
+
+
+            numberBin = miniPower.main.normalizeBin(numberBin, count).val;
+            binaryTemplate = binaryTemplate.replace('[' + firstKey + '_' + count + ']', numberBin);
+
+            // save every parts
+            parts[firstKey] = {
+              'number': number,
+              'numberBin': numberBin
+            };
+
+            // console.log('binaryTemplate: ' + binaryTemplate);
+
+            delete results[firstKey];
+            break;
+          case 'value':
+            var count = parseInt(results[firstKey]);
+            var numberBin15 = miniPower.main.dec2binNegative(number, count);
+
+            // console.log('numberBin15: ' + numberBin15);
+
+            numberBin15 = miniPower.main.normalizeBin(numberBin15, count).val;
+
+            /*
+            console.log('command: ' + firstKey);
+            console.log('count: ' + count);
+            console.log('number: ' + number);
+            console.log('numberBin15: ' + numberBin15);
+
+            console.log('binaryTemplate: ' + binaryTemplate);
+            */
+
+            binaryTemplate = binaryTemplate.replace('[' + firstKey + '_' + count + ']', numberBin15);
+
+            // numberBin16 = miniPower.main.dec2binNegative(number);
+            // console.log('numberBin: ' + numberBin16);
+
+            // save every parts
+            parts[firstKey] = {
+              'number': number,
+              'numberBin': numberBin15
+            };
+
+            // console.log('binaryTemplate: ' + binaryTemplate);
+
+            delete results[firstKey];
+            break;
+        }
+      }
     }
 
-    /*
-    console.log(mnemonic);
-    console.log(params);
-    */
-
-    // save all parts of mnemonics command
-    var parts = {};
-    parts['mnemonicCommand'] = mnemonicCommand;
-
-    // go through every word
-    for (i = 0; i < params.length; i++) {
-      // clean number
-      var number = params[i].replace(/[\s#]+/gi, '');
-      if (number.length == 0) {
-        break;
-      }
-      number = parseInt(number);
-
-      // get the first key
-      var firstKey = miniPower.main.getFirstKey(results);
-      // replace dynamic placeholders with normalized binary
-      switch (firstKey) {
-        case 'reg':
-        case 'adr':
-          var numberBin = miniPower.main.dec2bin(number);
-          var count = parseInt(results[firstKey]);
-
-          /*
-          console.log('command: ' + firstKey);
-          console.log('count: ' + count);
-          console.log('number: ' + number);
-          console.log('numberBin: ' + numberBin);
-
-          console.log('binaryTemplate: ' + binaryTemplate);
-          */
-
-
-          numberBin = miniPower.main.normalizeBin(numberBin, count).val;
-          binaryTemplate = binaryTemplate.replace('[' + firstKey + '_' + count + ']', numberBin);
-
-          // save every parts
-          parts[firstKey] = {
-            'number': number,
-            'numberBin': numberBin
-          };
-
-          // console.log('binaryTemplate: ' + binaryTemplate);
-
-          delete results[firstKey];
-          break;
-        case 'value':
-          var count = parseInt(results[firstKey]);
-          var numberBin15 = miniPower.main.dec2binNegative(number, count);
-
-          // console.log('numberBin15: ' + numberBin15);
-
-          numberBin15 = miniPower.main.normalizeBin(numberBin15, count).val;
-
-          /*
-          console.log('command: ' + firstKey);
-          console.log('count: ' + count);
-          console.log('number: ' + number);
-          console.log('numberBin15: ' + numberBin15);
-
-          console.log('binaryTemplate: ' + binaryTemplate);
-          */
-
-          binaryTemplate = binaryTemplate.replace('[' + firstKey + '_' + count + ']', numberBin15);
-
-          // numberBin16 = miniPower.main.dec2binNegative(number);
-          // console.log('numberBin: ' + numberBin16);
-
-          // save every parts
-          parts[firstKey] = {
-            'number': number,
-            'numberBin': numberBin15
-          };
-
-          // console.log('binaryTemplate: ' + binaryTemplate);
-
-          delete results[firstKey];
-          break;
-      }
-    }
-    this.add(this.pointer, mnemonic, binaryTemplate, parts);
+    this.add(this.pointer, mnemonicCommandPart, binaryTemplate, parts, mnemonicComment);
     this.pointer++;
   };
 
@@ -159,15 +205,18 @@ function command(htmlId, start) {
     var html = '';
     for (i = this.pointer - pre; i <= this.pointer+after; i++) {
       var val = this.load(i);
+      var cmdComment = val.mnemonicComment;
 
       var htmlClass = '';
       if (i == this.pointer) {
         htmlClass = 'alert-info';
+        // write comment down in Box
+        $('#opCurrentComment').html(cmdComment);
       }
       html += '' +
         '<tr class="' + htmlClass + '">' +
           '<td>' + i + '</td>' +
-          '<td>' + val.mnemonic + '</td>' +
+          '<td title="'+cmdComment+'" alt="'+cmdComment+'">' + val.mnemonic + '</td>' +
           '<td>' + miniPower.main.formatBin(val.binary) + '</td>' +
         '</tr>'
       $('#'+this.htmlId + ' tbody').html(html);
@@ -371,6 +420,7 @@ function command(htmlId, start) {
         retVal = false;
         break;
     }
+    // case default do nothing by empty cmd
     this.pointer = nextCommandAdr;
 
     this.commandCounter++;
