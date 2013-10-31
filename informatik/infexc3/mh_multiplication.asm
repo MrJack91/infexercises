@@ -1,5 +1,12 @@
 Multiplikation Binär 2x 16 Bit Zahl in 32 Bit
 
+To Do:
+Wenn Halbierung nicht Ganzzahlig ist, dann Zähle letztes Ergebnis hinzu
+Vorsicht, dieses Temp Ergebniss kann 32 Bit sein.
+Vorzeichen am Ende der Rechnung korrigieren:
+Type: (-)1 * (-)n
+
+
 Algorithmus
 ==========
 Move Zahl 2 in Zahl 4 (Zahl 3 + 4 sind das 16 Bit Resultat)
