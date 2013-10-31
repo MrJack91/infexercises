@@ -32,4 +32,9 @@ public interface EmulationController {
 	public BitSet loadProgramToMemory(BitSet[] someBinData);
 	
 	public Memory getMemory();
+
+	/**
+	 * 
+	 */
+	public void reset();
 }

@@ -6,11 +6,11 @@ package ch.zhaw.dbru.inf3.compiler;
 import java.util.BitSet;
 import java.util.List;
 
+import ch.zhaw.dbru.inf3.command.Command;
 import ch.zhaw.dbru.inf3.command.CommandEnum;
 import ch.zhaw.dbru.inf3.command.CommandSet;
 import ch.zhaw.dbru.inf3.compiler.exception.AssemblerCompilationException;
 import ch.zhaw.dbru.inf3.emulator.logic.BinaryUtils;
-import ch.zhaw.dbru.inf3.emulator.logic.Command;
 
 /**
  * @author Daniel Brun
@@ -116,7 +116,7 @@ public class AssemblerCompiler {
 					int op1Int = Integer.valueOf(op1);
 
 					BitSet op1BS = BinaryUtils.createBitSetFromInt(op1Int,
-							lenOp1);
+							lenOp1,command.isOperandSigned(Command.OPERAND_ONE));
 
 					if (op1BS.length() > lenOp1) {
 						throw new AssemblerCompilationException(
@@ -150,7 +150,7 @@ public class AssemblerCompiler {
 						int op2Int = Integer.valueOf(op2);
 
 						BitSet op2BS = BinaryUtils.createBitSetFromInt(op2Int,
-								lenOp2);
+								lenOp2,command.isOperandSigned(Command.OPERAND_TWO));
 
 						if (op2BS.length() > lenOp2) {
 							throw new AssemblerCompilationException(

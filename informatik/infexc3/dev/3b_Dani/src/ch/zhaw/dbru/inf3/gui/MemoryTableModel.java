@@ -85,7 +85,7 @@ public class MemoryTableModel extends AbstractTableModel {
 
 			String retStr = StringUtils.reverse(
 					BinaryUtils.convertBitSetToString(memory.getDataWithWidth(
-							BinaryUtils.createBitSetFromInt(addr,memory.getAddrWidth()), 1)).substring(0, 9));
+							BinaryUtils.createBitSetFromInt(addr,memory.getAddrWidth(),false), 1)).substring(0, 9));
 
 			if (retStr.matches("0+")) {
 				retStr = "";

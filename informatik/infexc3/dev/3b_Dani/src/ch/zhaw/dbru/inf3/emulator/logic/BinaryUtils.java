@@ -137,7 +137,7 @@ public class BinaryUtils {
 	 * @return the bit set
 	 */
 	public static BitSet createBitSetFromIntStandard(int anInt) {
-		return createBitSetFromInt(anInt, MPCConstants.BF_LENGTH);
+		return createBitSetFromInt(anInt, MPCConstants.BF_LENGTH,true);
 
 	}
 
@@ -146,9 +146,10 @@ public class BinaryUtils {
 	 * 
 	 * @param anInt
 	 *            the integer to convert.
+	 * @param isCheckSignedLength If set to true, the length of the resulting bit set will be checked under consideration of the sign.
 	 * @return the bit set
 	 */
-	public static BitSet createBitSetFromInt(int anInt, int aLength) {
+	public static BitSet createBitSetFromInt(int anInt, int aLength, boolean isCheckSignedLength) {
 		BitSet result = new BitSet(aLength);
 
 		boolean negative = false;
@@ -160,7 +161,7 @@ public class BinaryUtils {
 
 		String intBin = StringUtils.reverse(Integer.toBinaryString(anInt));
 
-		if (intBin.length() > (aLength-1)) {
+		if ((isCheckSignedLength && intBin.length() > (aLength - 1))  || (!isCheckSignedLength && intBin.length() > aLength)) {
 			throw new MiniPowerPCException(
 					"Die Länge der konvertierten Zahl ist grösser als maximal erlaubt!");
 		}
@@ -270,7 +271,7 @@ public class BinaryUtils {
 	 * @return true if the value is equal.
 	 */
 	public static boolean compareBitSetToInt(BitSet aBitSet, int anInt) {
-		BitSet anIntSet = createBitSetFromInt(anInt, MPCConstants.BF_LENGTH);
+		BitSet anIntSet = createBitSetFromInt(anInt, MPCConstants.BF_LENGTH,true);
 
 		for (int i = 0; i < MPCConstants.BF_LENGTH; i++) {
 			if (!(anIntSet.get(i) == aBitSet.get(i))) {
@@ -333,4 +334,5 @@ public class BinaryUtils {
 		
 		return result;
 	}
+	
 }

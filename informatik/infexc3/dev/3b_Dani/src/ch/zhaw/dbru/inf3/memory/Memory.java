@@ -167,4 +167,11 @@ public class Memory {
 	public int getFullWidth(){
 		return width * 8;
 	}
+
+	/**
+	 * Clears the whole store.
+	 */
+	public void clear() {
+		store = new byte[maxAddrMem];
+	}
 }

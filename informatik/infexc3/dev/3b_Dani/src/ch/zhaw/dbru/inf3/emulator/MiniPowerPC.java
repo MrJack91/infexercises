@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
+import ch.zhaw.dbru.inf3.command.Command;
 import ch.zhaw.dbru.inf3.command.CommandEnum;
 import ch.zhaw.dbru.inf3.command.CommandSet;
 import ch.zhaw.dbru.inf3.emulator.itf.EmulationController;
 import ch.zhaw.dbru.inf3.emulator.itf.EmulationHandler;
 import ch.zhaw.dbru.inf3.emulator.logic.BinaryUtils;
-import ch.zhaw.dbru.inf3.emulator.logic.Command;
 import ch.zhaw.dbru.inf3.memory.Memory;
 
 /**
@@ -35,7 +35,9 @@ public class MiniPowerPC implements Runnable, EmulationController {
 
 	private Command baseCm;
 	private boolean running;
-
+	private boolean progEnd;
+	private boolean reset;
+	
 	private boolean[] carryFlags;
 
 	private List<EmulationHandler> handlers;
@@ -71,7 +73,7 @@ public class MiniPowerPC implements Runnable, EmulationController {
 	@Override
 	public void run() {
 		running = true;
-
+		
 		while (running) {
 			loadCCCommandIntoCR();
 
@@ -100,6 +102,11 @@ public class MiniPowerPC implements Runnable, EmulationController {
 			}
 		}
 
+		if(reset){
+			reset = false;
+			reset();
+		}
+		
 		if (currentMode == MODE_FAST) {
 			updateHandlers();
 		}
@@ -119,6 +126,10 @@ public class MiniPowerPC implements Runnable, EmulationController {
 			handler.updateCommandRegister((BitSet) commandRegister.clone());
 			handler.updateMemory(memory);
 			handler.stepFinished();
+			
+			if(progEnd){
+				handler.programmFinished();
+			}
 		}
 	}
 
@@ -293,6 +304,7 @@ public class MiniPowerPC implements Runnable, EmulationController {
 			commandCounter = anOp1;
 			break;
 		case END:
+			progEnd = true;
 			incStep = 0;
 			running = false;
 			break;
@@ -324,6 +336,7 @@ public class MiniPowerPC implements Runnable, EmulationController {
 	 */
 	@Override
 	public void startProgramm(BitSet anAddr) {
+		progEnd = false;
 		commandCounter = anAddr;
 		updateHandlers();
 	}
@@ -369,7 +382,7 @@ public class MiniPowerPC implements Runnable, EmulationController {
 	@Override
 	public BitSet loadProgramToMemory(BitSet[] someBinData) {
 		BitSet addr = BinaryUtils.createBitSetFromInt(100,
-				memory.getAddrWidth());
+				memory.getAddrWidth(),false);
 		memory.setData(addr, someBinData);
 
 		return addr;
@@ -383,6 +396,27 @@ public class MiniPowerPC implements Runnable, EmulationController {
 	@Override
 	public Memory getMemory() {
 		return memory;
+	}
+
+	/* (non-Javadoc)
+	 * @see ch.zhaw.dbru.inf3.emulator.itf.EmulationController#reset()
+	 */
+	@Override
+	public void reset() {
+		if (running && mpThread != null) {
+			reset = true;
+			running = false;
+		}else{
+			for (int i = 0; i < registers.length; i++) {
+				registers[i].clear();
+				carryFlags[i] = false;
+			}
+			
+			commandRegister.clear();
+			
+			memory.clear();
+			updateHandlers();
+		}
 	}
 
 }
