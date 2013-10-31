@@ -1,47 +1,25 @@
 Multiplikation Binär 2x 16 Bit Zahl in 32 Bit
 
-1000 * 100
-500 * 200
-250 * 400
-125 * 800
-62 * 1600 + 800
-31 * 3200 + 800
-15 * 6400 + 800 + 3200
-7 * 12800 + 800 + 3200 + 6400
-3 * 25600 + 800 + 3200 + 6400 + 12800
-1 * 51200 + 800 + 3200 + 6400 + 12800 + 25600
-
-
-
-1000 * -100
-500 * -200
-250 * -400
-125 * -800
-62 * -1600 + -800
-31 * -3200 + -800
-15 * -6400 + -800 + -3200
-7 * -12800 + -800 + -3200 + 6400
-3 * -25600 + -800 + -3200 + 6400 + 12800
-1 * -51200 + -800 + -3200 + -6400 + -12800 + -25600
-
-
-
--1000 * 100
--500 * 200
--250 * 400
--125 * 800
--62 * 1600 + -800
--31 * 3200 + -800
--15 * 6400 + -800 + -3200
--7 * 12800 + -800 + -3200 + -6400
--3 * 25600 + -800 + -3200 + -6400 + -12800
--1 * 51200 + -800 + -3200 + -6400 + -12800 + -25600
-
-
-check ob negativ: SLL -> check CarryBit()
-
-
 Algorithmus
+==========
+Move Zahl 2 in Zahl 4 (Zahl 3 + 4 sind das 16 Bit Resultat)
+solange eine zahl halbiert werden kann, die andere Zahl verdoppeln
+Zahl 1 halbieren (16 Bit Zahl)
+zahl 1 in reg laden
+zahl 1 halbieren (SRA)
+überprüfen ob Zahl 1 grösser 0 sonst, fertig.
+Zahl 3+4 verdoppeln (32 Bit Zahl)
+zahl 3 in reg laden
+zahl 3 verdoppeln (SLL)
+Wenn CarryBit 1 denn merke in Zahl 5: 1
+zahl 4 in reg laden
+zahl 4 verdoppeln (SLA)
+addiere Zahl 5
+zahl 1 ist jetzt +/- 1
+zahl 2 ist jetzt +/- n (n ist das Ergebnis ohne Vorzeichen)
+
+
+ASSEMBLER
 ==========
 Speicher:
 500		Zahl 1	Faktor 1
@@ -82,6 +60,7 @@ BD [AUF BNZ]			; Immer nach Loop Anfang springen
 
 
 
+ASSEMBLER für mini PC
 Funktioniert für 2x eine Zahl von 2^x
 LWDD 0, #501
 SWDD 0, #503
@@ -104,8 +83,18 @@ BD 102
 END
 
 
-16384
+Speicher
 4
+16384
+0
+0
+0
+0
+1
+
+Speicher
+16
+32768
 0
 0
 0
@@ -116,111 +105,47 @@ END
 
 
 
-Move Zahl 2 in Zahl 4 (Zahl 3 + 4 sind das 16 Bit Resultat)
-solange eine zahl halbiert werden kann, die andere Zahl verdoppeln
-Zahl 1 halbieren (16 Bit Zahl)
-zahl 1 in reg laden
-zahl 1 halbieren (SRA)
-überprüfen ob Zahl 1 grösser 0 sonst, fertig.
-Zahl 3+4 verdoppeln (32 Bit Zahl)
-zahl 3 in reg laden
-zahl 3 verdoppeln (SLL)
-Wenn CarryBit 1 denn merke in Zahl 5: 1
-zahl 4 in reg laden
-zahl 4 verdoppeln (SLA)
-addiere Zahl 5
-zahl 1 ist jetzt +/- 1
-zahl 2 ist jetzt +/- n (n ist das Ergebnis ohne Vorzeichen)
 
-
-Algorithmus
-==========
-solange eine zahl halbiert werden kann, die andere Zahl verdoppeln
-Zahl 1 halbieren
-zahl 1.2 in reg laden
-zahl 1.2 halbieren (SR)
-Wenn CarryBit 1 denn merke in Zahl 3: 32768 = binär 1000 0000
-zahl 1.1 in reg laden
-zahl 1.1 halbieren (SR)
-addiere Zahl 3
-überprüfen ob Zahl 1 grösser 0 sonst, fertig.
-Zahl 2 verdoppeln
-zahl 2.1 in reg laden
-zahl 2.1 verdoppeln (SL)
-Wenn CarryBit 1 denn merke in Zahl 3: 1
-zahl 2.2 in reg laden
-zahl 2.2 verdoppeln (SL)
-addiere Zahl 3
-zahl 1 ist jetzt +/- 1
-zahl 2 ist jetzt +/- n (n ist das Ergebnis ohne Vorzeichen)
+Notes
+1000 * 100
+500 * 200
+250 * 400
+125 * 800
+62 * 1600 + 800
+31 * 3200 + 800
+15 * 6400 + 800 + 3200
+7 * 12800 + 800 + 3200 + 6400
+3 * 25600 + 800 + 3200 + 6400 + 12800
+1 * 51200 + 800 + 3200 + 6400 + 12800 + 25600
 
 
 
-
-
-CLR R0
-CLR R1
-LWDD R2, #500 ;Ersten Faktor in das 2. Register laden (Zähler)
-LWDD R3, #502 ;Zweiter Faktor in das 3. Register laden
-
-SWDD R0, #602 ;
-SWDD R2, #604 
-LWDD R0, #604
-BZD #
-
-DEC
-BZD #
-
-LWDD R0 #602
-SLL
-BCD #
-SWDD R0 #602
-LWDD R0 #604
-DEC
-DEC
-SWDD R0 #604
-BD #
-
-
-LWDD R0 #602
-ADD R3
-BCD 
-
-SWDD R0 #602
-LWDD R0 #604
-DEC
-SWDD R0 #604
-BD #
+1000 * -100
+500 * -200
+250 * -400
+125 * -800
+62 * -1600 + -800
+31 * -3200 + -800
+15 * -6400 + -800 + -3200
+7 * -12800 + -800 + -3200 + 6400
+3 * -25600 + -800 + -3200 + 6400 + 12800
+1 * -51200 + -800 + -3200 + -6400 + -12800 + -25600
 
 
 
+-1000 * 100
+-500 * 200
+-250 * 400
+-125 * 800
+-62 * 1600 + -800
+-31 * 3200 + -800
+-15 * 6400 + -800 + -3200
+-7 * 12800 + -800 + -3200 + -6400
+-3 * 25600 + -800 + -3200 + -6400 + -12800
+-1 * 51200 + -800 + -3200 + -6400 + -12800 + -25600
 
 
--Faktoren laden
--....	; 1. |
--Wenn ein Faktor 0 -> Sprung ans Ende	 ; Sprung zu 4.
--Wenn nicht:
--Wenn Zähler grösser 1:
--SLL ; Links Shift des Akku (Kein Arithmetischer Shift, da das Ganze am Ende die korrekte Zahl sein muss, sonst wird das Vorzeichen bei jedem Block gesetzt)
--BCD #... ; Wenn CarryFlag gesetzt Sprung zu 2.
--...	  ; 3. | Zähler herunterzählen
--...	 ; Evtl. Register umschichten
--BD #....	; Sprung zu 1.
-
--Sonst:
--ADD R...	; Addiere zweiten Faktor
--BCD #...	;Wenn CarryFlag gesetzt Sprung zu 5.
--...	 ;Zähler herunterzählen
--BD #	 ;Sprung zu 1.
--...	 ; 2. | "Umladen" des 1. / 2. Blocks
--SLL	 ; Links Shift weiterführen
--BD #...	; Sprung zu 3.
-
--...	 ; 5. | Addition mit zweitem Block weiterführen
-END	; 4. |
-
-
-
+check ob negativ: SLL -> check CarryBit()
 
 
 
