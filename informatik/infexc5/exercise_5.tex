@@ -1,0 +1,179 @@
+% git add * && git commit -m 'review' && git push origin master
+
+\documentclass[10pt]{article}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{graphicx} 
+\usepackage{float}
+\usepackage{epsfig}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+
+
+\usetikzlibrary{arrows,automata}
+% \usepackage[latin1]{inputenc}
+
+\title{Informatik 3 Übung - Teil 5\vspace{-2ex}}
+\author{Daniel Brun, Michael Hadorn\vspace{-2ex}}
+
+\setlength{\droptitle}{-6em}     % Eliminate the default vertical space
+\addtolength{\droptitle}{-4pt}   % Only a guess. Use this for adjustment
+
+\newcolumntype{P}[1]{>{\centering\hspace{0pt}}p{#1}}
+
+\pagestyle{fancy}
+% clear any old style settings
+\fancyhead{}
+\fancyfoot{}
+
+\lhead{ZHAW: Informatik 3}
+\rhead{Daniel Brun, Michael Hadorn, Inf 3b}
+\fancyfoot[LE,RO]{\thepage}
+
+\usepackage{color}
+
+\begin{document}
+\maketitle
+
+% Aufgabe 1  	a: 		b: 	
+\section*{Aufgabe 1}
+Ein Cache eines Prozessors kann die notwenige Bearbeitungszeit für ein Programm erheblich reduzieren
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{Welche Eigenschaften von Programmen(und Datenstrukturen) nutzt dabei ein Cache aus? Lösung: (3 Punkte)}\\
+		Es werden die Eigenschaften der zeitlichen und räumlichen Lokalität ausgenutzt.
+		
+		\item 
+		\textit{Geben Sie je zwei Programmbeispiele an, die die Effizienz eines Caches unterstützen bzw. nicht unterstützen? Lösung: (2 Punkte)}\\
+		\begin{enumerate}
+			\item Unterstützend:
+				-Sequenzielle Abarbeitung / Befehlsfolgen 
+				-
+			\item Nicht Unterstützend:
+				-Umherspringen in einem grossen Daten-Array
+				-Massenverarbeitung von Daten
+		\end{enumerate}
+\end{enumerate}
+
+\newpage
+
+% Aufgabe 2	 	a: 	b:	c:
+\section*{Aufgabe 2}
+Betrachtet werden zwei Prozessoren mit einer Zykluszeit von 2 ns: ein Prozessor $P_a$ ohne Cache und ein Prozessor $P_b$ mit Cache. Für ein Programm wird bei jedem 3. Befehl auf den Speicher zugegriffen. Die Zugriffszeit auf ein Datum im Arbeitsspeicher beträgt die 50 ns, die CPI für die anderen Befehle 2.5.
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{In welcher Zeit wird ein Befehl des Programms mit dem Prozessor $P_a$ durchschnittlich bearbeitet? (näherungsweise) Lösung: (2 Punkte)}\\
+		$t_a = (1-\frac{1}{3}) * (2.5 * 2ns) + (\frac{1}{3} * 50ns) = 20ns $
+	\item 
+		\textit{In welcher Zeit wird ein Befehl des Programms mit dem Prozessor $P_b$ durchschnittlich bearbeitet, wenn folgendes gilt: $R_{hit}= 96\%$,$t_{hit}
+		= 2 ns $,$t_{hit}= 2 ns$ und $t_{miss}= 70 ns$ ? Lösung: (2 Punkte)}\\
+		$t_b = (1-\frac{1}{3}) * (2.5 * 2ns) + \frac{1}{3} * (0.96 * 2ns + 0.04 * 70ns) = 4.907ns $
+	\item
+		\textit{Um wie viel \% steigert der Cache des Prozessor $P_b$ die Rechenleistung? Lösung: (2 Punkte)}\\
+		$t_d = \frac{t_a}{t_b} - 1 = \frac{20ns}{4.907ns} -1 = 307\%$ %TODO: DBRU: Stimmt die Prozentzahl? Aus der Formel ergibt sich 3.07..habe mal die Beispiele im Script S. 29 nachgerechnet... 
+\end{enumerate}
+
+\newpage
+% Aufgabe 3		 	a: ok
+\section*{Aufgabe 3}
+Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem direktabbildenden Cache (Blockgrösse 2 Wörter; Wortgrösse 1 Byte).
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{Geben Sie an, welche Byte (bzw. Blöcke) des Arbeitsspeicher auf	welche Position im Cache abgebildet werden.	Lösung: (2 Punkte)}\\
+		Cache-Adresse = Block-Adresse modulo Anzahl Blöcke im Cache \\
+		$C = B mod	(16/(2*1))$ \\
+		\begin{tabular}{c | c}
+		Adresse Arbeitsspeicher 	&	Adresse Cache \\
+		\hline
+		0, 8, 16, ..., 256	& 	0 \\
+		1, 9, 17, ..., 249	& 	1 \\
+		2, 10, 18, ...,	250	& 	2 \\
+		3, 11, 19, ..., 251	&	3 \\
+		4, 12, 20, ..., 252	& 	4 \\
+		5, 13, 21, ..., 253	& 	5 \\
+		6, 14, 22, ..., 254	&	6 \\
+		7, 15, 23, ..., 255	&	7 \\
+		\end{tabular}
+		%2^8 = 256
+	\item
+		\textit{Während eines Programmablaufs kommt es zum Zugriff auf folgende Byte im Arbeitsspeicher (in dieser Reihenfolge): … 3, 4, 5, 6, 100, 101,2, 3, 4, 5, 6,51, 102, 105, 5, 6, … (Annahme: Cache ist leer) \\- Geben Sie an, wann welcher Block in den Cache übertragen wird \\- Wie häufig muss auf den (langsameren) Arbeitsspeicher zugegriffen werden, wie häufig reicht der Zugriff auf den Cache aus? \\(4 Punkte + 2 Punkte)}\\
+		\begin{tabular}{c | c}
+		Zugriff auf Adresse & Block in Cache übertragen & Belegte Cache-Adresse \\
+		\hilne
+		3	& 	3 	& 3 \\
+		4	&	4 	& 4 \\
+		5	&	5 	& 5 \\
+		6	&	6 	& 6 \\
+		100	&	100 & 4 \\
+		101	&	101	& 5 \\
+		2	&	2	& 2 \\
+		3	&	-	& 3 \\
+		4	&	4	& 4 \\
+		5	&	5	& 5 \\
+		6	&	-	& 6 \\
+		51	&	51	& 3 \\
+		102 &	102 & 6 \\
+		105 &	105 & 1 \\
+		5	&	5	& 5 \\
+		6	&	6	& 6 \\
+		\end{tabular}
+		Anzahl Zugriffe auf Arbeitsspeicher: 14 \\
+		Anzahl Zugriffe ohne Arbeitsspeicher-Zugriff: 2
+	\item
+		\textit{Nun wird der Cache durch einen 2-fach satzassoziativen Cache ersetzt. Geben sie für die ansonsten gleichen unter b) gegeben Bedingungen an, 	\\- wann welcher Block in den Cache übertragen wird und \\- wie häufig auf den (langsameren) Arbeitsspeicher zugegriffen werden muss, bzw. wie häufig der Zugriff auf den Cache ausreicht? (4 Punkte + 2 Punkte)}
+		\begin{tabular}{c | c}
+		Zugriff auf Adresse & Block in Cache übertragen & Belegte Cache-Adresse & Satznr. \\
+		\hilne
+		3	& 	3 	& 3 	& 1\\
+		4	&	4 	& 4 	& 1\\
+		5	&	5 	& 5 	& 1\\
+		6	&	6 	& 6 	& 1\\
+		100	&	100 & 4 	& 2\\
+		101	&	101	& 5 	& 2\\
+		2	&	2	& 2 	& 1\\
+		3	&	-	& 3 	& 1\\
+		4	&	4	& 4 	& 1\\
+		5	&	-	& 5 	& 1\\
+		6	&	-	& 6 	& 1\\
+		51	&	51	& 3 	& 2\\
+		102 &	102 & 6 	& 2\\
+		105 &	105 & 1 	& 1\\
+		5	&	-	& 5 	& 1\\
+		6	&	-	& 6 	& 1\\
+		\end{tabular}
+		Anzahl Zugriffe auf Arbeitsspeicher: 11 \\
+		Anzahl Zugriffe ohne Arbeitsspeicher-Zugriff: 5
+\end{enumerate}
+
+\newpage
+% Aufgabe 4		 	a: ok 
+%TODO: DBRU: Irgendwie habe ich hier den Durchblick nicht mehr^^, habe das gefühl die Begriffe aus dem Script sind nicht konsistent mit den Begriffen aus der Zeichnung...
+\section*{Aufgabe 4}
+Gegeben sei für einen Rechner der unten dargestellte direktabbildende Cache. 
+\begin{enumerate}[label=\alph*)]
+	\item
+		\textit{Wie gross ist der Hauptspeicher des Rechners maximal? Lösung: (1 Punkt)} \\
+		 $31 - 3 = 20 \rightarrow 2^28$ Byte
+		 %127 Blöcke Total, 
+	\item
+		\textit{Wie gross ist ein Wort und wie gross ein Block im Cache? Lösung: (2 Punkte)} \\
+		Ein Block besteht aus 4 Wörtern.
+	\item
+		\textit{Wie gross ist der Cache (in Byte)? Lösung: (1 Punkt)} \\
+		$127 * (Blockgrösse + 20 + 2) = $
+	\item
+		\textit{Wie lautet der Index und der Tag für den Speicher mit der Adresse 01 42 1F F0 (MSb und MSB je links)? Lösung: (2 Punkt)} \\
+		
+	\item
+		\textit{Tragen Sie in der Abbildung ein, wo die Speicher mit der Adresse 01 42 1F F0 und 23 77 18 27 im Cache abgebildet werden? Lösung: (2 Punkt)} \\
+\end{enumerate}
+\end{document}

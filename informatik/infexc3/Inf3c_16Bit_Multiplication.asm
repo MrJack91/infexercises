@@ -1,3 +1,118 @@
+
+
+-Lade Faktoren
+-Shift Links (logisch) Faktor 1
+-Shift Rechts (
+
+500		Input: Faktor 1
+502		Input: Faktor 2
+600		Tmp: Vorzeichen des Endresultates (0: positiv, 1: negativ)
+602		Tmp: Positiver Faktor 1
+604		Tmp: Positiver Faktor 2
+606		Tmp: Shift-Speicher (zu addierende Zahl nach SLL bei 32-Bit-Zahl)
+702		32-Bit-Faktor Teil 1 ('hinten' / LSB)
+704		32-Bit-Faktor Teil 2 ('vorne' / MSB)
+
+
+----------------------
+CLR R0			; Akku löschen
+SWDD R0 #702	; Zweiter-16-Bit-Faktor mit 0 initialisieren
+LWDD R0 #500 	; Lade ersten Faktor
+SLL				; Logischer Links Shift
+BCD #...		; Wenn Carry-Flag (Zahl negativ) Springe zu 1)
+;2) -----------------
+SWDD R0 #602	; Speichere ersten Faktor
+LWDD R0 #502 	; Lade zweiten Faktor
+SLL				; Logischer Links Shift
+BCD #...		; Wenn Carry-Flag (Zahl negativ) Springe zu 3)
+SWDD R0 #604	; Speichere zweiten Faktor
+;4) -----------------
+BZ #			; Wenn Akku = 0 Sprung zu E) ;TODO: Do Loop, wenn 1
+
+LWDD R0 #602	; Ersten Faktor laden
+SLL				; Faktor nach Links shiften
+SWDD R0 #704	; Faktor speichern
+BCD #			; Wenn Carry-Flag Sprung zu 5) (überlauf addieren)
+CLR R0			; Akku leeren
+SWDD R0 #606	; Speichern
+;6) -----------------
+LWDD R0 #702	; Faktor laden (Teil 2)
+SLL				; Links shift fortsetzen
+LWDD R1 #606	; Lade zu addierende Zahl
+ADD R1			; Addieren (Shift abgeschlossen)
+LWDD R0 #604	; Zweiten Faktor laden
+SRL				; Faktor / 2
+BCD #			; Wenn Carry Flag
+
+;1) -----------------
+ADDD #-1		; Addiere -1
+NOT				; Invertiere
+SWDD R0 #602	; Speichere invertierten Faktor
+CLR R0			; Akku leeren
+ADDD #-1		; 'Vorzeichen' Addieren
+SWDD R0 #600	; 'Vorzeichen' Speichern
+LWDD R0 #602	; Lade Faktor
+BD #			; Sprung zu 2)
+
+;3) -----------------
+ADDD #-1		; Addiere -1
+NOT				; Invertiere
+SWDD R0 #604	; Speichere invertierten Faktor
+LWDD R0	#600	; 'Vorzeichen' laden
+ADDD #-1		; 'Vorzeichen' Addieren
+SWDD R0 #600	; 'Vorzeichen' Speichern
+ADDD #2			; Vorzeichen nach Multiplikation: 0: Positiv, 1: Negativ
+SWDD R0 #600	; 'Vorzeichen' Speichern
+LWDD R0 #604	; Lade Faktor
+BD #			; Sprung zu 4)
+
+;5) -----------------
+CLR R0			; Akku leeren
+ADDD 1			; Zu addierende Zahl festlegen
+SWDD R0 #606	; Zu addierende Zahl speichern
+BD #			; Sprung zu 6)
+
+
+;E) -----------------
+END
+
+
+;---------------------
+LWDD R1	#502	;Multiplikand (x) laden
+LWDD R0	#502	;Multiplikand nochmals laden
+...				;Multiplikand negieren
+
+LWDD R2	#502	;
+CLR R3			; Clear
+CLR R0			; Clear Akku
+				; Set Counter = y
+LWDD R0 #606	; Load Counter
+BZD #..			; Sprung ans Ende
+
+
+
+http://ftp.csci.csusb.edu/schubert/tutorials/csci313/w04/TL_Booth.pdf
+Booth Algorithmus:
+-x = zahl mit den wenigsten 01 / 10 wechsel, y= die andere
+Initialisiere Register: u(0) v(1) x(2) = x x-1(3)= 0
+	-Wiederhole y mal
+	-Wenn LSB v(1) == 1 && x-1(3) == 0
+		-> u(0) - y
+	-WEnn LSB v(1) == 0 && x-1(3) == 1
+		-> u(0) + y
+	-Wenn LSB v(1) == x-1(3)
+		-> nichts zu tun
+
+	-Set x-1(3) = LSB x(2)
+	-Arithmetischer Rechts-Shift für u(0)
+	-Arithmetischer Rechts-Shift für v(0)
+	-Logischer Rechts-Shift für x(2)
+
+
+
+
+
+-------------------------
 CLR R0
 CLR R1
 LWDD R2, #500 ;Ersten Faktor in das 2. Register laden (Zähler)
@@ -32,6 +147,7 @@ DEC
 SWDD R0 #604
 BD #
 
+-------------------------
 
 
 
@@ -119,3 +235,6 @@ m16s_2:	sbrc	mp16sL,0	;if current bit set
 	dec	mcnt16s		;decrement counter
 	brne	m16s_1		;if not done, loop more	
 	ret
+	
+;* Booth-Algorithmu:http://www.ecs.umass.edu/ece/koren/arith/simulator/Booth/
+;* http://www.csci.csusb.edu/schubert/tutorials/csci313/w04/TB_BoothTutorial.pdf
