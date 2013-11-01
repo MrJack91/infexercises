@@ -42,7 +42,7 @@ LWDD R1 #606	; Lade zu addierende Zahl
 ADD R1			; Addieren (Shift abgeschlossen)
 LWDD R0 #604	; Zweiten Faktor laden
 SRL				; Faktor / 2
-BCD #			; Wenn Carry Flag
+BCD #			; Wenn Carry Flag -> Addiere einmal den vorangehenden Wert
 
 ;1) -----------------
 ADDD #-1		; Addiere -1
