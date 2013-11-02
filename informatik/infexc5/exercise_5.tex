@@ -106,9 +106,9 @@ Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem
 		%2^8 = 256
 	\item
 		\textit{Während eines Programmablaufs kommt es zum Zugriff auf folgende Byte im Arbeitsspeicher (in dieser Reihenfolge): … 3, 4, 5, 6, 100, 101,2, 3, 4, 5, 6,51, 102, 105, 5, 6, … (Annahme: Cache ist leer) \\- Geben Sie an, wann welcher Block in den Cache übertragen wird \\- Wie häufig muss auf den (langsameren) Arbeitsspeicher zugegriffen werden, wie häufig reicht der Zugriff auf den Cache aus? \\(4 Punkte + 2 Punkte)}\\
-		\begin{tabular}{c | c}
+		\begin{tabular}{c | c | c}
 		Zugriff auf Adresse & Block in Cache übertragen & Belegte Cache-Adresse \\
-		\hilne
+		\hline\\
 		3	& 	3 	& 3 \\
 		4	&	4 	& 4 \\
 		5	&	5 	& 5 \\
@@ -130,9 +130,9 @@ Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem
 		Anzahl Zugriffe ohne Arbeitsspeicher-Zugriff: 2
 	\item
 		\textit{Nun wird der Cache durch einen 2-fach satzassoziativen Cache ersetzt. Geben sie für die ansonsten gleichen unter b) gegeben Bedingungen an, 	\\- wann welcher Block in den Cache übertragen wird und \\- wie häufig auf den (langsameren) Arbeitsspeicher zugegriffen werden muss, bzw. wie häufig der Zugriff auf den Cache ausreicht? (4 Punkte + 2 Punkte)}
-		\begin{tabular}{c | c}
-		Zugriff auf Adresse & Block in Cache übertragen & Belegte Cache-Adresse & Satznr. \\
-		\hilne
+		\begin{tabular}{c | c | c | c}
+		Zugriff auf Adresse & Block in Cache übertragen & Belegte Cache-Adresse & Satznr.\\
+		\hline
 		3	& 	3 	& 3 	& 1\\
 		4	&	4 	& 4 	& 1\\
 		5	&	5 	& 5 	& 1\\
@@ -169,7 +169,7 @@ Gegeben sei für einen Rechner der unten dargestellte direktabbildende Cache.
 		Ein Block besteht aus 4 Wörtern.
 	\item
 		\textit{Wie gross ist der Cache (in Byte)? Lösung: (1 Punkt)} \\
-		$127 * (Blockgrösse + 20 + 2) = $
+		$127 * Blockgr\ddot{o}sse + 20 + 2) = $
 	\item
 		\textit{Wie lautet der Index und der Tag für den Speicher mit der Adresse 01 42 1F F0 (MSb und MSB je links)? Lösung: (2 Punkt)} \\
 		
