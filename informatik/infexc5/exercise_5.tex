@@ -196,10 +196,43 @@ Gegeben sei für einen Rechner der unten dargestellte direktabbildende Cache.
 	\item
 		\textit{Wie lautet der Index und der Tag für den Speicher mit der Adresse 01 42 1F F0 (MSb und MSB je links)? Lösung: (2 Punkt)}
 		
+		$01 42 1F F0_{hex} = 0000\:0001\:0100\:0010\:0001\:1111\:1111\:0000_{bin}$
+		
+		\begin{tabular}{r | r | r}
+			Name & Bin & Dec\\
+			\hline
+			Tag & $0\:0000\:0010\:1000\:0100\:0011$ & 10307\\
+			Index & $111\:1111$ & 127\\
+		\end{tabular}
 		
 	\item
 		\textit{Tragen Sie in der Abbildung ein, wo die Speicher mit der Adresse 01 42 1F F0 und 23 77 18 27 im Cache abgebildet werden? Lösung: (2 Punkt)}
 		
+		Der Index der Adresse spezifiziert die Cache Adresse (Cache Zeile).
+		
+		% 01 42 1F F0
+		$01\:42\:1F\:F0_{hex} = 0000\:0001\:0100\:0010\:0001\:1111\:1111\:0000_{bin}$
+		
+		\begin{tabular}{r | r | r}
+			Name & Bin & Dec\\
+			\hline
+			Tag & $0\:0000\:0010\:1000\:0100\:0011$ & 10307\\
+			Index & $111\:1111$ & 127\\
+		\end{tabular}
+
+		$01\:42\:1F\:F0_{hex}$ wird in Zeile 127 abgelegt.
+		
+		% 23 77 18 27
+		$23\:77\:18\:27_{hex} = 0010\:0011\:0111\:0111\:0001\:1000\:0010\:0111_{bin}$
+		
+		\begin{tabular}{r | r | r}
+			Name & Bin & Dec\\
+			\hline
+			Tag & $0\:0100\:0110\:1110\:1110\:0011$ & 290531\\
+			Index & $001\:1000$ & 24\\
+		\end{tabular}
+		
+		$23\:77\:18\:27_{hex}$ wird in Zeile 24 abgelegt.
 		
 \end{enumerate}
 \end{document}
