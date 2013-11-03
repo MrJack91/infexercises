@@ -56,26 +56,93 @@ function treeManager() {
    * @param tree optional can be a subtree
    * @returns {string} html
    */
-  this.buildTreeNode = function(tree){
+  this.buildTreeNode = function(tree) {
     var htmlList = '';
 
     if(tree !== null){
 
       htmlList = '<li>' + tree.data + '</li>';
 
-      // first print right (90 degress)
       htmlList += this.buildTreeNode(tree.rightSubtree);
       htmlList += this.buildTreeNode(tree.leftSubtree);
+
     }
     // append new ul
     return '<ul>' + htmlList + '</ul>';
+  }
+
+  this.getElementCount = function() {
+    return this.countSubtreeElements(this.rootNode);
+  }
+
+  this.countSubtreeElements = function(subtree) {
+    var countElements = 0;
+    var countDepths = -1; // only max node connection. amount of trees -1
+    var maxCountDepths = 0;
+
+    if (subtree !== null) {
+      // increment one valid node
+      countElements++;
+
+      // increment depths (0/1)
+      // countDepths++;
+
+      // count both subtrees
+      var countLeft = this.countSubtreeElements(subtree.leftSubtree);
+      var countRight = this.countSubtreeElements(subtree.rightSubtree);
+
+      // add all founded elements
+      countElements += countLeft.countElements + countRight.countElements;
+
+      // save the max depths
+      // only count the greater value
+      var countSubtreeDepths = countLeft.countDepths;
+      if (countSubtreeDepths < countRight.countDepths) {
+        countSubtreeDepths = countRight.countDepths;
+      }
+      countDepths = countSubtreeDepths + 1;
+    }
+    return {
+      countElements: countElements,
+      countDepths: countDepths,
+      maxCountDepths: maxCountDepths
+    };
+  }
+
+  this.exist = function(value) {
+    return this.searchSubtree(this.rootNode, value);
+  }
+
+  this.searchSubtree = function(subtree, value) {
+    var exists = false;
+    // check not found, if subtree is null
+    if (subtree == null) {
+      console.log('end is found');
+      return false;
+    }
+
+    // check continuing
+    if (subtree.data !== value) {
+      if (value < subtree.data){
+        // if the value is smaller, search in left subtree
+        exists = this.searchSubtree(subtree.leftSubtree, value);
+      } else {
+        // if the value is greater, search in right subtree
+        exists = this.searchSubtree(subtree.rightSubtree, value);
+      }
+    } else {
+      // value is found
+      exists = true
+    }
+    return exists;
   }
 }
 
 
 // onload
 $(function() {
-  var tm = new treeManager();
+  // global var, because direct access over js console
+  tm = new treeManager();
 
   tm.addNode(5);
   tm.addNode(3);
@@ -94,15 +161,15 @@ $(function() {
   tm.addNode(8);
   tm.addNode(8);
   tm.addNode(8);
-  tm.addNode(8);
-  tm.addNode(8);
 
-  /*
-  console.log(rootNode);
-  console.log(rootNode.leftSubtree);
-  console.log(rootNode.rightSubtree);
-  console.log(rootNode.data);
-  */
+
+
+  var counter = tm.getElementCount();
+  console.log('Anzahl Elemente: ' + counter.countElements);
+  console.log('Baum Tiefe: ' + counter.countDepths);
+
+
+  console.log('Wert existiert: ' + tm.exist(1));
 
   tm.showTreeNode();
 });
