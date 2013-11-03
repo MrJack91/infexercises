@@ -1,5 +1,3 @@
-% git add * && git commit -m 'review' && git push origin master
-
 \documentclass[10pt]{article}
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
@@ -44,29 +42,41 @@
 \begin{document}
 \maketitle
 
-% Aufgabe 1  	a: 		b: 	
+% Aufgabe 1  	a: ok		b: 	
 \section*{Aufgabe 1}
 Ein Cache eines Prozessors kann die notwenige Bearbeitungszeit für ein Programm erheblich reduzieren
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Welche Eigenschaften von Programmen(und Datenstrukturen) nutzt dabei ein Cache aus? Lösung: (3 Punkte)}\\
-		Es werden die Eigenschaften der zeitlichen und räumlichen Lokalität ausgenutzt.
+		Es werden die Eigenschaften der zeitlichen (zuletzt verwendete Daten) und räumlichen (nahe im Speicher liegende Daten) Lokalität ausgenutzt.
 		
 		\item 
 		\textit{Geben Sie je zwei Programmbeispiele an, die die Effizienz eines Caches unterstützen bzw. nicht unterstützen? Lösung: (2 Punkte)}\\
-		\begin{enumerate}
-			\item Unterstützend:
-				Sequenzielle Abarbeitung / Befehlsfolgen, 
-				%TODO: DBRU Weisch evtl. no was?
-			\item Nicht Unterstützend:
-				Umherspringen in einem grossen Daten-Array, 
-				Massenverarbeitung von Daten
-		\end{enumerate}
+		\textbf{Unterstützend:}
+		\begin{itemize}
+			\item \textit{Sequenzielle Abarbeitung / Befehlsfolgen }
+			\item \textit{kleinere Schlaufen}
+		\end{itemize}
+		
+		\textbf{Nicht unterstützend:}
+		\begin{itemize}
+			% \item Umherspringen in einem grossen Daten-Array
+			\item \textit{Massenverarbeitung von Daten}
+			
+			Da nicht alles auf einmal in den Cache geladen werden kann. Zum Beispiel grosse Arrays.
+			
+			\item \textit{Fragmentierung}
+			
+			%TODO mha: weiss nicht ob das stimmt. aber massenverarbeitung und grosse daten-arrays sind ja dasselbe, nicht? darum hab ich es mal ersetzt.
+			
+			Da die naheliegenden Daten nicht nicht mehr zum selben Programm gehören, nützt es nicht wenn diese vorgeladen werden.
+			
+		\end{itemize}
 \end{enumerate}
 
 \newpage
 
-% Aufgabe 2	 	a: 	b:	c:
+% Aufgabe 2	 	a: ok 	b: ok	c:
 \section*{Aufgabe 2}
 Betrachtet werden zwei Prozessoren mit einer Zykluszeit von 2 ns: ein Prozessor $P_a$ ohne Cache und ein Prozessor $P_b$ mit Cache. Für ein Programm wird bei jedem 3. Befehl auf den Speicher zugegriffen. Die Zugriffszeit auf ein Datum im Arbeitsspeicher beträgt die 50 ns, die CPI für die anderen Befehle 2.5.
 \begin{enumerate}[label=\alph*)]
@@ -74,23 +84,24 @@ Betrachtet werden zwei Prozessoren mit einer Zykluszeit von 2 ns: ein Prozessor 
 		\textit{In welcher Zeit wird ein Befehl des Programms mit dem Prozessor $P_a$ durchschnittlich bearbeitet? (näherungsweise) Lösung: (2 Punkte)}\\
 		$t_a = (1-\frac{1}{3}) * (2.5 * 2ns) + (\frac{1}{3} * 50ns) = 20ns $
 	\item 
-		\textit{In welcher Zeit wird ein Befehl des Programms mit dem Prozessor $P_b$ durchschnittlich bearbeitet, wenn folgendes gilt: $R_{hit}= 96\%$,$t_{hit}
-		= 2 ns $,$t_{hit}= 2 ns$ und $t_{miss}= 70 ns$ ? Lösung: (2 Punkte)}\\
+		\textit{In welcher Zeit wird ein Befehl des Programms mit dem Prozessor $P_b$ durchschnittlich bearbeitet, wenn folgendes gilt: $R_{hit}= 96\%$, $t_{hit} = 2 ns $,  und $t_{miss}= 70 ns$ ? Lösung: (2 Punkte)}\\
 		$t_b = (1-\frac{1}{3}) * (2.5 * 2ns) + \frac{1}{3} * (0.96 * 2ns + 0.04 * 70ns) = 4.907ns $
 	\item
 		\textit{Um wie viel \% steigert der Cache des Prozessor $P_b$ die Rechenleistung? Lösung: (2 Punkte)}\\
-		$t_d = \frac{t_a}{t_b} - 1 = \frac{20ns}{4.907ns} -1 = 307\%$ %TODO: DBRU: Stimmt die Prozentzahl? Aus der Formel ergibt sich 3.07..habe mal die Beispiele im Script S. 29 nachgerechnet... 
+		$t_d = \frac{t_a}{t_b} - 1 = \frac{20ns}{4.907ns} -1 = 307\%$
+		%TODO: DBRU: Stimmt die Prozentzahl? Aus der Formel ergibt sich 3.07..habe mal die Beispiele im Script S. 29 nachgerechnet... 
+		% mha: merkwürdig. Mind. auf S.75 wurde falsch gerechnet. Die Formel konnte ich nicht herleiten. Würde es aber so lassen.
 \end{enumerate}
 
 \newpage
-% Aufgabe 3		 	a: ok
+% Aufgabe 3		 	a: ok	b: ok	c: ok
 \section*{Aufgabe 3}
 Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem direktabbildenden Cache (Blockgrösse 2 Wörter; Wortgrösse 1 Byte).
 \begin{enumerate}[label=\alph*)]
 	\item
 		\textit{Geben Sie an, welche Byte (bzw. Blöcke) des Arbeitsspeicher auf	welche Position im Cache abgebildet werden.	Lösung: (2 Punkte)}\\
 		Cache-Adresse = Block-Adresse modulo Anzahl Blöcke im Cache \\
-		$C = B mod	(16/(2*1))$ \\
+		$C = B  \: mod	(16/(2*1))$ \\
 		\begin{tabular}{c | c}
 		Adresse Arbeitsspeicher 	&	Adresse Cache \\
 		\hline
@@ -105,10 +116,11 @@ Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem
 		\end{tabular}
 		%2^8 = 256
 	\item
-		\textit{Während eines Programmablaufs kommt es zum Zugriff auf folgende Byte im Arbeitsspeicher (in dieser Reihenfolge): … 3, 4, 5, 6, 100, 101,2, 3, 4, 5, 6,51, 102, 105, 5, 6, … (Annahme: Cache ist leer) \\- Geben Sie an, wann welcher Block in den Cache übertragen wird \\- Wie häufig muss auf den (langsameren) Arbeitsspeicher zugegriffen werden, wie häufig reicht der Zugriff auf den Cache aus? \\(4 Punkte + 2 Punkte)}\\
-		\begin{tabular}{c | c | c}
-		Zugriff auf Adresse & Block in Cache übertragen & Belegte Cache-Adresse \\
-		\hline\\
+		\textit{Während eines Programmablaufs kommt es zum Zugriff auf folgende Byte im Arbeitsspeicher (in dieser Reihenfolge): … 3, 4, 5, 6, 100, 101,2, 3, 4, 5, 6,51, 102, 105, 5, 6, … (Annahme: Cache ist leer) \\- Geben Sie an, wann welcher Block in den Cache übertragen wird \\- Wie häufig muss auf den (langsameren) Arbeitsspeicher zugegriffen werden, wie häufig reicht der Zugriff auf den Cache aus? \\(4 Punkte + 2 Punkte)}
+		
+		\begin{tabular}{r | r | r}
+		Adresse & Zugriff Arbeitsspeicher & Cache-Adresse\\
+		\hline
 		3	& 	3 	& 3 \\
 		4	&	4 	& 4 \\
 		5	&	5 	& 5 \\
@@ -122,16 +134,18 @@ Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem
 		6	&	-	& 6 \\
 		51	&	51	& 3 \\
 		102 &	102 & 6 \\
-		105 &	105 & 1 \\
-		5	&	5	& 5 \\
+		105 &	105 & 9 \\  % gefixt: 105 wird auf 9 abgebildet 
+		5	&	-	& 5 \\ % gefixt: den haben wir ja schon.
 		6	&	6	& 6 \\
 		\end{tabular}
-		Anzahl Zugriffe auf Arbeitsspeicher: 14 \\
-		Anzahl Zugriffe ohne Arbeitsspeicher-Zugriff: 2
+		%TODO: DBRU: Es gibt ja im Cache nur die Adressen 0-8, 105 mod 8 wäre 1..., wie bist du auf 9 gekommen?, (Wenn definitif: Anzahl Zugriffe anpassen)
+		Anzahl Zugriffe auf Arbeitsspeicher: 13 \\
+		Anzahl Zugriffe ohne Arbeitsspeicher-Zugriff: 3
 	\item
 		\textit{Nun wird der Cache durch einen 2-fach satzassoziativen Cache ersetzt. Geben sie für die ansonsten gleichen unter b) gegeben Bedingungen an, 	\\- wann welcher Block in den Cache übertragen wird und \\- wie häufig auf den (langsameren) Arbeitsspeicher zugegriffen werden muss, bzw. wie häufig der Zugriff auf den Cache ausreicht? (4 Punkte + 2 Punkte)}
-		\begin{tabular}{c | c | c | c}
-		Zugriff auf Adresse & Block in Cache übertragen & Belegte Cache-Adresse & Satznr.\\
+		
+		\begin{tabular}{r | r | r | r}
+		Adresse & Zugriff Arbeitsspeicher & Cache-Adresse & Satznr.\\
 		\hline
 		3	& 	3 	& 3 	& 1\\
 		4	&	4 	& 4 	& 1\\
@@ -141,39 +155,85 @@ Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem
 		101	&	101	& 5 	& 2\\
 		2	&	2	& 2 	& 1\\
 		3	&	-	& 3 	& 1\\
-		4	&	4	& 4 	& 1\\
+		4	&	-	& 4 	& 1\\ % gefixt: die 4 hat er schon.
 		5	&	-	& 5 	& 1\\
 		6	&	-	& 6 	& 1\\
 		51	&	51	& 3 	& 2\\
 		102 &	102 & 6 	& 2\\
-		105 &	105 & 1 	& 1\\
+		105 &	105 & 9	& 1\\  % gefixt: 105 wird auf 9 abgebildet
 		5	&	-	& 5 	& 1\\
 		6	&	-	& 6 	& 1\\
 		\end{tabular}
-		Anzahl Zugriffe auf Arbeitsspeicher: 11 \\
-		Anzahl Zugriffe ohne Arbeitsspeicher-Zugriff: 5
+		%TODO: DBRU: Es gibt ja im Cache nur die Adressen 0-8, 105 mod 8 wäre 1..., wie bist du auf 9 gekommen?, (Wenn definitif: Anzahl Zugriffe anpassen)
+		Anzahl Zugriffe auf Arbeitsspeicher: 10 \\
+		Anzahl Zugriffe ohne Arbeitsspeicher-Zugriff: 6
 \end{enumerate}
 
 \newpage
-% Aufgabe 4		 	a: ok 
-%TODO: DBRU: Irgendwie habe ich hier den Durchblick nicht mehr^^, habe das gefühl die Begriffe aus dem Script sind nicht konsistent mit den Begriffen aus der Zeichnung...
+% Aufgabe 4		 	a: 	b: 	c: 	d: 	e: 
+%TODO: DBRU: Irgendwie habe ich hier den Durchblick nicht mehr^^, habe das gefühl die Begriffe aus dem Script sind nicht konsistent mit den Begriffen aus der Zeichnung sind...
 \section*{Aufgabe 4}
 Gegeben sei für einen Rechner der unten dargestellte direktabbildende Cache. 
 \begin{enumerate}[label=\alph*)]
 	\item
-		\textit{Wie gross ist der Hauptspeicher des Rechners maximal? Lösung: (1 Punkt)} \\
-		 $31 - 3 = 20 \rightarrow 2^28$ Byte
-		 %127 Blöcke Total, 
+		\textit{Wie gross ist der Hauptspeicher des Rechners maximal? Lösung: (1 Punkt)}
+		
+		 $31 - 3 = 28 \rightarrow 2^{28} = 268435456 Byte$
+		 %TODO mha: wenn via Cache-Adresse auf 2^28 Speicher-Adressen zugegriffen werden kann, so mit wäre der effektive Speicher 2^28 * Wortbreite. nicht?
+		 %DBRU: Das tönt plausiebel.
 	\item
-		\textit{Wie gross ist ein Wort und wie gross ein Block im Cache? Lösung: (2 Punkte)} \\
+		\textit{Wie gross ist ein Wort und wie gross ein Block im Cache? Lösung: (2 Punkte)}
+		
 		Ein Block besteht aus 4 Wörtern.
+		%TODO: mha: Wortgrösse fehlt noch. 32  Bit, da dies die Ausgabe ist? oder doch 8 (standard)?
+		%Hmm..ich denke die Wortgrösse ist 8...standard..weiss ned wiemers chönt uselese...
 	\item
-		\textit{Wie gross ist der Cache (in Byte)? Lösung: (1 Punkt)} \\
+		\textit{Wie gross ist der Cache (in Byte)? Lösung: (1 Punkt)}
+		
 		$127 * Blockgr\ddot{o}sse + 20 + 2) = $
+		
+		%TODO mha: ich schlage vor: 2^7 * Wortgrösse = 128 * 8 Bit = 1024 = 1kB
+		%passt
 	\item
-		\textit{Wie lautet der Index und der Tag für den Speicher mit der Adresse 01 42 1F F0 (MSb und MSB je links)? Lösung: (2 Punkt)} \\
+		\textit{Wie lautet der Index und der Tag für den Speicher mit der Adresse 01 42 1F F0 (MSb und MSB je links)? Lösung: (2 Punkt)}
+		
+		$01 42 1F F0_{hex} = 0000\:0001\:0100\:0010\:0001\:1111\:1111\:0000_{bin}$
+		
+		\begin{tabular}{r | r | r}
+			Name & Bin & Dec\\
+			\hline
+			Tag & $0\:0000\:0010\:1000\:0100\:0011$ & 10307\\
+			Index & $111\:1111$ & 127\\
+		\end{tabular}
 		
 	\item
-		\textit{Tragen Sie in der Abbildung ein, wo die Speicher mit der Adresse 01 42 1F F0 und 23 77 18 27 im Cache abgebildet werden? Lösung: (2 Punkt)} \\
+		\textit{Tragen Sie in der Abbildung ein, wo die Speicher mit der Adresse 01 42 1F F0 und 23 77 18 27 im Cache abgebildet werden? Lösung: (2 Punkt)}
+		
+		Der Index der Adresse spezifiziert die Cache Adresse (Cache Zeile).
+		
+		% 01 42 1F F0
+		$01\:42\:1F\:F0_{hex} = 0000\:0001\:0100\:0010\:0001\:1111\:1111\:0000_{bin}$
+		
+		\begin{tabular}{r | r | r}
+			Name & Bin & Dec\\
+			\hline
+			Tag & $0\:0000\:0010\:1000\:0100\:0011$ & 10307\\
+			Index & $111\:1111$ & 127\\
+		\end{tabular}
+
+		$01\:42\:1F\:F0_{hex}$ wird in Zeile 127 abgelegt.
+		
+		% 23 77 18 27
+		$23\:77\:18\:27_{hex} = 0010\:0011\:0111\:0111\:0001\:1000\:0010\:0111_{bin}$
+		
+		\begin{tabular}{r | r | r}
+			Name & Bin & Dec\\
+			\hline
+			Tag & $0\:0100\:0110\:1110\:1110\:0011$ & 290531\\
+			Index & $001\:1000$ & 24\\
+		\end{tabular}
+		
+		$23\:77\:18\:27_{hex}$ wird in Zeile 24 abgelegt.
+		
 \end{enumerate}
 \end{document}

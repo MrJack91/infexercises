@@ -6,15 +6,23 @@ function subtree() {
 }
 
 function treeManager() {
+
+  // the root node itself
+  this.rootNode = null;
+
+  /**
+   * add a node to the tree
+   * @param data
+   */
   this.addNode = function (data) {
-		if(rootNode == null){
-			rootNode = new subtree();
-			rootNode.data = data;
+		if (this.rootNode == null) {
+      this.rootNode = new subtree();
+      this.rootNode.data = data;
 		}else{
-			preNode = null;
-			subTree = rootNode;
+			var preNode = null;
+			var subTree = this.rootNode;
 			
-			while(subTree != null){
+			while(subTree !== null){
 				preNode = subTree;
 				if(data < subTree.data){
 					subTree = subTree.leftSubtree;
@@ -23,7 +31,7 @@ function treeManager() {
 				}
 			}
 			
-			node = new subtree();
+			var node = new subtree();
 			node.data = data;
 			
 			if(data < preNode.data){
@@ -34,29 +42,67 @@ function treeManager() {
 			
 		}
 	}
+
+  /**
+   * print the tree into html element with id treeContainer
+   * @param tree
+   */
+  this.showTreeNode = function(){
+    $('#treeContainer').html(this.buildTreeNode(this.rootNode));
+  }
+
+  /**
+   * Builds the tree in html
+   * @param tree optional can be a subtree
+   * @returns {string} html
+   */
+  this.buildTreeNode = function(tree){
+    var htmlList = '';
+
+    if(tree !== null){
+
+      htmlList = '<li>' + tree.data + '</li>';
+
+      // first print right (90 degress)
+      htmlList += this.buildTreeNode(tree.rightSubtree);
+      htmlList += this.buildTreeNode(tree.leftSubtree);
+    }
+    // append new ul
+    return '<ul>' + htmlList + '</ul>';
+  }
 }
 
-function displayTreeNode(tree){
-	if(tree != null){
-		//TODO: Print value: tree.data
-		displayTreeNode(tree.leftSubtree);
-		displayTreeNode(tree.rightSubtree);
-	}
-}
 
-console.log('hi');
+// onload
+$(function() {
+  var tm = new treeManager();
 
-var rootNode = null;
-var trMgm = null;
+  tm.addNode(5);
+  tm.addNode(3);
+  tm.addNode(8);
 
-trMgm = new treeManager();
 
-trMgm.addNode(5);
-trMgm.addNode(3);
-trMgm.addNode(8);
-console.log(rootNode);
-console.log(rootNode.leftSubtree);
-console.log(rootNode.rightSubtree);
-console.log(rootNode.data);
+  tm.addNode(2);
+  tm.addNode(1);
+  tm.addNode(4);
+  tm.addNode(7);
+  tm.addNode(5);
 
-displayTreeNode(rootNode);
+  tm.addNode(3);
+
+  tm.addNode(8);
+  tm.addNode(8);
+  tm.addNode(8);
+  tm.addNode(8);
+  tm.addNode(8);
+  tm.addNode(8);
+
+  /*
+  console.log(rootNode);
+  console.log(rootNode.leftSubtree);
+  console.log(rootNode.rightSubtree);
+  console.log(rootNode.data);
+  */
+
+  tm.showTreeNode();
+});
