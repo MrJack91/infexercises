@@ -57,7 +57,7 @@ function treeManager() {
    * @returns {string} html
    */
   this.buildTreeNode = function(tree) {
-    var htmlList = '';
+    var htmlList = '<li></li>';
 
     if(tree !== null){
 
