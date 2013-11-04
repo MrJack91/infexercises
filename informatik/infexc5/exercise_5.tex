@@ -68,7 +68,7 @@ Ein Cache eines Prozessors kann die notwenige Bearbeitungszeit für ein Programm
 			\item \textit{Fragmentierung}
 			
 			%TODO mha: weiss nicht ob das stimmt. aber massenverarbeitung und grosse daten-arrays sind ja dasselbe, nicht? darum hab ich es mal ersetzt.
-			
+			%DBRU: passt ;-)
 			Da die naheliegenden Daten nicht nicht mehr zum selben Programm gehören, nützt es nicht wenn diese vorgeladen werden.
 			
 		\end{itemize}
@@ -134,7 +134,7 @@ Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem
 		6	&	-	& 6 \\
 		51	&	51	& 3 \\
 		102 &	102 & 6 \\
-		105 &	105 & 9 \\  % gefixt: 105 wird auf 9 abgebildet 
+		105 &	105 & 1 \\  % gefixt: 105 wird auf 9 abgebildet %refix; Abbildung auf 1
 		5	&	-	& 5 \\ % gefixt: den haben wir ja schon.
 		6	&	6	& 6 \\
 		\end{tabular}
@@ -160,7 +160,7 @@ Gegeben sei ein Rechner mit $2^8$ Byte Arbeitsspeicher und einem 16-Byte grossem
 		6	&	-	& 6 	& 1\\
 		51	&	51	& 3 	& 2\\
 		102 &	102 & 6 	& 2\\
-		105 &	105 & 9	& 1\\  % gefixt: 105 wird auf 9 abgebildet
+		105 &	105 & 1		& 1\\  % gefixt: 105 wird auf 9 abgebildet %refix auf 1
 		5	&	-	& 5 	& 1\\
 		6	&	-	& 6 	& 1\\
 		\end{tabular}
@@ -178,19 +178,21 @@ Gegeben sei für einen Rechner der unten dargestellte direktabbildende Cache.
 	\item
 		\textit{Wie gross ist der Hauptspeicher des Rechners maximal? Lösung: (1 Punkt)}
 		
-		 $31 - 3 = 28 \rightarrow 2^{28} = 268435456 Byte$
+		 $31 - 11 = 20 \rightarrow 2^{20} = 1048576$ Byte
+		 %DBRU: Nur 20 bit, Index nicht Teil der Adresse. $31 - 3 = 28 \rightarrow 2^{28} = 268435456$ Byte
 		 %TODO mha: wenn via Cache-Adresse auf 2^28 Speicher-Adressen zugegriffen werden kann, so mit wäre der effektive Speicher 2^28 * Wortbreite. nicht?
 		 %DBRU: Das tönt plausiebel.
 	\item
 		\textit{Wie gross ist ein Wort und wie gross ein Block im Cache? Lösung: (2 Punkte)}
 		
-		Ein Block besteht aus 4 Wörtern.
+		Ein Block besteht aus 4 Wörtern mit jeweils 8 Bit.
 		%TODO: mha: Wortgrösse fehlt noch. 32  Bit, da dies die Ausgabe ist? oder doch 8 (standard)?
-		%Hmm..ich denke die Wortgrösse ist 8...standard..weiss ned wiemers chönt uselese...
+		%DBRU: Hmm..ich denke die Wortgrösse ist 8...standard..weiss ned wiemers chönt uselese...(gaht glaub ich gar ned), 4 x 8 -> 32 Bit ;-)
+		%
 	\item
 		\textit{Wie gross ist der Cache (in Byte)? Lösung: (1 Punkt)}
 		
-		$127 * Blockgr\ddot{o}sse + 20 + 2) = $
+		$128 * 4 * 8 = 4096$ Bit
 		
 		%TODO mha: ich schlage vor: 2^7 * Wortgrösse = 128 * 8 Bit = 1024 = 1kB
 		%passt
