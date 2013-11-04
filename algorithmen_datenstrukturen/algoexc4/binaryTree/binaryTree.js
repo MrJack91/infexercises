@@ -253,6 +253,13 @@ function treeManager() {
       return false;
     }
   }
+
+  this.addNodes = function(nodes) {
+    nodes.forEach(function (value, index, ar){
+      tm.addNode(value);
+    });
+    this.showTreeNode();
+  }
 }
 
 
