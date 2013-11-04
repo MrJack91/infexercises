@@ -11,51 +11,51 @@ function treeManager() {
   this.rootNode = null;
 
   /**
-   * add a node to the tree
-   * @param data
-   */
+* add a node to the tree
+* @param data
+*/
   this.addNode = function (data) {
-		if (this.rootNode == null) {
+                if (this.rootNode == null) {
       this.rootNode = new subtree();
       this.rootNode.data = data;
-		}else{
-			var preNode = null;
-			var subTree = this.rootNode;
-			
-			while(subTree !== null){
-				preNode = subTree;
-				if(data < subTree.data){
-					subTree = subTree.leftSubtree;
-				}else{
-					subTree = subTree.rightSubtree;
-				}
-			}
-			
-			var node = new subtree();
-			node.data = data;
-			
-			if(data < preNode.data){
-				preNode.leftSubtree = node;
-			}else{
-				preNode.rightSubtree = node;
-			}
-			
-		}
-	}
+                }else{
+                        var preNode = null;
+                        var subTree = this.rootNode;
+                        
+                        while(subTree !== null){
+                                preNode = subTree;
+                                if(data < subTree.data){
+                                        subTree = subTree.leftSubtree;
+                                }else{
+                                        subTree = subTree.rightSubtree;
+                                }
+                        }
+                        
+                        var node = new subtree();
+                        node.data = data;
+                        
+                        if(data < preNode.data){
+                                preNode.leftSubtree = node;
+                        }else{
+                                preNode.rightSubtree = node;
+                        }
+                        
+                }
+        }
 
   /**
-   * print the tree into html element with id treeContainer
-   * @param tree
-   */
+* print the tree into html element with id treeContainer
+* @param tree
+*/
   this.showTreeNode = function(){
     $('#treeContainer').html(this.buildTreeNode(this.rootNode));
   }
 
   /**
-   * Builds the tree in html
-   * @param tree optional can be a subtree
-   * @returns {string} html
-   */
+* Builds the tree in html
+* @param tree optional can be a subtree
+* @returns {string} html
+*/
   this.buildTreeNode = function(tree) {
     var htmlList = '<li>-</li>';
 
@@ -120,11 +120,11 @@ function treeManager() {
   }
 
   /**
-   * search a subtree by value
-   * @param subtree
-   * @param value
-   * @returns {object} founded subtree, parent (null if not found)
-   */
+* search a subtree by value
+* @param subtree
+* @param value
+* @returns {object} founded subtree, parent (null if not found)
+*/
   this.search = function(subtree, value, parent) {
     var foundSubtree = null;
     // check not found, if subtree is null
@@ -152,10 +152,10 @@ function treeManager() {
   }
 
   /**
-   * deletes a node by value
-   * @param value
-   * @returns {boolean} delete was successfully
-   */
+* deletes a node by value
+* @param value
+* @returns {boolean} delete was successfully
+*/
   this.delete = function(value) {
     var search = this.search(this.rootNode, value);
 
@@ -197,8 +197,8 @@ function treeManager() {
         }
 
         // make a (deep) copy of nextVal
-        var nextValOrig = jQuery.extend(true, {}, nextVal);   // is never changing
-        var nextValOrig2 = jQuery.extend(true, {}, nextVal);  // get new replace of deleted node
+        var nextValOrig = jQuery.extend(true, {}, nextVal); // is never changing
+        var nextValOrig2 = jQuery.extend(true, {}, nextVal); // get new replace of deleted node
 
         // delete next val (Important via lastVal, in other case, reference to null doesn't work)
         lastVal.leftSubtree = null;
