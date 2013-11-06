@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+    <head>
+        <meta charset="utf-8">
+        <script src="jquery-2.0.3.min.js"></script>
+        <script src="binaryTree.js"></script>
+        <style>
+            ul {
+                list-style-type: none;
+                background: url(vline.png) repeat-y;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* ul.tree ul { */
+            ul ul {
+                margin-left: 10px;
+            }
+
+            /* ul.tree li { */
+            ul li {
+                margin: 0;
+                padding: 0 12px;
+                line-height: 20px;
+                background: url(node.png) no-repeat;
+                color: #369;
+                font-weight: bold;
+            }
+
+            ul:last-child {
+                background: #fff url(lastnode.png) no-repeat;
+            }
+
+            /*
+ul:first-child ul {
+background-color: red;
+}
+ul:last-child ul {
+background-color: blue;
+}
+*/
+        </style>
+    </head>
+    <body>
+        <h1>Binärbaum</h1>
+        <p>Der Baum ist seitwärts. Oben bedeutet grösser unten kleiner.</p>
+        <div id="treeContainer"></div>
+    </body>
+<html>
