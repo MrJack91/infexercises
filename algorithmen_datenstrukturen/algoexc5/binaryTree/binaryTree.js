@@ -260,6 +260,90 @@ function treeManager() {
     });
     this.showTreeNode();
   }
+  
+  this.isTreeBalanced = function(){
+	return this.needsBalancing(this.rootNode);
+  }
+  
+  this.needsBalancing = function(tree){
+	if(tree !== null){
+		var diff = this.countSubtreeElements(tree.leftSubtree).countDepths - this.countSubtreeElements(tree.rightSubtree).countDepths;
+		
+		if(diff > 1 || diff < -1){
+			return true;
+		}else{
+			if( this.needsBalancing(tree.leftSubtree) || this.needsBalancing(tree.rightSubtree)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}else{
+		return false;
+	}
+  }
+  
+  this.balanceTree = function(){
+	this.rootNode = this.balanceTreeNode(this.rootNode);
+  }
+  
+  this.balanceTreeNode = function(node){
+	if(node !== null){
+		node.leftSubtree = this.balanceTreeNode(node.leftSubtree);
+		node.rightSubtree = this.balanceTreeNode(node.rightSubtree);
+		
+		var leftSize = this.countSubtreeElements(node.leftSubtree).countDepths;
+		var rightSize = this.countSubtreeElements(node.rightSubtree).countDepths;
+
+		//Left-Left-Case (Linker-Arm länger)
+		if((leftSize - rightSize) > 1){
+			//Wenn Reihenfolge unterhalb nicht korrekt:
+			if(node.data <= node.leftSubtree.data){
+				//Links Rotation + Rechts Rotation
+				node.rightSubtree = this.rotateLeft(node.rightSubtree);
+				node = this.rotateRight(node);
+			}else{			
+				//Sonst:
+				node = this.rotateLeft(node);
+			}
+		}else if((rightSize - leftSize) > 1){
+			//Wenn Reihenfolge unterhalb nicht korrekt:
+			if(node.data > node.rightSubtree.data){
+				//Roation nach Rechts + Rotation nach links
+				node.leftSubtree = this.rotateRight(node.leftSubtree);
+				node = this.rotateLeft(node);
+			}else{
+				//Sonst
+				node = this.rotateRight(node);
+			}
+		}
+	}
+	return node;
+  }
+  
+  this.rotateLeft = function(node){
+	if(node !== null && node.leftSubtree != null){
+		var tmpNode = node.leftSubtree;
+		
+		node.leftSubtree = tmpNode.rightSubtree;
+		tmpNode.rightSubtree = node;
+		
+		return tmpNode;
+	}
+	return null;
+  }
+  
+  this.rotateRight = function(node){
+	if(node !== null && node.rightSubtree !== null){
+		var tmpNode = node.rightSubtree;
+		
+		node.rightSubtree = tmpNode.leftSubtree;
+		tmpNode.leftSubtree = node;
+		
+		return tmpNode;
+	}
+	return null;
+  }
 }
 
 
@@ -294,6 +378,9 @@ $(function() {
 
 
   console.log('Wert existiert: ' + tm.exist(1));
-
+  console.log('Ausbalanciert: ' + tm.isTreeBalanced());
+  //Balancing: http://me-lrt.de/08-avl-baum-java-selbstbalanciert
+  //http://www.uni-bonn.de/~ochsendo/data/Men.AVL.pdf
+  tm.balanceTree();
   tm.showTreeNode();
 });
