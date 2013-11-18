@@ -295,38 +295,40 @@ function treeManager() {
 		var leftSize = this.countSubtreeElements(node.leftSubtree).countDepths;
 		var rightSize = this.countSubtreeElements(node.rightSubtree).countDepths;
 
-		//Left-Left-Case (Linker-Arm länger)
+		//If tree is left heavy
 		if((leftSize - rightSize) > 1){
-			//Wenn Reihenfolge unterhalb nicht korrekt:
-			if(node.data <= node.leftSubtree.data){
-				//Links Rotation + Rechts Rotation
+			var treeSubLeftSize = this.countSubtreeElements(node.leftSubtree.leftSubtree).countDepths;
+			var treeSubRightSize = this.countSubtreeElements(node.leftSubtree.rightSubtree).countDepths;
+			
+			if(treeSubRightSize > treeSubLeftSize){
 				node.rightSubtree = this.rotateLeft(node.rightSubtree);
 				node = this.rotateRight(node);
-			}else{			
-				//Sonst:
-				node = this.rotateLeft(node);
+			}else{
+				node = this.rotateRight(node);
 			}
+		//If tree is right heavy
 		}else if((rightSize - leftSize) > 1){
-			//Wenn Reihenfolge unterhalb nicht korrekt:
-			if(node.data > node.rightSubtree.data){
-				//Roation nach Rechts + Rotation nach links
-				node.leftSubtree = this.rotateRight(node.leftSubtree);
+			var treeSubLeftSize = this.countSubtreeElements(node.rightSubtree.leftSubtree).countDepths;
+			var treeSubRightSize = this.countSubtreeElements(node.rightSubtree.rightSubtree).countDepths;
+			
+			if(treeSubLeftSize > treeSubRightSize){
+				node.rightSubtree = this.rotateRight(node.leftSubtree);
 				node = this.rotateLeft(node);
 			}else{
-				//Sonst
-				node = this.rotateRight(node);
+				node = this.rotateLeft(node);
 			}
 		}
 	}
+	
 	return node;
   }
   
   this.rotateLeft = function(node){
-	if(node !== null && node.leftSubtree != null){
-		var tmpNode = node.leftSubtree;
+	if(node !== null && node.leftSubtree !== null){
+		var tmpNode = node.rightSubtree;
 		
-		node.leftSubtree = tmpNode.rightSubtree;
-		tmpNode.rightSubtree = node;
+		node.rightSubtree = tmpNode.leftSubtree;
+		tmpNode.leftSubtree = node;
 		
 		return tmpNode;
 	}
@@ -335,10 +337,10 @@ function treeManager() {
   
   this.rotateRight = function(node){
 	if(node !== null && node.rightSubtree !== null){
-		var tmpNode = node.rightSubtree;
+		var tmpNode = node.leftSubtree;
 		
-		node.rightSubtree = tmpNode.leftSubtree;
-		tmpNode.leftSubtree = node;
+		node.leftSubtree = tmpNode.rightSubtree;
+		tmpNode.rightSubtree = node;
 		
 		return tmpNode;
 	}
@@ -363,12 +365,12 @@ $(function() {
   tm.addNode(7);
   tm.addNode(5);
 
-  tm.addNode(3);
+  tm.addNode(10);
 
-  tm.addNode(8);
-  tm.addNode(8);
-  tm.addNode(8);
-  tm.addNode(8);
+  tm.addNode(11);
+  tm.addNode(12);
+  tm.addNode(13);
+  tm.addNode(14);
 
 
 
