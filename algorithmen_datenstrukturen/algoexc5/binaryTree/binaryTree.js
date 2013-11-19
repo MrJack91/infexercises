@@ -287,41 +287,48 @@ function treeManager() {
 	this.rootNode = this.balanceTreeNode(this.rootNode);
   }
   
+  this.getNormalizedNodeDepth = function(node){
+	var depth = this.countSubtreeElements(node).countDepths;
+	
+	return depth + 1;
+  }
+  
   this.balanceTreeNode = function(node){
-	if(node !== null){
-		//node.leftSubtree = this.balanceTreeNode(node.leftSubtree);
-		//node.rightSubtree = this.balanceTreeNode(node.rightSubtree);
+	if(!(node == null) || (node != null && node.leftSubtree == null && node.rightSubtree == null)){
+		node.leftSubtree = this.balanceTreeNode(node.leftSubtree);
+		node.rightSubtree = this.balanceTreeNode(node.rightSubtree);
 		
-		var leftSize = this.countSubtreeElements(node.leftSubtree).countDepths;
-		var rightSize = this.countSubtreeElements(node.rightSubtree).countDepths;
-		
+		var leftSize = this.getNormalizedNodeDepth(node.leftSubtree);
+		var rightSize = this.getNormalizedNodeDepth(node.rightSubtree);
+
 		while ((leftSize - rightSize) > 1 || (leftSize - rightSize) < -1){
 			//If tree is left heavy
 			if((leftSize - rightSize) > 1){
-				var treeSubLeftSize = this.countSubtreeElements(node.leftSubtree.leftSubtree).countDepths;
-				var treeSubRightSize = this.countSubtreeElements(node.leftSubtree.rightSubtree).countDepths;
+				var treeSubLeftSize = (node.leftSubtree == null ? 0 : this.getNormalizedNodeDepth(node.leftSubtree.leftSubtree));
+				var treeSubRightSize = (node.leftSubtree == null ? 0: this.getNormalizedNodeDepth(node.leftSubtree.rightSubtree));
 				
-				if(treeSubRightSize > treeSubLeftSize){
-					node.rightSubtree = this.rotateLeft(node.rightSubtree);
+				if((treeSubRightSize - treeSubLeftSize) > 0){
+					node.leftSubtree = this.rotateLeft(node.leftSubtree);
 					node = this.rotateRight(node);
+					console.log(node.data);
 				}else{
 					node = this.rotateRight(node);
 				}
 			//If tree is right heavy
 			}else if((rightSize - leftSize) > 1){
-				var treeSubLeftSize = this.countSubtreeElements(node.rightSubtree.leftSubtree).countDepths;
-				var treeSubRightSize = this.countSubtreeElements(node.rightSubtree.rightSubtree).countDepths;
-				
-				if(treeSubLeftSize > treeSubRightSize){
-					node.leftSubtree = this.rotateRight(node.leftSubtree);
+				var treeSubLeftSize = (node.rightSubtree == null ? 0 : this.getNormalizedNodeDepth(node.rightSubtree.leftSubtree));
+				var treeSubRightSize = (node.rightSubtree == null ? 0 :  this.getNormalizedNodeDepth(node.rightSubtree.rightSubtree));
+				if((treeSubLeftSize - treeSubRightSize) > 0){
+					node.rightSubtree = this.rotateRight(node.rightSubtree);
 					node = this.rotateLeft(node);
+					console.log(node.data);
 				}else{
 					node = this.rotateLeft(node);
 				}
 			}
 			
-			leftSize = this.countSubtreeElements(node.leftSubtree).countDepths;
-			rightSize = this.countSubtreeElements(node.rightSubtree).countDepths;
+			leftSize = (node == null ? 0 : this.getNormalizedNodeDepth(node.leftSubtree));
+			rightSize = (node == null ? 0 : this.getNormalizedNodeDepth(node.rightSubtree));
 		}
 	}
 	
@@ -329,7 +336,7 @@ function treeManager() {
   }
   
   this.rotateLeft = function(node){
-	if(node !== null && node.leftSubtree !== null){
+	if(node !== null && node.rightSubtree !== null){
 		var tmpNode = node.rightSubtree;
 		
 		node.rightSubtree = tmpNode.leftSubtree;
@@ -341,7 +348,7 @@ function treeManager() {
   }
   
   this.rotateRight = function(node){
-	if(node !== null && node.rightSubtree !== null){
+	if(node !== null && node.leftSubtree !== null){
 		var tmpNode = node.leftSubtree;
 		
 		node.leftSubtree = tmpNode.rightSubtree;
@@ -358,8 +365,19 @@ function treeManager() {
 $(function() {
   // global var, because direct access over js console
   tm = new treeManager();
+	tm.addNode(3);
+	tm.addNode(1);
+	tm.addNode(8);
+	tm.addNode(10);
+	tm.addNode(2); 
+	tm.addNode(4); 
+	tm.addNode(6); 
+	tm.addNode(7); 
+	tm.addNode(9); 
+	tm.addNode(5); 
 
-  tm.addNode(5);
+
+  /*tm.addNode(5);
   tm.addNode(3);
   tm.addNode(8);
   tm.addNode(11);
@@ -371,7 +389,6 @@ $(function() {
   
   tm.addNode(7);
   tm.addNode(13);
-  tm.addNode(5);
 
   tm.addNode(10);
 
@@ -381,10 +398,8 @@ $(function() {
   tm.addNode(25);
   tm.addNode(-3);
   tm.addNode(22);
-  tm.addNode(19);
+  tm.addNode(19);*/
  
-
-
 
   var counter = tm.getElementCount();
   console.log('Anzahl Elemente: ' + counter.countElements);
