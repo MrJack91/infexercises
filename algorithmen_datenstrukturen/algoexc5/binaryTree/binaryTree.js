@@ -289,34 +289,39 @@ function treeManager() {
   
   this.balanceTreeNode = function(node){
 	if(node !== null){
-		node.leftSubtree = this.balanceTreeNode(node.leftSubtree);
-		node.rightSubtree = this.balanceTreeNode(node.rightSubtree);
+		//node.leftSubtree = this.balanceTreeNode(node.leftSubtree);
+		//node.rightSubtree = this.balanceTreeNode(node.rightSubtree);
 		
 		var leftSize = this.countSubtreeElements(node.leftSubtree).countDepths;
 		var rightSize = this.countSubtreeElements(node.rightSubtree).countDepths;
-
-		//If tree is left heavy
-		if((leftSize - rightSize) > 1){
-			var treeSubLeftSize = this.countSubtreeElements(node.leftSubtree.leftSubtree).countDepths;
-			var treeSubRightSize = this.countSubtreeElements(node.leftSubtree.rightSubtree).countDepths;
-			
-			if(treeSubRightSize > treeSubLeftSize){
-				node.rightSubtree = this.rotateLeft(node.rightSubtree);
-				node = this.rotateRight(node);
-			}else{
-				node = this.rotateRight(node);
+		
+		while ((leftSize - rightSize) > 1 || (leftSize - rightSize) < -1){
+			//If tree is left heavy
+			if((leftSize - rightSize) > 1){
+				var treeSubLeftSize = this.countSubtreeElements(node.leftSubtree.leftSubtree).countDepths;
+				var treeSubRightSize = this.countSubtreeElements(node.leftSubtree.rightSubtree).countDepths;
+				
+				if(treeSubRightSize > treeSubLeftSize){
+					node.rightSubtree = this.rotateLeft(node.rightSubtree);
+					node = this.rotateRight(node);
+				}else{
+					node = this.rotateRight(node);
+				}
+			//If tree is right heavy
+			}else if((rightSize - leftSize) > 1){
+				var treeSubLeftSize = this.countSubtreeElements(node.rightSubtree.leftSubtree).countDepths;
+				var treeSubRightSize = this.countSubtreeElements(node.rightSubtree.rightSubtree).countDepths;
+				
+				if(treeSubLeftSize > treeSubRightSize){
+					node.leftSubtree = this.rotateRight(node.leftSubtree);
+					node = this.rotateLeft(node);
+				}else{
+					node = this.rotateLeft(node);
+				}
 			}
-		//If tree is right heavy
-		}else if((rightSize - leftSize) > 1){
-			var treeSubLeftSize = this.countSubtreeElements(node.rightSubtree.leftSubtree).countDepths;
-			var treeSubRightSize = this.countSubtreeElements(node.rightSubtree.rightSubtree).countDepths;
 			
-			if(treeSubLeftSize > treeSubRightSize){
-				node.rightSubtree = this.rotateRight(node.leftSubtree);
-				node = this.rotateLeft(node);
-			}else{
-				node = this.rotateLeft(node);
-			}
+			leftSize = this.countSubtreeElements(node.leftSubtree).countDepths;
+			rightSize = this.countSubtreeElements(node.rightSubtree).countDepths;
 		}
 	}
 	
@@ -357,20 +362,27 @@ $(function() {
   tm.addNode(5);
   tm.addNode(3);
   tm.addNode(8);
-
+  tm.addNode(11);
+  tm.addNode(4);
 
   tm.addNode(2);
   tm.addNode(1);
-  tm.addNode(4);
+  tm.addNode(14);
+  
   tm.addNode(7);
+  tm.addNode(13);
   tm.addNode(5);
 
   tm.addNode(10);
 
-  tm.addNode(11);
   tm.addNode(12);
-  tm.addNode(13);
-  tm.addNode(14);
+  tm.addNode(20);
+  tm.addNode(-1);
+  tm.addNode(25);
+  tm.addNode(-3);
+  tm.addNode(22);
+  tm.addNode(19);
+ 
 
 
 
