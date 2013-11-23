@@ -323,7 +323,7 @@ function treeManager() {
 					node = this.rotateLeft(node);
 					console.log(node.data);
 				}else{
-					node = this.rotateLeft(node);
+						node = this.rotateLeft(node);
 				}
 			}
 			
