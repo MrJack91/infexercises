@@ -1,7 +1,7 @@
 function quicksort(arr, first, last){
   var x, i, j;
 
-  console.log(arr, first, last);
+  // console.log(arr, first, last);
 
   if (first < last) {
     // 1. Divide: split up array in two subarrays
@@ -10,7 +10,7 @@ function quicksort(arr, first, last){
     j = last;
 
     do {
-      console.log('check x on: ' + x);
+      // console.log('check x on: ' + x);
 
       // find first element greater or equal to x
       while (arr[i] < x) {
@@ -25,16 +25,17 @@ function quicksort(arr, first, last){
 
       // console.log(i, j);
 
-      // swap the two false ordered elements
+      // swap the two false-ordered elements
       if (i < j) {
         // swap
 
+        /*
         console.log('x=' + x);
         console.log('i=' + i);
         console.log('j=' + j);
         console.log('arr[i]=' + arr[i]);
         console.log('arr[j]=' + arr[j]);
-
+        */
 
         var temp = arr[i];
         arr[i] = arr[j];
@@ -43,7 +44,8 @@ function quicksort(arr, first, last){
       i++;
       j--;
 
-    } while (i <= j);
+    // } while (i <= j);
+    } while (i < j);
 
     quicksort(arr, first, j);
     quicksort(arr, i, last);
@@ -59,10 +61,11 @@ function getRandomArray(length) {
   return arr;
 }
 
-var arr = getRandomArray(4);
+var arr = getRandomArray(5);
 // var arr = new Array(39, 73, 12, 23, 35);
-var arr = new Array(3, 55, 69, 12); // [85, 38, 97, 98]
+// var arr = new Array(3, 55, 69, 12); // [85, 38, 97, 98]
 // var arr = new Array(85, 38, 97, 98);
+// var arr = new Array(75, 72, 53, 57, 84, 61, 6, 46, 63);
 
 console.log(arr);
 
