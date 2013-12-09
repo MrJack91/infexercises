@@ -3,12 +3,58 @@
     <head>
         <meta charset="utf-8">
         <script src="jquery-2.0.3.min.js"></script>
+        <!--
         <script src="shellSort.js"></script>
+        -->
+
+        <script src="quickSort.js"></script>
         <style>
             
         </style>
     </head>
     <body>
-        <h1>Shell-Sort</h1>
+        <h1>Shell-Sort / Quick-Sort</h1>
+
+        <h2>Quick-Sort</h2>
+        <p>Für den Quick-Sort stellte ich folgende Werte fest:<br>
+        Die Elemente werden als zufällige Zahlenfolge zwischen 0 und 100 gewählt.</p>
+    <table>
+        <tr>
+            <th>Anzahl Elemente</th>
+            <th>Anzahl Sortierungen</th>
+            <th>Durchschnittliche Zeit (ms)</th>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>1000</td>
+            <td>0.018</td>
+        </tr>
+        <tr>
+            <td>1'000</td>
+            <td>1000</td>
+            <td>0.125</td>
+        </tr>
+        <tr>
+            <td>10'000</td>
+            <td>1000</td>
+            <td>1.058</td>
+        </tr>
+        <tr>
+            <td>100'000</td>
+            <td>1000</td>
+            <td>7.674</td>
+        </tr>
+        <tr>
+            <td>1'000'000</td>
+            <td>100</td>
+            <td>72.3</td>
+        </tr>
+        <tr>
+            <td>10'000'000</td>
+            <td>100</td>
+            <td>788.13</td>
+        </tr>
+    </table>
+
     </body>
 <html>
