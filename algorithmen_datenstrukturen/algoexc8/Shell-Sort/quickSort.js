@@ -1,7 +1,7 @@
 function quicksort(arr, first, last){
   var x, i, j;
 
-  // console.log(arr, first, last);
+  console.log(arr, first, last);
 
   if (first < last) {
     // 1. Divide: split up array in two subarrays
@@ -10,7 +10,7 @@ function quicksort(arr, first, last){
     j = last;
 
     do {
-      // console.log('check x on: ' + x);
+      console.log('check x on: ' + x);
 
       // find first element greater or equal to x
       while (arr[i] < x) {
@@ -18,8 +18,8 @@ function quicksort(arr, first, last){
       }
 
       // find last element, who is smaller then x
-      // while (arr[j] > x) {
-      while (x < arr[j]) {
+      while (arr[j] > x) {
+      // while (x < arr[j]) {
         j--;
       }
 
@@ -29,24 +29,16 @@ function quicksort(arr, first, last){
       if (i < j) {
         // swap
 
-        /*
         console.log('x=' + x);
-
         console.log('i=' + i);
         console.log('j=' + j);
-
         console.log('arr[i]=' + arr[i]);
         console.log('arr[j]=' + arr[j]);
-        */
+
 
         var temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
-
-        /*
-        console.log('arr[i]=' + arr[i]);
-        console.log('arr[j]=' + arr[j]);
-        */
       }
       i++;
       j--;
@@ -67,9 +59,10 @@ function getRandomArray(length) {
   return arr;
 }
 
-// var arr = getRandomArray(4);
+var arr = getRandomArray(4);
 // var arr = new Array(39, 73, 12, 23, 35);
-var arr = new Array(3, 55, 69, 12);
+var arr = new Array(3, 55, 69, 12); // [85, 38, 97, 98]
+// var arr = new Array(85, 38, 97, 98);
 
 console.log(arr);
 
@@ -100,3 +93,63 @@ var timeavg = timetotal / countTests;
 console.log('timeavg: ' + timeavg);
 */
 
+
+/*
+function quickSort(items, left, right) {
+
+  var index;
+
+  if (items.length > 1) {
+
+    index = partition(items, left, right);
+
+    if (left < index - 1) {
+      quickSort(items, left, index - 1);
+    }
+
+    if (index < right) {
+      quickSort(items, index, right);
+    }
+
+  }
+
+  return items;
+}
+
+function swap(items, firstIndex, secondIndex){
+  var temp = items[firstIndex];
+  items[firstIndex] = items[secondIndex];
+  items[secondIndex] = temp;
+}
+
+function partition(items, left, right) {
+
+  var pivot   = items[Math.floor((right + left) / 2)],
+    i       = left,
+    j       = right;
+
+
+  while (i <= j) {
+
+    while (items[i] < pivot) {
+      i++;
+    }
+
+    while (items[j] > pivot) {
+      j--;
+    }
+
+    if (i <= j) {
+      swap(items, i, j);
+      i++;
+      j--;
+    }
+  }
+
+  return i;
+}
+
+// first call
+var result = quickSort(arr, 0, arr.length - 1);
+console.log(arr);
+*/
