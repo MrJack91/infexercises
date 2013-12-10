@@ -68,33 +68,37 @@ function getRandomArray(length) {
   return arr;
 }
 
-var arr = getRandomArray(10);
+/*
+$(document).ready(function() {
+  var arr = getRandomArray(10);
 
 // console.log(arr);
 
 // sort array by quicksort
-quicksort(arr, 0, arr.length-1, false);
+  quicksort(arr, 0, arr.length-1, false);
 
 // console.log(arr);
 
 
-var countTests = 50;
+  var countTests = 50;
 
-var timetotal = 0;
-var startTime, timeDiff, arrayToSort;
+  var timetotal = 0;
+  var startTime, timeDiff, arrayToSort;
 
-for (var n = 1; n <= countTests; n++) {
-  arrayToSort = getRandomArray(10);
+  for (var n = 1; n <= countTests; n++) {
+    arrayToSort = getRandomArray(10);
 
-	startTime = new Date().getTime();
-	quicksort(arrayToSort, 0, arrayToSort.length-1, false);
-	timeDiff = new Date().getTime() - startTime;
+    startTime = new Date().getTime();
+    quicksort(arrayToSort, 0, arrayToSort.length-1, false);
+    timeDiff = new Date().getTime() - startTime;
 
-  timetotal += timeDiff;
+    timetotal += timeDiff;
 
-  console.log(arrayToSort);
-	// console.log('Sorted Array in ' + timeDiff + ' Milisec');
-}
+    console.log(arrayToSort);
+    // console.log('Sorted Array in ' + timeDiff + ' Milisec');
+  }
 
-var timeavg = timetotal / countTests;
-console.log('timeavg: ' + timeavg);
+  var timeavg = timetotal / countTests;
+  console.log('timeavg: ' + timeavg);
+});
+ */
