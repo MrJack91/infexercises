@@ -1,16 +1,20 @@
-function quicksort(arr, first, last){
+function quicksort(arr, first, last, debug){
   var x, i, j;
 
-  // console.log(arr, first, last);
+  if (debug) {
+    console.log(arr, first, last);
+  }
 
   if (first < last) {
     // 1. Divide: split up array in two subarrays
-    x = arr[Math.floor((first + last)/2)];
+    x = arr[Math.floor((first + last) / 2)];
     i = first;
     j = last;
 
     do {
-      // console.log('check x on: ' + x);
+      if (debug) {
+        console.log('check x on: ' + x);
+      }
 
       // find first element greater or equal to x
       while (arr[i] < x) {
@@ -19,36 +23,39 @@ function quicksort(arr, first, last){
 
       // find last element, who is smaller then x
       while (arr[j] > x) {
-      // while (x < arr[j]) {
+        // while (x < arr[j]) {
         j--;
       }
 
-      // console.log(i, j);
+      if (debug) {
+        console.log(i, j);
+      }
 
       // swap the two false-ordered elements
-      if (i < j) {
+      if (i <= j) {
+
+        if (debug) {
+          console.log('x=' + x);
+          console.log('i=' + i);
+          console.log('j=' + j);
+          console.log('arr[i]=' + arr[i]);
+          console.log('arr[j]=' + arr[j]);
+        }
+
         // swap
-
-        /*
-        console.log('x=' + x);
-        console.log('i=' + i);
-        console.log('j=' + j);
-        console.log('arr[i]=' + arr[i]);
-        console.log('arr[j]=' + arr[j]);
-        */
-
         var temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
-      }
-      i++;
-      j--;
 
-    // } while (i <= j);
+        i++;
+        j--;
+      }
+
+      // } while (i <= j);
     } while (i < j);
 
-    quicksort(arr, first, j);
-    quicksort(arr, i, last);
+    quicksort(arr, first, j, debug);
+    quicksort(arr, i, last, debug);
   }
 }
 
@@ -61,40 +68,37 @@ function getRandomArray(length) {
   return arr;
 }
 
-var arr = getRandomArray(5);
-// var arr = new Array(39, 73, 12, 23, 35);
-// var arr = new Array(3, 55, 69, 12); // [85, 38, 97, 98]
-// var arr = new Array(85, 38, 97, 98);
-// var arr = new Array(75, 72, 53, 57, 84, 61, 6, 46, 63);
+var arr = getRandomArray(10);
 
-console.log(arr);
+// console.log(arr);
 
 // sort array by quicksort
-quicksort(arr, 0, arr.length-1);
+quicksort(arr, 0, arr.length-1, false);
 
-console.log(arr);
+// console.log(arr);
 
-/*
-var countTests = 100;
+
+var countTests = 50;
 
 var timetotal = 0;
 var startTime, timeDiff, arrayToSort;
 
 for (var n = 1; n <= countTests; n++) {
-  arrayToSort = getRandomArray(10000);
+  arrayToSort = getRandomArray(10);
 
 	startTime = new Date().getTime();
-	quicksort(arrayToSort, 0, arrayToSort.length-1);
+	quicksort(arrayToSort, 0, arrayToSort.length-1, false);
 	timeDiff = new Date().getTime() - startTime;
 
   timetotal += timeDiff;
 
-	console.log('Sorted Array in ' + timeDiff + ' Milisec');
+  console.log(arrayToSort);
+	// console.log('Sorted Array in ' + timeDiff + ' Milisec');
 }
 
 var timeavg = timetotal / countTests;
 console.log('timeavg: ' + timeavg);
-*/
+
 
 
 /*
