@@ -1,3 +1,26 @@
+$(document).ready(function() {
+  var countTests = 5;
+
+  var timetotal = 0;
+  var startTime, timeDiff, arrayToSort;
+
+  for (var n = 1; n <= countTests; n++) {
+    arrayToSort = getRandomArray(10);
+
+    startTime = new Date().getTime();
+    quicksort(arrayToSort, 0, arrayToSort.length-1, false);
+    timeDiff = new Date().getTime() - startTime;
+
+    timetotal += timeDiff;
+
+    // console.log(arrayToSort);
+    console.log('Sorted Array in ' + timeDiff + ' Milisec');
+  }
+
+  var timeavg = timetotal / countTests;
+  console.log('timeavg: ' + timeavg);
+});
+
 function quicksort(arr, first, last, debug){
   var x, i, j;
 
@@ -58,47 +81,3 @@ function quicksort(arr, first, last, debug){
     quicksort(arr, i, last, debug);
   }
 }
-
-function getRandomArray(length) {
-  var arr = new Array();
-
-  for(var i = 0; i < length; i++){
-    arr[i] = Math.floor((Math.random()*100)+1);
-  }
-  return arr;
-}
-
-/*
-$(document).ready(function() {
-  var arr = getRandomArray(10);
-
-// console.log(arr);
-
-// sort array by quicksort
-  quicksort(arr, 0, arr.length-1, false);
-
-// console.log(arr);
-
-
-  var countTests = 50;
-
-  var timetotal = 0;
-  var startTime, timeDiff, arrayToSort;
-
-  for (var n = 1; n <= countTests; n++) {
-    arrayToSort = getRandomArray(10);
-
-    startTime = new Date().getTime();
-    quicksort(arrayToSort, 0, arrayToSort.length-1, false);
-    timeDiff = new Date().getTime() - startTime;
-
-    timetotal += timeDiff;
-
-    console.log(arrayToSort);
-    // console.log('Sorted Array in ' + timeDiff + ' Milisec');
-  }
-
-  var timeavg = timetotal / countTests;
-  console.log('timeavg: ' + timeavg);
-});
- */
