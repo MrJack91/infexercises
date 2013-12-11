@@ -1,16 +1,19 @@
 $(document).ready(function() {
-  var countTests = 5;
+  var countTests = 10;
 
   var timetotal = 0;
   var startTime, timeDiff, arrayToSort;
 
   for (var n = 1; n <= countTests; n++) {
-    arrayToSort = getRandomArray(100);
+    arrayToSort = getRandomArray(1000);
 
     // console.log(arrayToSort);
 
     startTime = new Date().getTime();
-    sort(arrayToSort, 0, arrayToSort.length-1, shell);
+    // sort(arrayToSort, 0, arrayToSort.length-1, shell);
+    // sort(arrayToSort, 0, arrayToSort.length-1, hibbard);
+    // sort(arrayToSort, 0, arrayToSort.length-1, knuth);
+    sort(arrayToSort, 0, arrayToSort.length-1, sedgewick);
     timeDiff = new Date().getTime() - startTime;
 
     timetotal += timeDiff;
@@ -112,5 +115,38 @@ knuth = function(n) {
     return 0;
   } else {
     return h;
+  }
+};
+
+/*
+ Src: http://de.wikipedia.org/wiki/Shellsort
+  */
+
+/**
+ * gerade:    9*2^k - 9*2^(k/2) + 1
+ * ungerade:  8*2k - 6*2^((k+1)/2) + 1
+ * @param n
+ * @returns {number}
+ */
+sedgewick = function(n) {
+  var h = 0;
+  var lastH = 1;
+
+  for (var k = 0; h < n; k++) {
+    lastH = h;
+    if (k % 2 == 0) {
+      // gerade
+      h = 9 * Math.pow(2, k) - 9 * Math.pow(2, k/2) + 1;
+    } else {
+      // ungerade
+      h = 8 * Math.pow(2, k) - 6 * Math.pow(2, (k+1)/2) + 1;
+    }
+  }
+
+  if (n === lastH === 1) {
+    // break if input is output -> prevent endless loop
+    return 0;
+  } else {
+    return lastH;
   }
 };
