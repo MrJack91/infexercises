@@ -1,5 +1,5 @@
-var PREVIEW_BUFFER_SIZE = 16;
-var WORK_WINDOW_SIZE = 16;
+var PREVIEW_BUFFER_SIZE = 4;
+var WORK_WINDOW_SIZE = 4;
 
 function compress(inputText) {
   var workText = inputText;
@@ -42,7 +42,7 @@ function compress(inputText) {
         var iw = 0;
         for (iw = 0; iw < workWindow.length; iw++) {
 
-          if (workWindow.charAt(iw) == previewBuffer.charAt(prevBufIndex){
+          if (workWindow.charAt(iw) == previewBuffer.charAt(prevBufIndex)) {
             currPos = iw;
             currLength = 1;
             //First character matches...
@@ -55,8 +55,8 @@ function compress(inputText) {
               max = workWindow.length;
             }
 
-            for (x = 1; x < max; x++) {
-              if (workWindow.charAt(iw + x) == previewBuffer.charAt(prevBufIndex + x){
+            for (var x = 1; x < max; x++) {
+              if (workWindow.charAt(iw + x) == previewBuffer.charAt(prevBufIndex + x)) {
                 currLength++;
               } else {
                 break;
