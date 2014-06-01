@@ -151,21 +151,47 @@ var lz77 = {
     return null;
   },
 
-  decompress: function (inputText) {
-
+  decompress: function (compressedText) {
+	
   },
 
+  parseTripel: function(text){
+	var tripelText = text;
+	
+	if(tripelText.charAt(0) == '<'){
+		tripelText = tripelText.substring(1,tripelText.length);
+	}
+	
+	if(tripelText.charAt(tripelText.length - 1) == '>'){
+	tripelText = tripelText.substring(0,tripelText.length - 2);
+	}
+	
+	var split = tripelText.split(",");
+	
+	if(split.length == 3){
+		var pos = split[0].trim();
+		var length = split[1].trim();
+		var nextChar = split[2].trim();
+		
+		return new Tripel(pos,length,nextChar);
+	}
+	
+	return null;
+  },
 
   printTripel: function(pos, length, nextChar) {
     console.log('<' + pos + ', ' + length + ', ' + nextChar + '>');
   }
-
-
-
 }
 
+ var Tripel = function(pos,length,nextChar){
+	this.pos = pos;
+	this.length = length;
+	this.nextChar = nextChar;
+  }
 
 
 
 // lz77.compress('ACA');
-lz77.compress('AAAAC');
+//lz77.compress('AAAAC');
+lz77.compress('AAAAC12355jf8j23890jf2jfj2389 m9fh72hzf2zf7238f23gdgadasdjasdh9d128hd1289dh1298dh128dh128d891hd8');
